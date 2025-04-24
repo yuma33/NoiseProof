@@ -12,8 +12,12 @@ ja:
       title: ログイン
       login: ログイン
       to_register_page: 登録ページへ
+      to_signup_page: 新規登録
       password_forget: パスワードをお忘れの方はこちら
   users:
     new:
       title: ユーザー登録
       to_login_page: ログイン
+  header:
+    login: ログイン
+    logout: ログアウト
