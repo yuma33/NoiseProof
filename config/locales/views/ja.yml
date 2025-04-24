@@ -1,4 +1,13 @@
 ja:
+  defaults:
+    password_reset: パスワードリセット
+    delete_confirm: 削除しますか？
+    flash_message:
+      require_login: ログインしてください
+      success_login: ログインに成功しました
+      not_success_login: ログインに失敗しました
+      success_signup: "%{item}登録に成功しました"
+      not_success_signup: "%{item}登録に失敗しました"
   helpers:
     submit:
       create: 登録
