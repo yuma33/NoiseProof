@@ -1,0 +1,36 @@
+<h1 class="text-2xl md:text-3xl text-center text-gray-700 font-bold my-7"><%= t('.title') %>
+</h1>
+<%= form_with model: @user, class: "bg-white rounded max-w-lg md:max-w-xl mx-auto " do |f| %>
+  <div class="flex flex-col -mx-3 mb-6">
+    <div class="mx-11 mt-7 mb-6 md:mb-8">
+      <%= f.label :last_name, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+      <%= f.text_field :last_name,
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
+    </div>
+    <div class="mx-11 mb-6 md:mb-8">
+      <%= f.label :first_name, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+      <%= f.text_field :first_name,
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
+    </div>
+    <div class="mx-11 mb-6 md:mb-8">
+      <%= f.label :email, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+      <%= f.email_field :email,
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
+    </div>
+    <div class="mx-11 mb-6 md:mb-8">
+      <%= f.label :password, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+        <%= f.password_field :password,
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+    </div>
+    <div class="mx-11 mb-6 md:mb-8">
+      <%= f.label :password_confirmation, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+      <%= f.password_field :password_confirmation,
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+    </div>
+    <%= f.submit class: "mx-auto w-1/2 bg-blue-500 text-white font-bold py-2 px-4 rounded mb-2 md:mb-6" %>
+  </div>
+<% end %>
+  <div class="flex justify-center mb-8 md:mb-9">
+    <p class="text-sm mr-2">すでにアカウントをお持ちですか？</p>
+    <%= link_to t('.to_login_page'), root_path, class: "text-sm text-purple-500 font-bold border-b border-purple-500" %>
+  </div>
