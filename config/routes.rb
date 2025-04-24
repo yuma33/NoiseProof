@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "recordings#home"
 
+  get 'login', to: 'user_sessions#new'
+  post 'login', to: 'user_sessions#create'
+  get 'logout', to: 'user_sessions#destroy'
+
   get "/form", to: "pages#form", as: :inquiry_form
   get "/policy", to: "pages#policy", as: :privacy_policy
   get "/term", to: "pages#term", as: :term
