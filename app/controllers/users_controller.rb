@@ -8,9 +8,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_path
+      redirect_to root_path, success: t("defaults.flash_message.success_signup", item: User.model_name.human)
     else
-      render :new
+      flash.now[:danger]= t("defaults.flash_message.not_success_signup", item: User.model_name.human)
+      render :new, status: :unprocessable_entity
     end
   end
 
