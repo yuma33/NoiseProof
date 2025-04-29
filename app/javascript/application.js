@@ -6,7 +6,6 @@ import { createRoot } from 'react-dom/client';
 import Test from './components/test.jsx';
 
 
-
 document.addEventListener('turbo:load', () => {
   const container = document.getElementById('test');
   if (container) {
