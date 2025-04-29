@@ -1,0 +1,160 @@
+import React, { useState, useEffect, useRef } from 'react';
+import NoiseCard from './NoiseCard';
+
+function NoiseProof() {
+  const [recording, setRecording] = useState(false);
+  const [currentDb, setCurrentDb] = useState(47);
+  const [timer, setTimer] = useState(0);
+  const [dbHistory, setDbHistory] = useState(Array(30).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
+
+  const mediaRecorderRef = useRef(null);
+  const audioContextRef = useRef(null);
+  const analyserRef = useRef(null);
+  const sourceRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const timerIntervalRef = useRef(null);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      analyserRef.current = audioContextRef.current.createAnalyser();
+      analyserRef.current.fftSize = 256;
+
+      sourceRef.current = audioContextRef.current.createMediaStreamSource(stream);
+      sourceRef.current.connect(analyserRef.current);
+
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorderRef.current.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const formData = new FormData();
+        formData.append('audio', audioBlob);
+        formData.append('db_level', currentDb);
+        formData.append('duration', timer);
+
+        fetch('/api/recordings', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => console.log('Recording saved:', data))
+        .catch(error => console.error('Error saving recording:', error));
+
+        audioChunksRef.current = [];
+
+        if (sourceRef.current) {
+          sourceRef.current.disconnect();
+        }
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      const updateDbLevel = () => {
+        if (!analyserRef.current) return;
+        const bufferLength = analyserRef.current.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyserRef.current.getByteTimeDomainData(dataArray);
+
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const normalized = (dataArray[i] / 128) - 1.0;
+          sum += normalized * normalized;
+        }
+        const rms = Math.sqrt(sum / bufferLength);
+        const db = Math.round(rms * 100);
+        setCurrentDb(db);
+
+        setDbHistory(prev => {
+          const newHistory = [...prev, db];
+          return newHistory.length > 30 ? newHistory.slice(-30) : newHistory;
+        });
+      };
+
+      const dbInterval = setInterval(updateDbLevel, 100);
+
+      let seconds = 0;
+      timerIntervalRef.current = setInterval(() => {
+        seconds += 1;
+        setTimer(seconds);
+      }, 1000);
+
+      mediaRecorderRef.current.start(10);
+      setRecording(true);
+
+      return () => {
+        clearInterval(dbInterval);
+      };
+    } catch (error) {
+      console.error('Error starting recording:', error);
+      alert('Microphone access not allowed');
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && recording) {
+      mediaRecorderRef.current.stop();
+      setRecording(false);
+
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+        timerIntervalRef.current = null;
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <main className="flex-1 p-4 space-y-4 max-w-lg mx-auto w-full">
+        <NoiseCard currentDb={currentDb} dbHistory={dbHistory} />
+
+        <section className="bg-white rounded-xl p-5 shadow-md transition-all duration-200">
+          <h2 className="text-gray-600 text-center mb-4 font-medium">録音</h2>
+
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-xl font-mono">{formatTime(timer)}</div>
+
+            <button
+              className={`w-20 h-20 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 ${
+                recording ? 'bg-red-500 animate-pulse' : 'bg-purple-600 hover:bg-purple-700'
+              }`}
+              onClick={recording ? stopRecording : startRecording}
+            >
+              <span className=" text-3xl">
+                {recording ? '■' : '●'}
+              </span>
+            </button>
+
+            <p className="text-sm text-gray-500">
+              {recording ? 'Recording in progress...' : '録音ボタンを押して騒音の記録を開始します'}
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+export default NoiseProof;

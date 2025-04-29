@@ -3,14 +3,14 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import React from 'react'
 import { createRoot } from 'react-dom/client';
-import Test from './components/test.jsx';
+import NoiseProof from './components/NoiseProof.jsx';
 
 
 document.addEventListener('turbo:load', () => {
   const container = document.getElementById('test');
   if (container) {
     const root = createRoot(container);
-    const element = React.createElement(Test, { name: "World" });
+    const element = React.createElement(NoiseProof, { name: "World" });
     root.render(element);
   }
 });
