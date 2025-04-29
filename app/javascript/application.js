@@ -3,7 +3,6 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import React from 'react'
 import { createRoot } from 'react-dom/client';
-import "./components/test.jsx"
 import Test from './components/test.jsx';
 
 

@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
-  require 'react/rails/component_mount'
+  require "react/rails/component_mount"
   before_action :require_login
   add_flash_types :success, :danger
-
-
 
   private
 
