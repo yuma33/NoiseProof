@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.13"
+    "@hotwired/turbo-rails": "^8.0.13",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
