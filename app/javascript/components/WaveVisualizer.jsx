@@ -7,88 +7,44 @@ function WaveVisualizer({ dbHistory }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    const maxHeight = canvas.height;
-    const width = canvas.width;
+    const { width, height } = canvas;
     const barWidth = width / dbHistory.length;
-    const gap = 1;
+    const gap = 2;
 
-    ctx.clearRect(0, 0, width, maxHeight);
+    // Clear Canvas
+    ctx.clearRect(0, 0, width, height);
 
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.06)';
-    ctx.lineWidth = 1;
-    for (let i = 0; i < maxHeight; i += 10) {
-      ctx.beginPath();
-      ctx.moveTo(0, i);
-      ctx.lineTo(width, i);
-      ctx.stroke();
-    }
+    // Set soft background
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
+    bgGradient.addColorStop(0, '#f3e8ff');
+    bgGradient.addColorStop(1, '#faf5ff');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, width, height);
 
-    for (let i = 0; i < width; i += 30) {
-      ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i, maxHeight);
-      ctx.stroke();
-    }
-
+    // Draw Bars
     dbHistory.forEach((db, i) => {
       const x = i * barWidth;
-      const barHeight = (db / 100) * maxHeight * 0.8;
-      const y = maxHeight - barHeight - 10;
+      const barHeight = (db / 100) * height * 0.7;
+      const y = height - barHeight;
 
-      const mainGradient = ctx.createLinearGradient(x, y, x, maxHeight);
-      mainGradient.addColorStop(0, 'rgba(124, 58, 237, 0.9)');
-      mainGradient.addColorStop(0.5, 'rgba(124, 58, 237, 0.6)');
-      mainGradient.addColorStop(1, 'rgba(124, 58, 237, 0.2)');
+      // Smooth gradient bar
+      const barGradient = ctx.createLinearGradient(x, y, x, height);
+      barGradient.addColorStop(1, '#c084fc');
+      barGradient.addColorStop(0, '#a855f7');
 
-      ctx.beginPath();
-      ctx.moveTo(x + gap, maxHeight);
-      ctx.lineTo(x + gap, y + 2);
-      ctx.arc(x + gap + (barWidth - gap * 2) / 2, y + 2, (barWidth - gap * 2) / 2, Math.PI, 0, false);
-      ctx.lineTo(x + barWidth - gap, maxHeight);
-      ctx.fillStyle = mainGradient;
-      ctx.fill();
-
-      const highlightGradient = ctx.createLinearGradient(x, y, x + barWidth, y);
-      highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
-      highlightGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.2)');
-      highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)');
-
-      ctx.beginPath();
-      ctx.moveTo(x + gap, y + 15);
-      ctx.lineTo(x + barWidth - gap, y + 15);
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = highlightGradient;
-      ctx.stroke();
-
-      if (db > 70) {
-        ctx.shadowColor = 'rgba(124, 58, 237, 0.4)';
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.moveTo(x + gap + (barWidth - gap * 2) / 2, y);
-        ctx.lineTo(x + gap + (barWidth - gap * 2) / 2, y + 5);
-        ctx.strokeStyle = 'rgba(124, 58, 237, 0.6)';
-        ctx.lineWidth = barWidth - gap * 2;
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-      }
+      ctx.fillStyle = barGradient;
+      ctx.fillRect(x + gap, y, barWidth - gap * 2, barHeight);
     });
   }, [dbHistory]);
 
   return (
-    <div className="w-full h-32 bg-white rounded-xl overflow-hidden relative shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
+    <div className="w-full h-32 rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-purple-100 to-purple-200 relative mb-3">
       <canvas
         ref={canvasRef}
         width={600}
         height={128}
         className="w-full h-full"
       />
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/95 via-white/80 to-transparent pt-6 pb-2">
-        <div className="flex justify-between text-xs font-medium px-4">
-          <span className="text-purple-600/70 bg-purple-50 px-2 py-0.5 rounded-full">静かな環境</span>
-          <span className="text-purple-600/70 bg-purple-50 px-2 py-0.5 rounded-full">普通の会話</span>
-          <span className="text-purple-600/70 bg-purple-50 px-2 py-0.5 rounded-full">騒音</span>
-        </div>
-      </div>
     </div>
   );
 }

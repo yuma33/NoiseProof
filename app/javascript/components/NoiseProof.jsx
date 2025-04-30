@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import NoiseCard from './NoiseCard';
+import { Mic, Square, Clock } from 'lucide-react';
 
 function NoiseProof() {
   const [recording, setRecording] = useState(false);
+  const [recordingStopped, setRecordingStopped] = useState(false);
   const [currentDb, setCurrentDb] = useState(47);
   const [timer, setTimer] = useState(0);
-  const [dbHistory, setDbHistory] = useState(Array(30).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
+  const [dbHistory, setDbHistory] = useState(Array(60).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
 
   const mediaRecorderRef = useRef(null);
   const audioContextRef = useRef(null);
@@ -49,9 +51,9 @@ function NoiseProof() {
           method: 'POST',
           body: formData,
         })
-        .then(response => response.json())
-        .then(data => console.log('Recording saved:', data))
-        .catch(error => console.error('Error saving recording:', error));
+          .then(response => response.json())
+          .then(data => console.log('Recording saved:', data))
+          .catch(error => console.error('Error saving recording:', error));
 
         audioChunksRef.current = [];
 
@@ -78,7 +80,7 @@ function NoiseProof() {
 
         setDbHistory(prev => {
           const newHistory = [...prev, db];
-          return newHistory.length > 30 ? newHistory.slice(-30) : newHistory;
+          return newHistory.length > 60 ? newHistory.slice(-60) : newHistory;
         });
       };
 
@@ -92,6 +94,7 @@ function NoiseProof() {
 
       mediaRecorderRef.current.start(10);
       setRecording(true);
+      setRecordingStopped(false);
 
       return () => {
         clearInterval(dbInterval);
@@ -106,6 +109,7 @@ function NoiseProof() {
     if (mediaRecorderRef.current && recording) {
       mediaRecorderRef.current.stop();
       setRecording(false);
+      setRecordingStopped(true);
 
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
@@ -113,6 +117,9 @@ function NoiseProof() {
       }
     }
   };
+
+
+  //const DeleteButton = ({ mp3Id }) => {
 
   useEffect(() => {
     return () => {
@@ -127,27 +134,34 @@ function NoiseProof() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      <main className="flex-1 p-4 space-y-4 max-w-lg mx-auto w-full">
+      <main className="flex-1 p-4 space-y-4 max-w-5xl mx-auto w-full">
         <NoiseCard currentDb={currentDb} dbHistory={dbHistory} />
 
         <section className="bg-white rounded-xl p-5 shadow-md transition-all duration-200">
-          <h2 className="text-gray-600 text-center mb-4 font-medium">録音</h2>
 
           <div className="flex flex-col items-center gap-4">
-            <div className="text-xl font-mono">{formatTime(timer)}</div>
-
+            <div className="text-3xl flex items-center mb-2 mr-5">
+              <Clock size={25} className="mr-2" />
+              {formatTime(timer)}
+            </div>
             <button
-              className={`w-20 h-20 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 ${
-                recording ? 'bg-red-500 animate-pulse' : 'bg-purple-600 hover:bg-purple-700'
-              }`}
+              className={`w-20 h-20 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 ${recording ? 'bg-red-500 animate-pulse' : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:bg-purple-700'
+                }`}
               onClick={recording ? stopRecording : startRecording}
             >
-              <span className=" text-3xl">
-                {recording ? '■' : '●'}
+              <span className="text-3xl">
+                {recording ? <Square size={40} className="text-white" /> : <Mic size={40} className="text-white" />}
               </span>
             </button>
 
-            <p className="text-sm text-gray-500">
+            {recordingStopped && (
+              <div className="flex items-center gap-4">
+                <button className="focus:outline-none shadow-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 w-20 h-10 rounded-3xl">破棄</button>
+                <button className="focus:outline-none shadow-lg transition-all duration-300 bg-blue-600 hover:bg-blue-700 w-20 h-10 rounded-3xl text-white" >保存</button>
+              </div>
+            )}
+
+            <p className="text-sm text-gray-500 mt-2">
               {recording ? 'Recording in progress...' : '録音ボタンを押して騒音の記録を開始します'}
             </p>
           </div>
