@@ -10,6 +10,7 @@ function NoiseProof() {
   const [timer, setTimer] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [recordedAt, setRecordedAt] = useState(null);
+  const [fullDbHistory, setFullDbHistory] = useState([]);
   const [dbHistory, setDbHistory] = useState(Array(60).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
 
   const mediaRecorderRef = useRef(null);
@@ -68,6 +69,7 @@ function NoiseProof() {
         setCurrentDb(db);
 
         setDbHistory(prev => {
+          setFullDbHistory(prev => [...prev, db]);
           const newHistory = [...prev, db];
           return newHistory.length > 60 ? newHistory.slice(-60) : newHistory;
         });
@@ -116,6 +118,7 @@ function NoiseProof() {
     formData.append('audio', audioBlob);
     formData.append('duration', timer);
     formData.append('recorded_at', recordedAt);
+    formData.append('max_decibel', Math.max(...fullDbHistory));
 
     fetch('/api/recordings', {
       method: 'POST',
