@@ -13,7 +13,7 @@ module Api
     private
 
     def recording_params
-      result = params.permit(:duration)
+      result = params.permit(:duration, :recorded_at)
       result[:duration] = result[:duration].to_i
       result
     end
