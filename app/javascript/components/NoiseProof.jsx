@@ -3,10 +3,12 @@ import NoiseCard from './NoiseCard';
 import { Mic, Square, Clock } from 'lucide-react';
 
 function NoiseProof() {
+  const token = document.querySelector('meta[name="csrf-token"]').content;
   const [recording, setRecording] = useState(false);
   const [recordingStopped, setRecordingStopped] = useState(false);
-  const [currentDb, setCurrentDb] = useState(47);
+  const [currentDb, setCurrentDb] = useState(33);
   const [timer, setTimer] = useState(0);
+  const [audioBlob, setAudioBlob] = useState(null);
   const [dbHistory, setDbHistory] = useState(Array(60).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
 
   const mediaRecorderRef = useRef(null);
@@ -15,6 +17,7 @@ function NoiseProof() {
   const sourceRef = useRef(null);
   const audioChunksRef = useRef([]);
   const timerIntervalRef = useRef(null);
+  const streamRef = useRef(null);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -25,6 +28,7 @@ function NoiseProof() {
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
 
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
       analyserRef.current = audioContextRef.current.createAnalyser();
@@ -41,26 +45,10 @@ function NoiseProof() {
       };
 
       mediaRecorderRef.current.onstop = () => {
+        console.log("MediaRecorder has stopped.");
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        const formData = new FormData();
-        formData.append('audio', audioBlob);
-        formData.append('db_level', currentDb);
-        formData.append('duration', timer);
-
-        fetch('/api/recordings', {
-          method: 'POST',
-          body: formData,
-        })
-          .then(response => response.json())
-          .then(data => console.log('Recording saved:', data))
-          .catch(error => console.error('Error saving recording:', error));
-
+        setAudioBlob(audioBlob);
         audioChunksRef.current = [];
-
-        if (sourceRef.current) {
-          sourceRef.current.disconnect();
-        }
-        stream.getTracks().forEach(track => track.stop());
       };
 
       const updateDbLevel = () => {
@@ -107,15 +95,50 @@ function NoiseProof() {
 
   const stopRecording = () => {
     if (mediaRecorderRef.current && recording) {
+      console.log("Recorder state:", mediaRecorderRef.current.state);
       mediaRecorderRef.current.stop();
       setRecording(false);
       setRecordingStopped(true);
+      streamRef.current.getTracks().forEach(track => track.stop());
+
 
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
         timerIntervalRef.current = null;
       }
     }
+  };
+
+  const saveRecording = () => {
+    const formData = new FormData();
+    formData.append('duration', timer);
+
+    fetch('/api/recordings', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+      headers: {
+        'X-CSRF-Token': token
+      }
+    })
+      .then(response => response.json())
+      .then(data => console.log('Recording saved:', data))
+      .catch(error => console.error('Error saving recording:', error));
+
+    if (sourceRef.current) {
+      sourceRef.current.disconnect();
+    }
+    streamRef.current.getTracks().forEach(track => track.stop());
+
+    setRecordingStopped(false);
+    setAudioBlob(null);
+  };
+
+  const discardRecording = () => {
+    setRecordingStopped(false);
+    setAudioBlob(null);
+    audioChunksRef.current = [];
+    setTimer(0);
   };
 
 
@@ -156,8 +179,8 @@ function NoiseProof() {
 
             {recordingStopped && (
               <div className="flex items-center gap-4">
-                <button className="focus:outline-none shadow-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 w-20 h-10 rounded-3xl">破棄</button>
-                <button className="focus:outline-none shadow-lg transition-all duration-300 bg-blue-600 hover:bg-blue-700 w-20 h-10 rounded-3xl text-white" >保存</button>
+                <button onClick={discardRecording}className="focus:outline-none shadow-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 w-20 h-10 rounded-3xl">破棄</button>
+                <button onClick={saveRecording}className="focus:outline-none shadow-lg transition-all duration-300 bg-blue-600 hover:bg-blue-700 w-20 h-10 rounded-3xl text-white">保存</button>
               </div>
             )}
 
