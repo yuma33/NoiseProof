@@ -11,6 +11,7 @@ function NoiseProof() {
   const [audioBlob, setAudioBlob] = useState(null);
   const [recordedAt, setRecordedAt] = useState(null);
   const [fullDbHistory, setFullDbHistory] = useState([]);
+  const [averageDb, setAverageDb] = useState(0);
   const [dbHistory, setDbHistory] = useState(Array(60).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
 
   const mediaRecorderRef = useRef(null);
@@ -70,6 +71,10 @@ function NoiseProof() {
 
         setDbHistory(prev => {
           setFullDbHistory(prev => [...prev, db]);
+          const total = fullDbHistory.reduce((acc, val) => acc + val, 0);
+          const avg = fullDbHistory.length > 0 ? Math.round(total / fullDbHistory.length) : 0;
+          setAverageDb(avg);
+
           const newHistory = [...prev, db];
           return newHistory.length > 60 ? newHistory.slice(-60) : newHistory;
         });
@@ -105,7 +110,6 @@ function NoiseProof() {
       setRecordedAt(new Date().toISOString());
       streamRef.current.getTracks().forEach(track => track.stop());
 
-
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
         timerIntervalRef.current = null;
@@ -119,6 +123,7 @@ function NoiseProof() {
     formData.append('duration', timer);
     formData.append('recorded_at', recordedAt);
     formData.append('max_decibel', Math.max(...fullDbHistory));
+    formData.append('average_decibel', averageDb);
 
     fetch('/api/recordings', {
       method: 'POST',
@@ -148,8 +153,6 @@ function NoiseProof() {
     audioChunksRef.current = [];
     setTimer(0);
   };
-
-  //const DeleteButton = ({ mp3Id }) => {
 
   useEffect(() => {
     return () => {
