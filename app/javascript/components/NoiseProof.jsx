@@ -111,6 +111,7 @@ function NoiseProof() {
 
   const saveRecording = () => {
     const formData = new FormData();
+    formData.append('audio', audioBlob);
     formData.append('duration', timer);
 
     fetch('/api/recordings', {
@@ -132,6 +133,7 @@ function NoiseProof() {
 
     setRecordingStopped(false);
     setAudioBlob(null);
+    setTimer(0);
   };
 
   const discardRecording = () => {
@@ -140,7 +142,6 @@ function NoiseProof() {
     audioChunksRef.current = [];
     setTimer(0);
   };
-
 
   //const DeleteButton = ({ mp3Id }) => {
 
@@ -179,8 +180,8 @@ function NoiseProof() {
 
             {recordingStopped && (
               <div className="flex items-center gap-4">
-                <button onClick={discardRecording}className="focus:outline-none shadow-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 w-20 h-10 rounded-3xl">破棄</button>
-                <button onClick={saveRecording}className="focus:outline-none shadow-lg transition-all duration-300 bg-blue-600 hover:bg-blue-700 w-20 h-10 rounded-3xl text-white">保存</button>
+                <button onClick={discardRecording} className="focus:outline-none shadow-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 w-20 h-10 rounded-3xl">破棄</button>
+                <button onClick={saveRecording} className="focus:outline-none shadow-lg transition-all duration-300 bg-blue-600 hover:bg-blue-700 w-20 h-10 rounded-3xl text-white">保存</button>
               </div>
             )}
 
