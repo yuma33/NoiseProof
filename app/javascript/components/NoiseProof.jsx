@@ -35,7 +35,7 @@ function NoiseProof() {
 
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
       analyserRef.current = audioContextRef.current.createAnalyser();
-      analyserRef.current.fftSize = 4096;
+      analyserRef.current.fftSize = 32768;
 
       sourceRef.current = audioContextRef.current.createMediaStreamSource(stream);
       sourceRef.current.connect(analyserRef.current);
@@ -66,8 +66,9 @@ function NoiseProof() {
           sum += normalized * normalized;
         }
         const rms = Math.sqrt(sum / bufferLength);
-        const db = Math.round(rms * 100);
-        setCurrentDb(db);
+        const db = 20 * Math.log10(Math.max(rms, 0.000016));
+        const displayDb = Math.max(0, (db + 83).toFixed(1));
+        setCurrentDb(displayDb);
 
         setDbHistory(prev => {
           setFullDbHistory(prev => [...prev, db]);
@@ -75,7 +76,8 @@ function NoiseProof() {
           const avg = fullDbHistory.length > 0 ? Math.round(total / fullDbHistory.length) : 0;
           setAverageDb(avg);
 
-          const newHistory = [...prev, db];
+          const newHistory = [...prev, displayDb];
+          console.log('New dbHistory:', newHistory);
           return newHistory.length > 60 ? newHistory.slice(-60) : newHistory;
         });
       };
@@ -166,7 +168,7 @@ function NoiseProof() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col bg-purple-50">
       <main className="flex-1 p-4 space-y-4 max-w-5xl mx-auto w-full">
         <NoiseCard currentDb={currentDb} dbHistory={dbHistory} />
 
@@ -193,7 +195,6 @@ function NoiseProof() {
                 <button onClick={saveRecording} className="focus:outline-none shadow-lg transition-all duration-300 bg-blue-600 hover:bg-blue-700 w-20 h-10 rounded-3xl text-white">保存</button>
               </div>
             )}
-
             <p className="text-sm text-gray-500 mt-2">
               {recording ? 'Recording in progress...' : '録音ボタンを押して騒音の記録を開始します'}
             </p>
