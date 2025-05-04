@@ -12,7 +12,7 @@ function NoiseProof() {
   const [recordedAt, setRecordedAt] = useState(null);
   const [fullDbHistory, setFullDbHistory] = useState([]);
   const [averageDb, setAverageDb] = useState(0);
-  const [dbHistory, setDbHistory] = useState(Array(60).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
+  const [dbHistory, setDbHistory] = useState(Array(200).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
 
   const mediaRecorderRef = useRef(null);
   const audioContextRef = useRef(null);
@@ -78,7 +78,7 @@ function NoiseProof() {
 
           const newHistory = [...prev, displayDb];
           console.log('New dbHistory:', newHistory);
-          return newHistory.length > 60 ? newHistory.slice(-60) : newHistory;
+          return newHistory.length > 200 ? newHistory.slice(-200) : newHistory;
         });
       };
 

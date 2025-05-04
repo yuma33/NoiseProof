@@ -24,7 +24,7 @@ function WaveVisualizer({ dbHistory }) {
     // Draw Bars
     dbHistory.forEach((db, i) => {
       const x = i * barWidth;
-      const barHeight = (db / 100) * height * 0.7;
+      const barHeight = (db / 100) * height * 1.2;
       const y = height - barHeight;
 
       // Smooth gradient bar
