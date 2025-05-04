@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root "recordings#home"
+  resources :recordings, only: %i[index]
 
   namespace :api do
     resources :recordings, only: %i[create]

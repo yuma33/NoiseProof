@@ -7,6 +7,10 @@ import NoiseProof from './components/NoiseProof.jsx';
 
 
 document.addEventListener('turbo:load', () => {
+
+  const fallback = document.getElementById('rails-fallback-ui');
+  if (fallback) fallback.remove();
+
   const container = document.getElementById('test');
   if (container) {
     const root = createRoot(container);
