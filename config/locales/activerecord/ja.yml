@@ -3,6 +3,7 @@ ja:
     models:
       user: ユーザー
       recording: 録音
+      noise_report: レポート
     attributes:
       user:
         email: メールアドレス

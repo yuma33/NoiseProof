@@ -32,13 +32,13 @@
       <div class="mx-11 mb-6 md:mb-8">
         <%= f.label :noise_type, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
         <%= f.select :noise_type,
-          NoiseReport.noise_types_i18n.invert.map { |key, value| [key, NoiseReport.noise_types[value]] }, { include_blank: false },
+          NoiseReport.noise_types_i18n.invert.map { |key, value| [key, NoiseReport.noise_types[value].to_i] }, { include_blank: false },
           class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
       </div>
       <div class="mx-11 mb-6 md:mb-8">
         <%= f.label :frequency, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
         <%= f.select :frequency,
-          NoiseReport.frequencies_i18n.invert.map { |key, value| [key, NoiseReport.frequencies[value]] }, { include_blank: false },
+          NoiseReport.frequencies_i18n.invert.map { |key, value| [key, NoiseReport.frequencies[value].to_i] }, { include_blank: false },
           class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
       </div>
       <div class="mx-11 mb-6 md:mb-8">
