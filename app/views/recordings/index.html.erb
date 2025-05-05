@@ -26,7 +26,9 @@
             </div>
             <div class="flex items-center bg-gray-100 mt-5 px-5 rounded">
               <%= audio_tag recording.audio_file, controls: true, class: "w-full" %>
-              <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
+              <%= link_to recording_path(recording), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' }  do %>
+                <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
+              <% end %>
             </div>
             <div class="flex mt-4 ml-auto">
               <button class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">

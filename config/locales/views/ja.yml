@@ -8,6 +8,7 @@ ja:
       not_success_login: ログインに失敗しました
       success_signup: "%{item}登録に成功しました"
       not_success_signup: "%{item}登録に失敗しました"
+      destroy_recording: "%{item}を削除しました"
   helpers:
     submit:
       create: 登録

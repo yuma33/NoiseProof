@@ -8,4 +8,11 @@ class RecordingsController < ApplicationController
     recording.recorded_at&.to_date
   }
   end
+
+  def destroy
+    @recording = current_user.recordings.find(params[:id])
+    if @recording.destroy!
+      redirect_to recordings_path, success: t("defaults.flash_message.destroy_recording", item: Recording.model_name.human), status: :see_other
+    end
+  end
 end
