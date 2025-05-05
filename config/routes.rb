@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root "recordings#home"
-  resources :recordings, only: %i[index]
+  resources :recordings, only: %i[index] do
+    resources :noise_reports, only: %i[new create]
+  end
 
   namespace :api do
     resources :recordings, only: %i[create]
@@ -25,7 +27,6 @@ Rails.application.routes.draw do
   get "/form", to: "pages#form", as: :inquiry_form
   get "/policy", to: "pages#policy", as: :privacy_policy
   get "/term", to: "pages#term", as: :term
-
 
   resources :users, only: %i[new create]
 end

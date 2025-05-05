@@ -9,3 +9,27 @@ ja:
         first_name: 名
         password: パスワード
         password_confirmation: パスワード確認
+      noise_report:
+        location: 騒音場所
+        time_period: 発生時間帯
+        frequency: 発生頻度
+        noise_type: 騒音の種類
+        memo: 詳細メモ
+        title: タイトル
+  enums:
+    noise_report:
+      noise_type:
+        noise_type_other: その他
+        footstep: 足音（足音、飛び跳ねなど）
+        appliance: 生活機械音（家電製品、エアコンなど）
+        human_voice: 人の声
+        entertainment: 音楽、映像音（テレビ、オーディオ、楽器演奏、ゲーム音など）
+        impact: 衝撃音（ドアや窓の閉会など）
+        pet: ペット（鳴き声、動物の移動音など）
+        external: 外部環境音（道路交通音、工事音など)
+      frequency:
+        frequency_other: その他
+        daily: 毎日
+        weekly: 週に1回
+        few: 週に数回
+        irregular: 不定期
