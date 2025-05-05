@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_03_154112) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_05_043200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,11 +55,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_03_154112) do
     t.bigint "user_id"
     t.string "location"
     t.string "time_period"
-    t.string "frequency"
-    t.string "noise_type"
+    t.integer "frequency", default: 0
+    t.integer "noise_type", default: 0
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
     t.index ["user_id"], name: "index_noise_reports_on_user_id"
   end
 

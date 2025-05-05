@@ -30,3 +30,10 @@ ja:
   header:
     login: ログイン
     logout: ログアウト
+  recordings:
+    index:
+      title: 録音履歴
+  noise_reports:
+    new:
+      title: レポート作成
+      submit: レポートを作成する →
