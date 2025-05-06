@@ -16,6 +16,7 @@ class NoiseReportsController < ApplicationController
   end
 
   def show
+    @noise_report = current_user.noise_reports.find(params[:id])
   end
 
   private
