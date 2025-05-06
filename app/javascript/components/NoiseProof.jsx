@@ -6,7 +6,7 @@ function NoiseProof() {
   const token = document.querySelector('meta[name="csrf-token"]').content;
   const [recording, setRecording] = useState(false);
   const [recordingStopped, setRecordingStopped] = useState(false);
-  const [currentDb, setCurrentDb] = useState(57);
+  const [currentDb, setCurrentDb] = useState(0);
   const [timer, setTimer] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [recordedAt, setRecordedAt] = useState(null);
@@ -21,6 +21,9 @@ function NoiseProof() {
   const audioChunksRef = useRef([]);
   const timerIntervalRef = useRef(null);
   const streamRef = useRef(null);
+
+  const element = document.getElementById('recording-app');
+  const recordingId = element?.dataset?.recordingId;
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -72,10 +75,6 @@ function NoiseProof() {
 
         setDbHistory(prev => {
           setFullDbHistory(prev => [...prev, db]);
-          const total = fullDbHistory.reduce((acc, val) => acc + val, 0);
-          const avg = fullDbHistory.length > 0 ? Math.round(total / fullDbHistory.length) : 0;
-          setAverageDb(avg);
-
           const newHistory = [...prev, displayDb];
           console.log('New dbHistory:', newHistory);
           return newHistory.length > 200 ? newHistory.slice(-200) : newHistory;
@@ -126,6 +125,7 @@ function NoiseProof() {
     formData.append('recorded_at', recordedAt);
     formData.append('max_decibel', Math.max(...fullDbHistory));
     formData.append('average_decibel', averageDb);
+    formData.append('db_history', JSON.stringify(fullDbHistory));
 
     fetch('/api/recordings', {
       method: 'POST',
@@ -156,6 +156,15 @@ function NoiseProof() {
     setTimer(0);
   };
 
+
+  useEffect(() => {
+    if (dbHistory.length > 0) {
+      const total = dbHistory.reduce((acc, val) => acc + parseFloat(val), 0);
+      const avg = Math.round(total / dbHistory.length);
+      setAverageDb(avg);
+    }
+  }, [dbHistory]);
+
   useEffect(() => {
     return () => {
       if (audioContextRef.current) {
@@ -170,7 +179,10 @@ function NoiseProof() {
   return (
     <div className="flex flex-col bg-purple-50">
       <main className="flex-1 p-4 space-y-4 max-w-5xl mx-auto w-full">
-        <NoiseCard currentDb={currentDb} dbHistory={dbHistory} />
+        <NoiseCard currentDb={currentDb}
+  averageDb={averageDb}
+  maxDb={Math.max(...dbHistory)}
+  dbHistory={dbHistory} />
 
         <section className="bg-white rounded-xl p-5 shadow-md transition-all duration-200">
 

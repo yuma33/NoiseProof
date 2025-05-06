@@ -1,0 +1,23 @@
+<h1 class="text-xl md:text-2xl text-center text-gray-700 font-semibold my-7">
+  <%= t('.title') %>
+</h1>
+<div class="bg-white rounded-xl border-2 border-purple-400 shadow-md mx-5 py-8">
+  <h1 class="rounded mx-8">
+  <%= @noise_report.title %>
+  </h1>
+  <div class="flex">
+  <div class="flex">
+  <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-2" %>
+  <p>
+  <%= @noise_report.recording.recorded_at.strftime("%Y年%m月%d日 %H時%M分") %>
+  </p>
+</div>
+
+<div class="flex justify-around">
+<p class="ml-2 text-gray-500">|  録音時間 :</p>
+<p class="text-gray-500">
+  <%= formatted_duration(@noise_report.recording.duration) %>
+</p>
+</div>
+<div id="recording-app" data-recording-id="<%= @noise_report.recording.id %>"></div>
+</div>
