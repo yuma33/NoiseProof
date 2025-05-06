@@ -9,6 +9,8 @@ ja:
       success_signup: "%{item}登録に成功しました"
       not_success_signup: "%{item}登録に失敗しました"
       destroy_recording: "%{item}を削除しました"
+      success_noise_report: "%{item}を作成しました"
+      not_success_noise_report: "%{item}の作成に失敗しました"
   helpers:
     submit:
       create: 登録

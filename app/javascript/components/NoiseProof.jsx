@@ -6,7 +6,7 @@ function NoiseProof() {
   const token = document.querySelector('meta[name="csrf-token"]').content;
   const [recording, setRecording] = useState(false);
   const [recordingStopped, setRecordingStopped] = useState(false);
-  const [currentDb, setCurrentDb] = useState(33);
+  const [currentDb, setCurrentDb] = useState(57);
   const [timer, setTimer] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [recordedAt, setRecordedAt] = useState(null);
