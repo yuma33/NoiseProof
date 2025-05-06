@@ -8,6 +8,6 @@ class User < ApplicationRecord
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
-  has_many :recordings
-  has_many :noise_reports
+  has_many :recordings, dependent: :destroy
+  has_many :noise_reports, dependent: :destroy
 end
