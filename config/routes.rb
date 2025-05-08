@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :recordings, only: %i[create]
+    resources :recordings, only: %i[create show]
   end
 
   get "login", to: "user_sessions#new"

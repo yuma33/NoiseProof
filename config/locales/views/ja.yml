@@ -40,3 +40,5 @@ ja:
     new:
       title: レポート作成
       submit: レポートを作成する →
+    show:
+      title: レポート

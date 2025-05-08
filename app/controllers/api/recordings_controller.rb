@@ -11,11 +11,20 @@ module Api
     end
   end
 
+  def show
+    recording = Recording.find(params[:id])
+    render json: {
+      audio_url: url_for(recording.audio_file),
+      db_history: recording&.db_history || [],
+      duration:  recording&.duration || []
+    }
+  end
+
     private
 
     def recording_params
       result = params.permit(:duration, :recorded_at, :max_decibel, :average_decibel, :db_history)
-      result[:duration] = result[:duration].to_i
+      result[:duration] = result[:duration].to_f
       result
     end
   end

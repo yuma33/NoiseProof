@@ -8,8 +8,9 @@ module ApplicationHelper
   end
 
   def formatted_duration(seconds)
-    minutes = seconds / 60
-    secs = seconds % 60
+    total_seconds = seconds.round
+    minutes = total_seconds / 60
+    secs = total_seconds % 60
     if minutes > 0 && secs > 0
       "#{minutes}分#{secs}秒"
     elsif minutes > 0
