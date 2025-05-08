@@ -40,7 +40,7 @@ function NoiseCard({ currentDb, averageDb, maxDb, dbHistory }) {
       </div>
 
       <div className="mt-6">
-        <WaveVisualizer dbHistory={dbHistory} />
+      <WaveVisualizer dbHistory={dbHistory} mode="recording" />
       </div>
     </section>
   );

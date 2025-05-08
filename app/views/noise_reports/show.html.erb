@@ -1,23 +1,58 @@
 <h1 class="text-xl md:text-2xl text-center text-gray-700 font-semibold my-7">
   <%= t('.title') %>
 </h1>
-<div class="bg-white rounded-xl border-2 border-purple-400 shadow-md mx-5 py-8">
-  <h1 class="rounded mx-8">
-  <%= @noise_report.title %>
-  </h1>
-  <div class="flex">
-  <div class="flex">
-  <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-2" %>
-  <p>
-  <%= @noise_report.recording.recorded_at.strftime("%Y年%m月%d日 %H時%M分") %>
-  </p>
-</div>
-
-<div class="flex justify-around">
-<p class="ml-2 text-gray-500">|  録音時間 :</p>
-<p class="text-gray-500">
-  <%= formatted_duration(@noise_report.recording.duration) %>
-</p>
-</div>
-<div id="recording-app" data-recording-id="<%= @noise_report.recording.id %>"></div>
+<div class="mx-auto md:w-2/3">
+  <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md py-8 mb-32">
+    <h1 class="rounded mx-5 font-bold text-2xl mb-3 text-purple-700">
+      <%= @noise_report.title %>
+    </h1>
+    <div class="flex">
+      <div class="flex items-center">
+        <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1 ml-5" %>
+        <p>
+          <%= @noise_report.recording.recorded_at.strftime("%Y年%m月%d日 %H時%M分") %>
+        </p>
+      </div>
+      <div class="flex items-center justify-around ml-5">
+        <p class="ml-2 text-gray-500">| 録音時間 :</p>
+        <p class="text-gray-500">
+          <%= formatted_duration(@noise_report.recording.duration) %>
+        </p>
+      </div>
+    </div>
+    <div id="report" class="bg-gray-50 mt-3"data-recording-id="<%= @noise_report.recording.id %>">
+    </div>
+    <h2 class="ml-5 mt-8 mb-3 font-bold text-lg">基本情報</h2>
+    <div class="flex">
+      <p class="ml-5 mb-3 mr-16 text-gray-500">騒音場所</p>
+      <p><%= @noise_report.location %></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-4 mr-12 text-gray-500">騒音の種類</p>
+      <p><%= @noise_report.noise_type_i18n %></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-4 mr-16 text-gray-500">発生頻度</p>
+      <p><%= @noise_report.frequency_i18n %></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-4 mr-16 text-gray-500">最大音量</p>
+      <p><%= formatted_max_decibel(@noise_report.recording.max_decibel) %></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-8 mr-16 text-gray-500">平均音量</p>
+      <p><%= @noise_report.recording.average_decibel %> dB</p>
+    </div>
+    <h2 class="ml-5 mb-6 font-bold text-lg">詳細メモ</h2>
+    <div class="bg-gray-100 rounded-xl mx-5 h-36">
+      <p class="text-gray-500 ml-4 pt-3">
+        <%= @noise_report.memo %>
+      </p>
+    </div>
+    <div class="flex justify-between px-5">
+      <%= link_to "← 戻る",
+                  new_recording_noise_report_path(@noise_report.recording),
+                  class: "text-center h-10 w-24 bg-gray-300 text-black py-2 mt-7 rounded hover:bg-gray-400" %>
+    </div>
+  </div>
 </div>
