@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_07_155127) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_08_104908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,26 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_07_155127) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "certificate_noise_reports", force: :cascade do |t|
+    t.bigint "certificate_id", null: false
+    t.bigint "noise_report_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_id", "noise_report_id"], name: "idx_on_certificate_id_noise_report_id_ad025b76ac", unique: true
+    t.index ["certificate_id"], name: "index_certificate_noise_reports_on_certificate_id"
+    t.index ["noise_report_id"], name: "index_certificate_noise_reports_on_noise_report_id"
+  end
+
+  create_table "certificates", force: :cascade do |t|
+    t.string "title"
+    t.bigint "user_id", null: false
+    t.string "certificate_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_number"], name: "index_certificates_on_certificate_number", unique: true
+    t.index ["user_id"], name: "index_certificates_on_user_id"
   end
 
   create_table "noise_reports", force: :cascade do |t|
@@ -87,6 +107,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_07_155127) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "certificate_noise_reports", "certificates"
+  add_foreign_key "certificate_noise_reports", "noise_reports"
+  add_foreign_key "certificates", "users"
   add_foreign_key "noise_reports", "recordings"
   add_foreign_key "noise_reports", "users"
   add_foreign_key "recordings", "users"

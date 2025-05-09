@@ -19,6 +19,12 @@ class NoiseReportsController < ApplicationController
     @noise_report = current_user.noise_reports.find(params[:id])
   end
 
+  def index
+    @noise_reports_by_date = current_user.noise_reports.group_by { |noise_report|
+    noise_report.created_at&.to_date
+  }
+  end
+
   private
   def noise_report_params
     params_hash = params.require(:noise_report).permit(:location, :time_period, :frequency, :noise_type, :memo, :title, :recording_id).merge(recording_id: params[:recording_id])

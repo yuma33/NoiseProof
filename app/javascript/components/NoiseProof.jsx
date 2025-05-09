@@ -25,6 +25,11 @@ function NoiseProof() {
   const recordingStartTimeRef = useRef(0); // 録音開始時刻を保存するref
   const dbIntervalRef = useRef(null);
 
+  // 位置情報・確認モーダル関連の状態
+  const [locationConfirmationVisible, setLocationConfirmationVisible] = useState(false);
+  const [neverAskAgain, setNeverAskAgain] = useState(false);
+  const [coordinates, setCoordinates] = useState(null);
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -51,7 +56,6 @@ function NoiseProof() {
       };
 
       mediaRecorderRef.current.onstop = () => {
-        console.log("MediaRecorder has stopped.");
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
         setAudioBlob(audioBlob);
         audioChunksRef.current = [];
@@ -82,7 +86,6 @@ function NoiseProof() {
 
       dbIntervalRef.current = setInterval(updateDbLevel, 50);
 
-      // 録音開始時刻をミリ秒単位で記録
       recordingStartTimeRef.current = performance.now();
 
       let seconds = 0;
@@ -96,7 +99,7 @@ function NoiseProof() {
       setRecordingStopped(false);
 
       return () => {
-        clearInterval(dbInterval);
+        clearInterval(dbIntervalRef.current);
       };
     } catch (error) {
       console.error('Error starting recording:', error);
@@ -106,7 +109,6 @@ function NoiseProof() {
 
   const stopRecording = () => {
     if (mediaRecorderRef.current && recording) {
-      console.log("Recorder state:", mediaRecorderRef.current.state);
       mediaRecorderRef.current.stop();
       setRecording(false);
       setRecordingStopped(true);
@@ -118,22 +120,9 @@ function NoiseProof() {
         dbIntervalRef.current = null;
       }
 
-      // 録音終了時刻をミリ秒単位で記録
       const recordingEndTime = performance.now();
-      console.log('録音終了時刻:', recordingEndTime);
-      
-      // 正確な録音時間をミリ秒単位で計算
       const durationMs = recordingEndTime - recordingStartTimeRef.current;
-      
-      // 秒単位に変換（小数点以下も保持）
       const durationSec = durationMs / 1000;
-      console.log('正確な録音時間:', durationSec.toFixed(3), '秒');
-
-      console.log('録音開始時刻:', recordingStartTimeRef.current);
-
-      console.log('録音停止、履歴:', fullDbHistory);
-      
-      // 正確な録音時間を状態に保存
       setExactDuration(durationSec);
 
       if (timerIntervalRef.current) {
@@ -143,18 +132,21 @@ function NoiseProof() {
     }
   };
 
-  const saveRecording = () => {
+  // 実際のデータ送信処理を別関数に分離
+  const sendRecordingData = () => {
     const formData = new FormData();
     formData.append('audio', audioBlob);
-    
-    // 正確な録音時間を使用（小数点以下も保持）
     formData.append('duration', exactDuration);
-    console.log('送信する録音時間:', exactDuration);
-    
     formData.append('recorded_at', recordedAt);
     formData.append('max_decibel', Math.max(...fullDbHistory));
     formData.append('average_decibel', averageDb);
     formData.append('db_history', JSON.stringify(fullDbHistory));
+
+    // 位置情報があれば追加
+    if (coordinates) {
+      formData.append('latitude', coordinates.latitude);
+      formData.append('longitude', coordinates.longitude);
+    }
 
     fetch('/api/recordings', {
       method: 'POST',
@@ -171,12 +163,54 @@ function NoiseProof() {
     if (sourceRef.current) {
       sourceRef.current.disconnect();
     }
-    streamRef.current.getTracks().forEach(track => track.stop());
 
+    // 録音関連の状態をリセット
     setRecordingStopped(false);
     setAudioBlob(null);
     setTimer(0);
     setExactDuration(0);
+    setCoordinates(null);
+  };
+
+  // 位置情報取得関数
+  const requestLocation = () => {
+    if (!navigator.geolocation) {
+      alert('お使いのブラウザは位置情報に対応していません');
+      sendRecordingData(); // 位置情報が取得できなくても録音は保存
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('位置情報取得成功:', position);
+        setCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        });
+        sendRecordingData(); // 位置情報取得後に録音データを送信
+      },
+      (error) => {
+        console.error('位置情報取得失敗:', error);
+        sendRecordingData(); // 位置情報の取得に失敗しても録音は保存
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  };
+
+  // 保存ボタンを押した時の処理（リファクタリング）
+  const saveRecording = () => {
+    const skip = localStorage.getItem('neverAskLocationAgain');
+    if (skip === 'true') {
+      // 位置情報を尋ねないように設定されている場合は直接送信
+      sendRecordingData();
+    } else {
+      // 位置情報確認モーダルを表示
+      setLocationConfirmationVisible(true);
+    }
   };
 
   const discardRecording = () => {
@@ -185,6 +219,7 @@ function NoiseProof() {
     audioChunksRef.current = [];
     setTimer(0);
     setExactDuration(0);
+    setCoordinates(null);
   };
 
   useEffect(() => {
@@ -215,7 +250,6 @@ function NoiseProof() {
           dbHistory={dbHistory} />
 
         <section className="bg-white rounded-xl p-5 shadow-md transition-all duration-200">
-
           <div className="flex flex-col items-center gap-4">
             <div className="text-3xl flex items-center mb-2 mr-5">
               <Clock size={25} className="mr-2" />
@@ -248,10 +282,53 @@ function NoiseProof() {
           </div>
         </section>
       </main>
+
+      {/* 位置情報確認モーダル */}
+      {locationConfirmationVisible && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 className="text-xl font-semibold mb-4">📍位置情報を記録しますか？</h2>
+            <p className="mb-4 text-sm text-gray-600">
+              証明書発行に使用するため、この録音の位置情報を保存できます。<br />
+              通常の利用には不要ですが、証明力のある記録を残すには有効です。
+            </p>
+            <label className="flex items-center mb-4">
+              <input
+                type="checkbox"
+                checked={neverAskAgain}
+                onChange={(e) => {
+                  setNeverAskAgain(e.target.checked);
+                  localStorage.setItem('neverAskLocationAgain', e.target.checked ? 'true' : 'false');
+                }}
+                className="mr-2"
+              />
+              今後この確認を表示しない
+            </label>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => {
+                  setLocationConfirmationVisible(false);
+                  sendRecordingData(); // 位置情報なしで送信
+                }}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              >
+                記録しない
+              </button>
+              <button
+                onClick={() => {
+                  setLocationConfirmationVisible(false);
+                  requestLocation(); // 位置情報取得して送信
+                }}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                位置情報を記録する
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default NoiseProof;
-
-

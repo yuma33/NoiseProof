@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   resources :recordings, only: %i[index destroy] do
     resources :noise_reports, only: %i[new create show], shallow: true
   end
+  resources :noise_reports, only: %i[index] do
+    resources :certificates, only: %i[new create], shallow: true
+  end
+
+  resources :certificates, only: %i[create show]
 
   namespace :api do
     resources :recordings, only: %i[create show]

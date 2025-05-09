@@ -38,10 +38,10 @@ function NoisePlayer({ id }) {
 
       // インデックス計算
       let index = progress * dbHistory.length;
-      if (duration >= 1) {
-        const delayFactor = 0.03; // 遅延係数（0.4 = 40%遅らせる）
-        index = index * (1 + delayFactor);
-      }
+      //if (duration >= 1) {
+        //const delayFactor = 0.03; // 遅延係数（0.4 = 40%遅らせる）
+        //index = index * (1 + delayFactor);
+      //}
 
       const newIndex = Math.min(Math.floor(index), dbHistory.length - 1);
       console.log(`インデックス: ${newIndex} / ${dbHistory.length - 1}`);
