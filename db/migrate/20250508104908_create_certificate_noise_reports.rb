@@ -7,6 +7,6 @@ class CreateCertificateNoiseReports < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :certificate_noise_reports, [:certificate_id, :noise_report_id], unique: true
+    add_index :certificate_noise_reports, [ :certificate_id, :noise_report_id ], unique: true
   end
 end

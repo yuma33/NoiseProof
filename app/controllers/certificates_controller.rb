@@ -4,7 +4,7 @@ class CertificatesController < ApplicationController
 
 
     if @report_ids.blank?
-      redirect_to request.referer || root_path, alert: 'レポートを選択してください'
+      redirect_to request.referer || root_path, alert: "レポートを選択してください"
       return
     end
 
@@ -29,7 +29,7 @@ class CertificatesController < ApplicationController
   end
 
   def show
-    @certificate = Certificate.includes(noise_reports: [:recording]).find(params[:id])
+    @certificate = Certificate.includes(noise_reports: [ :recording ]).find(params[:id])
   end
 
   private
