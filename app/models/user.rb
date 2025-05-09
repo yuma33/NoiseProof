@@ -10,4 +10,5 @@ class User < ApplicationRecord
 
   has_many :recordings, dependent: :destroy
   has_many :noise_reports, dependent: :destroy
+  has_many :certificates, dependent: :destroy
 end

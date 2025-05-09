@@ -11,6 +11,7 @@ ja:
       destroy_recording: "%{item}を削除しました"
       success_noise_report: "%{item}を作成しました"
       not_success_noise_report: "%{item}の作成に失敗しました"
+      not_success_certificate: "%{item}を作成しました"
   helpers:
     submit:
       create: 登録
@@ -42,3 +43,5 @@ ja:
       submit: レポートを作成する →
     show:
       title: レポート
+    index:
+      title: レポート一覧

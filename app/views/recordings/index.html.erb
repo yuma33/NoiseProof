@@ -35,10 +35,16 @@
                 <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
                 グラフ
               </button>
-
-              <%= link_to new_recording_noise_report_path(recording), class: "w-32 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-indigo-600 to-purple-600" do %>
-                <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                レポート
+              <% if recording.noise_report.present? %>
+                <%= link_to noise_report_path(recording.noise_report), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
+                  <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                  レポート詳細
+                <% end %>
+              <% else %>
+                <%= link_to new_recording_noise_report_path(recording), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
+                  <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                  レポート作成
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -47,4 +53,3 @@
     </div>
   <% end %>
 </div>
-
