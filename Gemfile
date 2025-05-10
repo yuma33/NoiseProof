@@ -48,6 +48,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -64,3 +66,5 @@ gem "sorcery", "0.16.3"
 gem "rails-i18n", "~> 7.0.0"
 
 gem "enum_help", "0.0.19"
+
+gem "http"
