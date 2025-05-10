@@ -133,7 +133,7 @@ function NoiseProof() {
   };
 
   // 実際のデータ送信処理を別関数に分離
-  const sendRecordingData = () => {
+  const sendRecordingData = (coords = null) => {
     const formData = new FormData();
     formData.append('audio', audioBlob);
     formData.append('duration', exactDuration);
@@ -143,9 +143,9 @@ function NoiseProof() {
     formData.append('db_history', JSON.stringify(fullDbHistory));
 
     // 位置情報があれば追加
-    if (coordinates) {
-      formData.append('latitude', coordinates.latitude);
-      formData.append('longitude', coordinates.longitude);
+    if (coords) {
+      formData.append('latitude', coords.latitude);
+      formData.append('longitude', coords.longitude);
     }
 
     fetch('/api/recordings', {
@@ -183,19 +183,19 @@ function NoiseProof() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('位置情報取得成功:', position);
-        setCoordinates({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        });
-        sendRecordingData(); // 位置情報取得後に録音データを送信
-      },
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+    // 👇 ここで直接渡す。setCoordinates は不要（or UI用に使ってもOK）
+    sendRecordingData({ latitude: lat, longitude: lng });
+  },
       (error) => {
         console.error('位置情報取得失敗:', error);
         sendRecordingData(); // 位置情報の取得に失敗しても録音は保存
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
+        timeout: 20000,
         maximumAge: 0
       }
     );
@@ -332,3 +332,4 @@ function NoiseProof() {
 }
 
 export default NoiseProof;
+
