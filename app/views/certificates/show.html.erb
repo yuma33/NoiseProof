@@ -1,35 +1,62 @@
-<div class="mx-auto lg:w-4/5">
+<div class="mx-auto lg:w-4/5 mt-5">
   <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md py-8 mb-32">
-    <h1 class="rounded mx-5 font-bold text-2xl mb-3 text-purple-700">
-      騒音証明書: <%= @certificate.certificate_number %>
+  <div class="flex justify-between">
+  <h1 class="rounded mx-5 font-bold text-2xl mb-3 text-purple-700">
+  騒音報告書
+</h1>
+<div class="flex flex-col">
+<p class="text-right mr-5 text-sm text-gray-500 font-bold">報告書ID</p>
+    <h1 class="rounded mx-5 mb-3">
+  <%= @certificate.certificate_number %>
     </h1>
-    <h1 class="rounded mx-5 font-bold text-2xl mb-3 text-purple-700">
-      発行日: <%= @certificate.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
-    </h1>
+    </div>
+    </div>
     <div class="flex">
       <div class="flex items-center">
-        <h3>レポートタイトル: <%= @certificate.noise_reports.first.title %></h3>
-        <p>録音場所の 住所: 
-        <%= GeocoderService.reverse_geocode(@certificate.noise_reports.first.recording.place_id) %>
-      </p>
         <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1 ml-5" %>
         <p>
           <%= @certificate.noise_reports.first.recording.recorded_at.strftime("%Y年%m月%d日 %H時%M分") %>
         </p>
       </div>
       <div class="flex items-center justify-around ml-5">
-        <p class="ml-2 text-gray-500">| 録音時間 :</p>
         <p class="text-gray-500">
           <%= formatted_duration(@certificate.noise_reports.first.recording.duration) %>
         </p>
       </div>
     </div>
-    <div id="report" class="bg-gray-50 mt-3" data-recording-id="<%= @certificate.noise_reports.first.recording.id %>">
-    </div>
-    <h2 class="ml-5 mt-8 mb-3 font-bold text-lg">基本情報</h2>
+    <h2 class="ml-5 mt-16 font-bold text-lg">基本情報（システム計測による記録）</h2>
+    <p class="ml-5 text-sm text-gray-500">※以下はアプリが計測・取得した内容です</p>
     <div class="flex">
-      <p class="ml-5 mb-3 mr-16 text-gray-500">騒音場所</p>
-      <p><%= @certificate.noise_reports.first.location %></p>
+      <p class="ml-5 mt-5 mb-3 mr-16 text-gray-500">騒音場所</p>
+      <p></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-3 mr-40 text-gray-500">録音総時間</p>
+      <p><%= formatted_duration(@certificate.total_recording_duration) %></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-3 mr-44 text-gray-500">録音件数</p>
+    <p p><%= @certificate.total_noise_reports %> 件</p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-4 mr-16 text-gray-500">最大dB （ レポート内 ）</p>
+      <p><%= formatted_max_decibel(@certificate.total_recording_max_decibel) %></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-8 mr-16 text-gray-500">平均dB （ レポート内 ）</p>
+      <p><%= @certificate.total_recording_average_decibel %> dB</p>
+    </div>
+
+
+    <h2 class="ml-5 mt-8 font-bold text-lg">基本情報（ユーザー記入情報）</h2>
+    <p class="ml-5 text-sm text-gray-500">※以下は利用者による記録です</p>
+    <div class="flex">
+      <p class="ml-5 mt-5 mb-3 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
+      <p></p>
+    </div>
+    <div class="flex">
+      <p class="ml-5 mb-4 mr-12 text-gray-500">ユーザー名</p>
+      <p><%= @certificate.user.first_name %></p>
     </div>
     <div class="flex">
       <p class="ml-5 mb-4 mr-12 text-gray-500">騒音の種類</p>
@@ -39,14 +66,17 @@
       <p class="ml-5 mb-4 mr-16 text-gray-500">発生頻度</p>
       <p><%= @certificate.noise_reports.first.frequency_i18n %></p>
     </div>
-    <div class="flex">
-      <p class="ml-5 mb-4 mr-16 text-gray-500">最大音量</p>
-      <p><%= formatted_max_decibel(@certificate.noise_reports.first.recording.max_decibel) %></p>
+
+    <div id="noise-report-chart"
+      data-counts="<%= json_escape(@report_counts.to_json) %>"
+      data-dbs="<%= json_escape(@max_dbs.to_json) %>">
     </div>
-    <div class="flex">
-      <p class="ml-5 mb-8 mr-16 text-gray-500">平均音量</p>
-      <p><%= @certificate.noise_reports.first.recording.average_decibel %> dB</p>
-    </div>
+
+
+    <div id="noise-type-chart"
+    data-distribution='<%= json_escape(@noise_type_distribution.to_json) %>'>
+  </div>
+
     <h2 class="ml-5 mb-6 font-bold text-lg">詳細メモ</h2>
     <div class="bg-gray-100 rounded-xl mx-5 h-36">
       <p class="text-gray-500 ml-4 pt-3">
@@ -60,3 +90,6 @@
     </div>
   </div>
 </div>
+<h1 class="rounded mx-5 font-bold text-xl mb-3">
+発行日: <%= @certificate.created_at.strftime("%Y年%m月%d日") %>
+</h1>

@@ -129,6 +129,8 @@ GEM
       rake
     globalid (1.2.1)
       activesupport (>= 6.1)
+    groupdate (6.6.0)
+      activesupport (>= 7.1)
     hashie (5.0.0)
     http (5.2.0)
       addressable (~> 2.8)
@@ -385,6 +387,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   enum_help (= 0.0.19)
+  groupdate
   http
   jbuilder
   jsbundling-rails

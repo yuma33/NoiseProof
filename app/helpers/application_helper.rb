@@ -12,11 +12,11 @@ module ApplicationHelper
     minutes = total_seconds / 60
     secs = total_seconds % 60
     if minutes > 0 && secs > 0
-      "#{minutes}分#{secs}秒"
+      "#{minutes} 分#{secs} 秒"
     elsif minutes > 0
-      "#{minutes}分"
+      "#{minutes} 分"
     else
-      "#{secs}秒"
+      "#{secs} 秒"
     end
   end
 
