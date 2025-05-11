@@ -30,6 +30,20 @@ class CertificatesController < ApplicationController
 
   def show
     @certificate = Certificate.includes(noise_reports: [ :recording ]).find(params[:id])
+    raw_counts = @certificate.noise_reports.group(:noise_type).count
+
+    @noise_type_distribution = raw_counts.transform_keys do |key|
+      NoiseReport.noise_types_i18n[key]
+    end
+
+    @report_counts = @certificate.noise_reports
+                                  .group_by_hour_of_day(:created_at)
+                                  .count
+
+    @max_dbs = @certificate.noise_reports
+                                  .joins(:recording)
+                                  .group_by_hour_of_day(:created_at)
+                                  .maximum("recordings.max_decibel")
   end
 
   private

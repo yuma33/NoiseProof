@@ -36,7 +36,7 @@ module Api
     end
 
     def reverse_geocode(lat, lng)
-      api_key = ENV['GOOGLE_MAPS_API_KEY']
+      api_key = ENV["GOOGLE_MAPS_API_KEY"]
       url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=#{lat},#{lng}&key=#{api_key}&language=ja"
       begin
         response = HTTP.get(url)

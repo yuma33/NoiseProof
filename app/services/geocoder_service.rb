@@ -1,6 +1,6 @@
 class GeocoderService
   def self.reverse_geocode(place_id)
-    api_key = ENV['GOOGLE_MAPS_API_KEY']
+    api_key = ENV["GOOGLE_MAPS_API_KEY"]
     url = "https://maps.googleapis.com/maps/api/geocode/json?place_id=#{place_id}&key=#{api_key}&language=ja"
 
     begin
