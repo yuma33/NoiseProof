@@ -19,7 +19,11 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <%= render 'shared/header' %>
+    <% if logged_in? %>
+      <%= render 'shared/after_login_header' %>
+    <% else %>
+      <%= render 'shared/header' %>
+    <% end %>
     <%= render 'shared/flash_messages' %>
     <div class="flex-grow bg-purple-50">
       <%= yield %>

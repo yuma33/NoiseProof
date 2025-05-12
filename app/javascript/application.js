@@ -1,4 +1,3 @@
-// Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
 import React from 'react'
@@ -9,6 +8,23 @@ import NoiseTypeChart from './components/NoiseTypeChart.jsx';
 import NoiseTypebarChart from './components/NoiseTypebarChart.jsx';
 
 document.addEventListener('turbo:load', () => {
+  const toggle = document.getElementById("menu-toggle");
+  const sideMenu = document.getElementById("side-menu");
+  const overlay = document.getElementById("overlay");
+
+  if (toggle && sideMenu && overlay) {
+    toggle.addEventListener("click", () => {
+      sideMenu.classList.toggle("translate-x-full");
+      overlay.classList.toggle("hidden");
+    });
+
+    overlay.addEventListener("click", () => {
+      // 背景クリックでもメニューを閉じる
+      sideMenu.classList.add("translate-x-full");
+      overlay.classList.add("hidden");
+    });
+  }
+
   const container = document.getElementById('test');
   if (container) {
     const root = createRoot(container);
@@ -35,12 +51,8 @@ document.addEventListener('turbo:load', () => {
 
   const chartE = document.getElementById('noise-report-chart');
   if (chartE) {
-    // Railsから渡されたデータを取得
     const reportCounts = JSON.parse(chartE.dataset.counts);
     const maxDbs = JSON.parse(chartE.dataset.dbs);
-
-
-    // Reactでコンポーネントをレンダリング
     const root = createRoot(chartE);
     root.render(
       React.createElement(NoiseTypebarChart, {reportCounts: reportCounts,
