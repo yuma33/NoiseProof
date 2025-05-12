@@ -6,9 +6,9 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels'; // 追加
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels); // プラグインを登録
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const NoiseTypeChart = ({ distribution }) => {
   const labels = Object.keys(distribution);
@@ -28,7 +28,7 @@ const NoiseTypeChart = ({ distribution }) => {
 
   // パーセンテージ計算
   const total = values.reduce((sum, value) => sum + value, 0);
-  const percentages = values.map(value => ((value / total) * 100).toFixed(1)); // 小数点1位まで
+  const percentages = values.map(value => ((value / total) * 100).toFixed(1));
 
   const data = {
     labels,
@@ -43,7 +43,18 @@ const NoiseTypeChart = ({ distribution }) => {
 
   // グラフのオプション設定
   const options = {
+    responsive: true,
     plugins: {
+      title: {
+        display: false,
+        text: '騒音の種類別分布'
+      },
+      legend: {
+        position: 'left',
+        labels: {
+          boxWidth: 10,
+        }
+      },
       datalabels: {
         formatter: (value, context) => {
           const percentage = percentages[context.dataIndex];
@@ -53,14 +64,14 @@ const NoiseTypeChart = ({ distribution }) => {
         font: {
           weight: 'bold',
         },
-        padding: 6,
+
       },
     }
   };
 
   return (
-    <div className="mt-10 w-3/5 md:w-2/5 mx-auto">
-      <h2 className="text-lg font-bold mb-3 text-left">騒音の種類別分布</h2>
+    <div className="text-xs text-neutral-500 font-bold text-center mt-16">
+      騒音の種類別分布
       <Pie data={data} options={options} />
     </div>
   );
