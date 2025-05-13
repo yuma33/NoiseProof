@@ -70,3 +70,5 @@ gem "enum_help", "0.0.19"
 gem "http"
 
 gem "groupdate"
+
+gem "google-cloud-storage"
