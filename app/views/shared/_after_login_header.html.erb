@@ -20,6 +20,10 @@
 <div id="side-menu" class="fixed top-0 right-0 w-64 h-full bg-purple-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 bg-opacity-90">
   <div class="p-4 space-y-4 font-bold flex flex-col ml-3">
     <%= link_to t('header.logout'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+    <%= link_to t('header.history'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+    <%= link_to t('header.report'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+    <%= link_to t('header.certificate'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+    <%= link_to t('header.guide'), usage_guide_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
     <%= link_to t('header.inquiry'), inquiry_form_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
     <%= link_to t('header.conditions'), term_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
     <%= link_to t('header.policy'), privacy_policy_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
