@@ -1,0 +1,501 @@
+<main class="container mx-auto px-4 py-8 max-w-5xl">
+  <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-3xl font-bold text-center text-app-purple mb-6">騒音トラブル、もう我慢しない。</h2>
+    <p class="text-lg text-center mb-8">NoiseProofで「証拠」と「安心」を手に入れよう。</p>
+
+    <div class="bg-purple-50 border-l-4 border-app-purple p-4 mb-6">
+      <p class="text-lg">NoiseProofは、あなたの静かな生活を取り戻すためのアプリです。騒音の記録から、管理人への報告書作成、さらには同じ悩みを持つ人との情報交換まで、トータルでサポートします。</p>
+    </div>
+
+    <div class="grid md:grid-cols-5 gap-6 mt-10">
+      <div
+        class="bg-white rounded-lg shadow p-4 border-t-4 border-app-purple text-center flex flex-col items-center justify-center">
+        <div
+          class="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg transition-all duration-300">
+          <%= image_tag "mic_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-10" %>
+        </div>
+        <h3 class="font-bold mb-2">録音</h3>
+        <p class="text-sm">騒音を簡単に記録</p>
+      </div>
+
+
+      <div
+        class="bg-white rounded-lg shadow p-4 border-t-4 border-app-purple text-center flex flex-col items-center justify-center">
+        <div
+          class="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-gradient-to-r from-orange-400 to-orange-500 shadow-lg transition-all duration-300">
+          <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-10" %>
+        </div>
+        <h3 class="font-bold mb-2">レポート</h3>
+        <p class="text-sm">詳細情報を追加</p>
+      </div>
+
+
+
+      <div
+        class="bg-white rounded-lg shadow p-4 border-t-4 border-app-purple text-center flex flex-col items-center justify-center">
+        <div
+          class="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg transition-all duration-300">
+          <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-9" %>
+        </div>
+        <h3 class="font-bold mb-2">報告書</h3>
+        <p class="text-sm">証拠をまとめる</p>
+      </div>
+
+      <div
+        class="bg-white rounded-lg shadow p-4 border-t-4 border-app-purple text-center flex flex-col items-center justify-center">
+        <div
+          class="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300">
+          <%= image_tag "signal_cellular_alt_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-10" %>
+        </div>
+        <h3 class="font-bold mb-2">データ分析</h3>
+        <p class="text-sm">傾向を把握</p>
+      </div>
+
+      <div
+        class="bg-white rounded-lg shadow p-4 border-t-4 border-app-purple text-center flex flex-col items-center justify-center">
+        <div
+          class="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-lg transition-all duration-300">
+          <%= image_tag "groups_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-10" %>
+        </div>
+        <h3 class="font-bold mb-2">コミュニティ</h3>
+        <p class="text-sm">みんなで解決</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 1: Recording -->
+  <section id="recording" class="mb-16 bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center mb-6">
+      <div
+        class="h-12 w-12 app-purple rounded-full flex items-center justify-center mr-4 bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg transition-all duration-300">
+        <%= image_tag "mic_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-7" %>
+      </div>
+      <h2 class="text-2xl font-bold text-app-purple">1. まずは録音！騒音を「見える化」しよう</h2>
+    </div>
+
+    <p class="mb-6 text-lg">気になる騒音、まずは録ってみましょう。客観的な証拠を簡単に記録できます。</p>
+
+    <div class="flex flex-col md:flex-row gap-8 mb-8">
+      <div class="md:w-2/3">
+        <div class="pl-10 step-container">
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">ホーム画面を開く</h3>
+            <p>アプリを起動すると、現在の音量レベルがリアルタイムで表示されます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">「録音」ボタンをタップ</h3>
+            <p>画面中央の紫色のマイクアイコンをタップするだけで録音を開始できます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">録音を終了</h3>
+            <p>録音が終わったら、同じボタンをタップして終了します。音量データと位置情報が自動で保存されます。</p>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 rounded-lg p-4 mt-6">
+          <h4 class="font-bold flex items-center"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> ポイント</h4>
+          <p>「いつ、どこで、どんな音か」を客観的に記録することが、問題解決の第一歩です。深夜や早朝など、騒音が特に気になる時間帯に録音しましょう。</p>
+        </div>
+      </div>
+
+      <div class="md:w-1/3 bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <h4 class="font-bold text-center mb-3">録音画面</h4>
+        <%= image_tag "12.png" , class: "mx-auto mt-7" %>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-200 pt-4">
+      <h4 class="font-bold mb-2">メリット:</h4>
+      <ul class="grid md:grid-cols-3 gap-4">
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+          <span>ワンタップで簡単録音</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+          <span>位置情報も自動記録</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+          <span>いつでも再生可能</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Feature 2: Reports -->
+  <section id="reports" class="mb-16 bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center mb-6">
+      <div
+        class="h-12 w-12 app-purple rounded-full flex items-center justify-center mr-4 bg-gradient-to-r from-orange-400 to-orange-500 shadow-lg transition-all duration-300">
+        <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-7" %>
+      </div>
+      <h2 class="text-2xl font-bold text-app-purple">2. 詳細をプラス！「レポート」で状況を明確に</h2>
+    </div>
+
+    <p class="mb-6 text-lg">録音データに情報を加えて、より詳細な「レポート」を作成しましょう。状況説明が説得力を高めます。</p>
+
+    <div class="flex flex-col md:flex-row gap-8 mb-8">
+      <div class="md:w-2/3">
+        <div class="pl-10 step-container">
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">録音履歴を開く</h3>
+            <p>「履歴」タブから、これまでの録音一覧を確認できます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">録音データを選択</h3>
+            <p>レポートを作成したい録音データをタップして選択します。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">詳細情報を入力</h3>
+            <p>騒音の種類（足音、音楽など）、発生場所の詳細、状況メモなどを追加入力します。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">レポートを保存</h3>
+            <p>入力が完了したら保存ボタンをタップ。レポートが作成されます。</p>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 rounded-lg p-4 mt-6">
+          <h4 class="font-bold flex items-center"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> ポイント</h4>
+          <p>数値データと状況説明を組み合わせることで、騒音の実態がより明確になります。できるだけ客観的な事実を記録しましょう。</p>
+        </div>
+      </div>
+
+      <div class="md:w-1/3 bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <h4 class="font-bold text-center mb-3">レポート作成画面</h4>
+        <%= image_tag "1.png" , class: "mx-auto mt-7" %>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-200 pt-4">
+      <h4 class="font-bold mb-2">レポートに含まれる情報:</h4>
+      <div class="grid md:grid-cols-2 gap-4">
+        <ul>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-volume-up text-app-purple mt-1 mr-2"></i>
+            <span>音の大きさ：最大・平均dB値</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-clock text-app-purple mt-1 mr-2"></i>
+            <span>録音時間：何秒間だったか</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-map-marker-alt text-app-purple mt-1 mr-2"></i>
+            <span>場所の詳細：位置情報＋部屋番号など</span>
+          </li>
+        </ul>
+        <ul>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-tags text-app-purple mt-1 mr-2"></i>
+            <span>騒音の種類：足音、話し声など</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-calendar-alt text-app-purple mt-1 mr-2"></i>
+            <span>発生頻度：毎日、週に数回など</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-sticky-note text-app-purple mt-1 mr-2"></i>
+            <span>メモ：具体的な状況の自由記述</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 3: Summary Reports -->
+  <section id="summary" class="mb-16 bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center mb-6">
+      <div
+        class="h-12 w-12 app-purple rounded-full flex items-center justify-center mr-4 bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg transition-all duration-300">
+        <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-7" %>
+      </div>
+      <h2 class="text-2xl font-bold text-app-purple">3. 証拠をまとめる！「報告書」でしっかり伝える</h2>
+    </div>
+
+    <p class="mb-6 text-lg">複数のレポートをまとめて、管理会社や第三者へ提出できる「報告書」を作成できます。説得力のある証拠資料になります。</p>
+
+    <div class="flex flex-col md:flex-row gap-8 mb-8">
+      <div class="md:w-2/3">
+        <div class="pl-10 step-container">
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">「証明書作成」を選択</h3>
+            <p>ホーム画面またはメニューから「証明書作成」機能を選びます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">期間を設定</h3>
+            <p>いつからいつまでのレポートをまとめるか、期間を選択します。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">レポートを選択</h3>
+            <p>報告書に含めたいレポートにチェックを入れます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">報告書を生成</h3>
+            <p>「報告書作成」ボタンをタップすると、自動的にPDF形式の報告書が生成されます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">保存・共有</h3>
+            <p>作成した報告書はアプリ内に保存され、メールやメッセージで共有することもできます。</p>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 rounded-lg p-4 mt-6">
+          <h4 class="font-bold flex items-center"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> ポイント</h4>
+          <p>客観的なデータに基づいた報告書は、あなたの主張を強力に後押しします。一定期間（1週間〜1ヶ月程度）の記録をまとめると、騒音問題の深刻さが伝わりやすくなります。</p>
+        </div>
+      </div>
+
+      <div class="md:w-1/3 bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <h4 class="font-bold text-center mb-3">報告書サンプル</h4>
+        <%= image_tag "2.png" , class: "mx-auto mt-7" %>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-200 pt-4">
+      <h4 class="font-bold mb-2">報告書に含まれる情報:</h4>
+      <div class="grid md:grid-cols-2 gap-4">
+        <ul>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-chart-line text-app-purple mt-1 mr-2"></i>
+            <span>騒音の統計データ：平均・最大dB値</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-map-marked-alt text-app-purple mt-1 mr-2"></i>
+            <span>発生場所：位置情報と詳細住所</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-stopwatch text-app-purple mt-1 mr-2"></i>
+            <span>総録音時間：記録の合計時間</span>
+          </li>
+        </ul>
+        <ul>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-user text-app-purple mt-1 mr-2"></i>
+            <span>ユーザー情報：ユーザー名</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-chart-bar text-app-purple mt-1 mr-2"></i>
+            <span>騒音傾向グラフ：視覚的な分析</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-qrcode text-app-purple mt-1 mr-2"></i>
+            <span>認証QRコード：真正性の証明</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 4: Data Analysis -->
+  <section id="analysis" class="mb-16 bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center mb-6">
+      <div
+        class="h-12 w-12 app-purple rounded-full flex items-center justify-center mr-4 bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300">
+        <%= image_tag "signal_cellular_alt_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-7" %>
+      </div>
+      <h2 class="text-2xl font-bold text-app-purple">4. パターンを把握！「データ分析」で対策を練る</h2>
+    </div>
+
+    <p class="mb-6 text-lg">記録したデータはグラフでわかりやすく分析できます。騒音の傾向を把握して、効果的な対策につなげましょう。</p>
+
+    <div class="flex flex-col md:flex-row gap-8 mb-8">
+      <div class="md:w-2/3">
+        <div class="pl-10 step-container">
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">「データ分析」を選択</h3>
+            <p>ホーム画面または「分析」タブから、データ分析機能にアクセスします。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">分析期間を設定</h3>
+            <p>分析したい期間（過去1週間、1ヶ月など）を選択します。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">グラフを確認</h3>
+            <p>自動生成される各種グラフから、騒音の発生パターンを確認します。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">データの詳細を見る</h3>
+            <p>各グラフをタップすると、より詳細なデータを確認できます。</p>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 rounded-lg p-4 mt-6">
+          <h4 class="font-bold flex items-center"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> ポイント</h4>
+          <p>騒音の傾向を知ることで、効果的な対策や交渉のタイミングが見えてきます。特定の曜日や時間帯に集中しているなど、パターンを発見することが問題解決の鍵になります。毎日記録を続けると、より詳細な分析が可能になります。
+          </p>
+        </div>
+      </div>
+
+      <div class="md:w-1/3 bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <h4 class="font-bold text-center mb-3">分析グラフ例</h4>
+        <%= image_tag "graph.png" , class: "mx-auto mt-7" %>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-200 pt-4">
+      <h4 class="font-bold mb-2">分析できるデータ:</h4>
+      <div class="grid md:grid-cols-2 gap-4">
+        <ul>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-clock text-app-purple mt-1 mr-2"></i>
+            <span>時間帯別分析：いつ騒音が発生しやすいか</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-calendar-week text-app-purple mt-1 mr-2"></i>
+            <span>dB分析：どのぐらいのdBなのか</span>
+          </li>
+        </ul>
+        <ul>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-tags text-app-purple mt-1 mr-2"></i>
+            <span>種類別分析：どんな種類の騒音が多いか</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <i class="fas fa-volume-up text-app-purple mt-1 mr-2"></i>
+            <span>音量分布：騒音レベルの分布状況</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 5: Community -->
+  <section id="community" class="mb-16 bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center mb-6">
+      <div
+        class="h-12 w-12 app-purple rounded-full flex items-center justify-center mr-4 bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-lg transition-all duration-300">
+        <%= image_tag "groups_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-7" %>
+      </div>
+      <h2 class="text-2xl font-bold text-app-purple">5. ひとりで悩まない！「コミュニティ」で相談・共感</h2>
+    </div>
+
+    <p class="mb-6 text-lg">「コミュニティ」機能で、同じ悩みを持つ他のユーザーと情報交換できます。経験を共有し、解決策を見つけましょう。</p>
+
+    <div class="flex flex-col md:flex-row gap-8 mb-8">
+      <div class="md:w-2/3">
+        <div class="pl-10 step-container">
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">「コミュニティ」タブを開く</h3>
+            <p>画面下部のメニューから「コミュニティ」を選択します。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">投稿を閲覧</h3>
+            <p>他のユーザーの投稿を閲覧できます。「新着」や「人気」でソートも可能です。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">投稿・コメント</h3>
+            <p>自分の体験を投稿したり、他のユーザーの投稿にコメントしたりできます。</p>
+          </div>
+
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">タグで検索</h3>
+            <p>タグを使って、特定の騒音の種類や解決方法に関する投稿を検索できます。</p>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 rounded-lg p-4 mt-6">
+          <h4 class="font-bold flex items-center"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> ポイント</h4>
+          <p>あなたは一人ではありません。同じような悩みを抱える人と繋がることで、精神的な支えになるだけでなく、実践的な解決策が見つかるかもしれません。個人情報の共有には十分注意し、建設的な対話を心がけましょう。</p>
+        </div>
+      </div>
+
+      <div class="md:w-1/3 bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <h4 class="font-bold text-center mb-3">コミュニティ画面</h4>
+        <div class="border border-gray-300 rounded-lg p-4 bg-white">
+          <div class="mb-2 flex justify-between items-center">
+            <h5 class="font-bold text-sm">みんなの投稿</h5>
+            <div class="flex">
+              <span class="text-xs px-2 py-1 bg-purple-100 rounded mr-1">新着</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">人気</span>
+            </div>
+          </div>
+          <div class="mb-3 border-b pb-3 border-gray-200">
+            <p class="text-sm font-bold">深夜の足音が酷いです</p>
+            <div class="flex justify-between mt-1">
+              <span class="text-xs text-gray-500">2時間前</span>
+              <span class="text-xs text-app-purple bg-purple-50 px-2 rounded-full">相談中</span>
+            </div>
+          </div>
+          <div class="mb-3 border-b pb-3 border-gray-200">
+            <p class="text-sm font-bold">管理組合に相談したら解決しました</p>
+            <div class="flex justify-between mt-1">
+              <span class="text-xs text-gray-500">1日前</span>
+              <span class="text-xs text-green-600 bg-green-50 px-2 rounded-full">解決済</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <p class="text-sm font-bold">防音対策でおすすめはありますか？</p>
+            <div class="flex justify-between mt-1">
+              <span class="text-xs text-gray-500">3日前</span>
+              <span class="text-xs text-orange-600 bg-orange-50 px-2 rounded-full">回答多数</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-200 pt-4">
+      <h4 class="font-bold mb-2">コミュニティ機能のメリット:</h4>
+      <ul class="grid md:grid-cols-3 gap-4">
+        <li class="flex items-start">
+          <i class="fas fa-comments text-app-purple mt-1 mr-2"></i>
+          <span>同じ悩みを相談できる</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-lightbulb text-app-purple mt-1 mr-2"></i>
+          <span>解決方法のアドバイスがもらえる</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-heart text-app-purple mt-1 mr-2"></i>
+          <span>精神的な支えが得られる</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Conclusion -->
+  <section class="mb-16 bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-bold text-app-purple mb-6 text-center">NoiseProofで、快適な生活を取り戻しましょう</h2>
+
+    <p class="mb-6 text-lg text-center">騒音の記録・分析・報告、そして仲間とのつながり。<br>NoiseProofの機能をフル活用して、騒音問題の解決と安心できる生活を手に入れましょう。</p>
+
+    <div class="grid md:grid-cols-3 gap-8 mt-10">
+      <div class="bg-purple-50 rounded-lg p-6 text-center border border-purple-100">
+
+
+        <h3 class="font-bold mb-2">客観的な証拠</h3>
+        <p class="text-sm">騒音の事実を数値とグラフで「見える化」できます。感情的な訴えではなく、データに基づいた説得力ある資料を作成できます。</p>
+      </div>
+
+      <div class="bg-purple-50 rounded-lg p-6 text-center border border-purple-100">
+        <h3 class="font-bold mb-2">安心の記録</h3>
+        <p class="text-sm">いつでもどこでも簡単に記録できるので、騒音が発生したときにすぐ証拠を残せます。継続的な記録が問題解決の第一歩です。</p>
+      </div>
+
+      <div class="bg-purple-50 rounded-lg p-6 text-center border border-purple-100">
+        <h3 class="font-bold mb-2">コミュニティの支え</h3>
+        <p class="text-sm">同じ悩みを持つ人との交流で、解決策のヒントや精神的な支えを得られます。一人で抱え込まず、みんなで解決を目指しましょう。</p>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center">
+      <p class="font-bold text-lg text-app-purple mb-4">今すぐ始めましょう！</p>
+      <p class="mb-8">騒音問題は、適切な対応と証拠があれば解決できます。<br>NoiseProofがあなたの静かで平和な生活をサポートします。</p>
+    </div>
+  </section>
+</main>

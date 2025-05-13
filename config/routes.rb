@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get "/form", to: "pages#form", as: :inquiry_form
   get "/policy", to: "pages#policy", as: :privacy_policy
   get "/term", to: "pages#term", as: :term
+  get "/guide", to: "pages#guide", as: :usage_guide
 
   resources :users, only: %i[new create]
 end

@@ -38,6 +38,13 @@ ja:
     conditions: 利用規約
     registration: 新規登録
     inquiry: お問い合わせ
+    history: 履歴
+    report: レポート一覧
+    certificate: 報告書一覧
+    graph: グラフ分析
+    community: コミュニティ
+    guide: 使い方ガイド
+
   recordings:
     index:
       title: 録音履歴
