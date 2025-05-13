@@ -32,7 +32,6 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
-
 google:
   service: GCS
   project: <%= ENV['GOOGLE_PROJECT_ID'] %>
