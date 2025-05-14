@@ -1,13 +1,13 @@
 <div id="test"></div>
 
 <div class="flex justify-center bg-purple-50 mx-auto max-w-5xl">
-  <%= link_to recordings_path,
+  <%= link_to quick_noise_report_path,
               class: "flex flex-col items-center bg-white h-48 w-full ml-4 mr-4 mb-4 rounded-xl shadow-md transition-all duration-200" do %>
     <div class="w-20 h-20 rounded-full flex items-center justify-center mt-9 mb-3 bg-gradient-to-r from-orange-400 to-orange-500 shadow-lg transition-all duration-300">
       <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-10" %>
     </div>
-    <h1 class="text-center mb-1">レポート作成</h1>
-    <p class="text-xs text-gray-500">騒音データからレポートを作成</p>
+    <h1 class="text-center mb-1">クイックレポート</h1>
+    <p class="text-xs text-gray-500">最新の録音からレポートを作成</p>
   <% end %>
 
   <%= link_to noise_reports_path,
@@ -21,7 +21,7 @@
 </div>
 
 <div class="flex justify-center bg-purple-50 mx-auto max-w-5xl">
-  <%= link_to "#",
+  <%= link_to quick_noise_report_path,
               class: "flex flex-col items-center bg-white h-48 w-full ml-4 mr-4 mb-16 rounded-xl shadow-md transition-all duration-200" do %>
     <div class="w-20 h-20 rounded-full flex items-center justify-center mt-9 mb-3 bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300">
       <%= image_tag "signal_cellular_alt_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-10" %>

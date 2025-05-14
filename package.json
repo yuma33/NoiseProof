@@ -12,6 +12,7 @@
     "@hotwired/turbo-rails": "^8.0.13",
     "chart.js": "^4.4.9",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "html2pdf.js": "^0.10.3",
     "lucide-react": "^0.503.0",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",

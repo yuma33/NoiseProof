@@ -1,5 +1,6 @@
+<div id="report-container">
 <div class="mx-auto lg:w-4/5 mt-5">
-  <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md mb-32">
+  <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md mb-7">
   <div class="flex flex-col">
 <p class="text-right mr-5 mt-3 text-sm text-gray-500">報告書ID</p>
     <h1 class="mx-5 text-right">
@@ -89,5 +90,13 @@
 </div>
 
 
-
 </div>
+</div>
+<div class="flex justify-between px-5 mb-32">
+      <%= link_to "← 戻る",
+                  "#",
+                  class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400" %>
+      <button id="client-pdf-button" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
+  PDFとして保存
+</button>
+    </div>

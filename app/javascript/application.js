@@ -6,6 +6,7 @@ import NoiseProof from './components/NoiseProof.jsx';
 import NoisePlayer from './components/NoisePlayer.jsx';
 import NoiseTypeChart from './components/NoiseTypeChart.jsx';
 import NoiseTypebarChart from './components/NoiseTypebarChart.jsx';
+import "./generate_pdf.js";
 
 document.addEventListener('turbo:load', () => {
   const toggle = document.getElementById("menu-toggle");

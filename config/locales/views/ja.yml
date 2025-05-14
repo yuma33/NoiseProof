@@ -12,6 +12,7 @@ ja:
       success_noise_report: "%{item}を作成しました"
       not_success_noise_report: "%{item}の作成に失敗しました"
       not_success_certificate: "%{item}を作成しました"
+      bad_request: "%{item}データが見つかりません"
   helpers:
     submit:
       create: 登録

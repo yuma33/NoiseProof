@@ -4,7 +4,7 @@
       <%= image_tag "home_25dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg" , class:"w-7" %>
       <p class="text-xs text-gray-400">ホーム</p>
     <% end %>
-    <%= link_to "#", class: "flex flex-col items-center", data: { turbo_method: :post } do %>
+    <%= link_to recordings_path, class: "flex flex-col items-center" do %>
       <%= image_tag "mic_25dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg" , class:"w-7 " %>
       <p class="text-xs text-gray-400">履歴</p>
     <% end %>
@@ -12,13 +12,13 @@
       <%= image_tag "groups_25dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg" , class:"w-7" %>
       <p class="text-xs text-gray-400">コミュニティ</p>
     <% end %>
-    <%= link_to "#", class: "flex flex-col items-center", data: { turbo_method: :post } do %>
-      <%= image_tag "description_24dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg", class:"w-7 text-red-500" %>
-      <p class="text-xs text-gray-400">証明書</p>
+    <%= link_to noise_reports_path, class: "flex flex-col items-center" do %>
+      <%= image_tag "history_edu_24dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg" , class:"w-7" %>
+      <p class="text-xs text-gray-400">レポート一覧</p>
     <% end %>
-    <%= link_to "#", class: "flex flex-col items-center", data: { turbo_method: :post } do %>
-      <%= image_tag "person_25dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg" , class:"w-7" %>
-      <p class="text-xs text-gray-400">プロフィール</p>
+    <%= link_to certificates_path, class: "flex flex-col items-center" do %>
+      <%= image_tag "description_24dp_B7B7B7_FILL0_wght400_GRAD0_opsz24.svg", class:"w-7 text-red-500" %>
+      <p class="text-xs text-gray-400">診断書一覧</p>
     <% end %>
   </div>
 </footer>

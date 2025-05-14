@@ -4,6 +4,16 @@ class NoiseReportsController < ApplicationController
     @recording = current_user.recordings.find(params[:recording_id])
   end
 
+  def quick_new
+    @noise_report = NoiseReport.new
+    @recording = current_user.recordings.last
+    if @recording
+      redirect_to new_recording_noise_report_path(@recording)
+    else
+      redirect_to root_path, danger: t("defaults.flash_message.bad_request", item: NoiseReport.model_name.human)
+    end
+  end
+
   def create
     @recording = current_user.recordings.find(params[:recording_id])
     @noise_report = current_user.noise_reports.new(noise_report_params)
@@ -22,7 +32,7 @@ class NoiseReportsController < ApplicationController
   def index
     @noise_reports_by_date = current_user.noise_reports.group_by { |noise_report|
     noise_report.created_at&.to_date
-  }
+  }.sort.reverse.to_h
   end
 
   private

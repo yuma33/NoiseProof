@@ -15,11 +15,12 @@ Rails.application.routes.draw do
   resources :recordings, only: %i[index destroy] do
     resources :noise_reports, only: %i[new create show], shallow: true
   end
+
   resources :noise_reports, only: %i[index] do
     resources :certificates, only: %i[new create], shallow: true
   end
 
-  resources :certificates, only: %i[create show]
+  resources :certificates, only: %i[create show index]
 
   namespace :api do
     resources :recordings, only: %i[create show]
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
   get "/policy", to: "pages#policy", as: :privacy_policy
   get "/term", to: "pages#term", as: :term
   get "/guide", to: "pages#guide", as: :usage_guide
+
+  get "quick_report", to: "noise_reports#quick_new", as: "quick_noise_report"
 
   resources :users, only: %i[new create]
 end

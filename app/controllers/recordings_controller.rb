@@ -6,7 +6,7 @@ class RecordingsController < ApplicationController
   def index
     @recordings_by_date = current_user.recordings.group_by { |recording|
     recording.recorded_at&.to_date
-  }
+  }.sort.reverse.to_h
   end
 
   def destroy

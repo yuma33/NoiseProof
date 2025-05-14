@@ -2,19 +2,28 @@
   <%= t('.title') %>
 </h1>
 <div class="bg-white rounded-xl shadow-md mx-5 py-8">
-  <div class="bg-purple-100 rounded mx-8">
+  <div class="bg-purple-100 rounded mx-8 pb-3">
     <div class="flex justify-around">
-      <p class="mt-3 text-gray-500">録音時間 :</p>
+      <p class="mt-3 ml-11 text-gray-500">録音日 :</p>
       <p class="mt-3 text-gray-500">
+        <%= @recording.recorded_at.strftime("%m月%d日 %H時%M分") %>
+      </p>
+    </div>
+    <hr class="border-t border-gray-300 mx-20 lg:mx-64 mt-1">
+    <div class="flex justify-around">
+      <p class="mt-2 text-gray-500">録音時間 :</p>
+      <p class="mt-2 text-gray-500">
         <%= formatted_duration(@recording.duration) %>
       </p>
     </div>
+    <hr class="border-t border-gray-300 mx-20 lg:mx-64 mt-1">
     <div class="flex justify-around">
       <p class="mt-2 text-gray-500">最大騒音レベル :</p>
-      <p class="mt-2 mb-3 text-gray-500">
+      <p class="mt-2 text-gray-500">
         <%= formatted_max_decibel(@recording.max_decibel) %>
       </p>
     </div>
+    <hr class="border-t border-gray-300 mx-20 lg:mx-64 mt-1">
   </div>
   <%= form_with model: [@recording, @noise_report] do |f| %>
     <%= render 'shared/error_messages', object: f.object %>

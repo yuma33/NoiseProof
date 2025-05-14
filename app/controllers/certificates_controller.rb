@@ -1,4 +1,10 @@
 class CertificatesController < ApplicationController
+  def index
+    @certificates_by_date = current_user.certificates.group_by { |certificate|
+    certificate.created_at&.to_date
+  }.sort.reverse.to_h
+  end
+
   def create
     @report_ids = params[:report_ids]
 
