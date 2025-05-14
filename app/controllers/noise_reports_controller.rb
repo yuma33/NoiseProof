@@ -30,15 +30,9 @@ class NoiseReportsController < ApplicationController
   end
 
   def index
-    noise_reports = current_user.noise_reports
-
-    if noise_reports.blank?
-      @noise_reports_by_date = {}
-    else
     @noise_reports_by_date = current_user.noise_reports.group_by { |noise_report|
     noise_report.created_at&.to_date
   }.sort.reverse.to_h
-    end
   end
 
   private
