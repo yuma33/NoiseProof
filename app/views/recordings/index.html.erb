@@ -1,6 +1,4 @@
-<h1 class="text-xl md:text-2xl text-center text-gray-700 font-semibold my-7"><%= t('.title') %>
-</h1>
-<div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16">
+<div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16 mt-7">
   <% @recordings_by_date.each do |date, recordings| %>
     <div class="border-b border-gray-300 pb-4">
       <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
@@ -12,6 +10,7 @@
           <div class="flex flex-col bg-white h-52 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
             <div class="flex mt-5">
               <p class="mb-1 ml-8 mr-2">
+              録音日時
                 <%= recording.recorded_at.strftime("%H時%M分") %>
               </p>
               <p class="mb-1">
