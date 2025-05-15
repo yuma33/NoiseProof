@@ -1,23 +1,24 @@
+<% content_for(:title, t('.title')) %>
 <% if @certificates_by_date.present? %>
-<div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16 mt-7">
-  <% @certificates_by_date.each do |date, certificates| %>
-    <div class="border-b border-gray-300 pb-4">
-      <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
-        <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-6 mr-2" %>
-        <%= date.present? ? date.strftime("%Y年%m月%d日") : '日付不明' %>
-      </h2>
-      <% certificates.each do |certificate| %>
+  <div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16 mt-7">
+    <% @certificates_by_date.each do |date, certificates| %>
+      <div class="border-b border-gray-300 pb-4">
+        <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
+          <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-6 mr-2" %>
+          <%= date.present? ? date.strftime("%Y年%m月%d日") : '日付不明' %>
+        </h2>
+        <% certificates.each do |certificate| %>
           <div class="flex flex-col bg-white h-44 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
             <div class="flex mt-5">
-            <div class="flex">
-              <p class="mb-1 ml-8 mr-2 text-lg font-bold">
-              診断書ID:
-                <%= certificate.certificate_number %>
-              </p>
-              <%= link_to certificate_path(certificate), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' }  do %>
-              <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 ml-2 mt-1" %>
-            <% end %>
-            </div>
+              <div class="flex">
+                <p class="mb-1 ml-8 mr-2 text-lg font-bold">
+                  診断書ID:
+                  <%= certificate.certificate_number %>
+                </p>
+                <%= link_to certificate_path(certificate), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
+                  <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 ml-2 mt-1" %>
+                <% end %>
+              </div>
               <div class="flex flex-col ml-auto pr-5">
                 <p class="text-xl ml-2 font-semibold text-red-500">
                   <%= formatted_max_decibel(certificate.total_recording_max_decibel) %>
@@ -26,35 +27,32 @@
               </div>
             </div>
             <div class="flex">
-            <p class="mb-1 ml-8 mr-2">
-            作成日時
-              <%= certificate.created_at.strftime("%H時%M分") %>
-            </p>
-            <p class="mb-1">
-          | 総録音時間 : <%= formatted_duration(certificate.total_recording_duration) %>
-            </p>
+              <p class="mb-1 ml-8 mr-2">
+                作成日時
+                <%= certificate.created_at.strftime("%H時%M分") %>
+              </p>
+              <p class="mb-1">
+                | 総録音時間 : <%= formatted_duration(certificate.total_recording_duration) %>
+              </p>
             </div>
-    <hr class="border-t border-gray-300 mx-7 mt-1">
-
+            <hr class="border-t border-gray-300 mx-7 mt-1">
             <div class="flex items-center bg-gray-100 mt-2 px-5 rounded">
-          
             </div>
             <div class="flex mt-4 ml-auto">
-            <button class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
-            <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-            グラフ
-          </button>
-
-                <%= link_to certificate_path(certificate), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-500" do %>
-                  <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                  診断書詳細
-                <% end %>
+              <button class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
+                <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                グラフ
+              </button>
+              <%= link_to certificate_path(certificate), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-500" do %>
+                <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                診断書詳細
+              <% end %>
             </div>
           </div>
-      <% end %>
-    </div>
-  <% end %>
+        <% end %>
+      </div>
+    <% end %>
   <% else %>
-  <p class="text-center text-gray-500 mt-12">診断書はありません。</p>
-<% end %>
+    <p class="text-center text-gray-500 mt-12">診断書はありません。</p>
+  <% end %>
 </div>

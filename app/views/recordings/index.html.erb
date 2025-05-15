@@ -1,58 +1,59 @@
+<% content_for(:title, t('.title')) %>
 <% if @recordings_by_date.present? %>
-<div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16 mt-7">
-  <% @recordings_by_date.each do |date, recordings| %>
-    <div class="border-b border-gray-300 pb-4">
-      <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
-        <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-6 mr-2" %>
-        <%= date.present? ? date.strftime("%Y年%m月%d日") : '日付不明' %>
-      </h2>
-      <% recordings.each do |recording| %>
-        <% if recording.audio_file.attached? %>
-          <div class="flex flex-col bg-white h-52 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
-            <div class="flex mt-5">
-              <p class="mb-1 ml-8 mr-2">
-              録音日時
-                <%= recording.recorded_at.strftime("%H時%M分") %>
-              </p>
-              <p class="mb-1">
-              | 録音時間 : <%= formatted_duration(recording.duration) %>
-              </p>
-              <div class="flex flex-col ml-auto pr-5">
-                <p class="text-xl ml-2 font-semibold text-red-500">
-                  <%= formatted_max_decibel(recording.max_decibel) %>
+  <div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16 mt-7">
+    <% @recordings_by_date.each do |date, recordings| %>
+      <div class="border-b border-gray-300 pb-4">
+        <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
+          <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-6 mr-2" %>
+          <%= date.present? ? date.strftime("%Y年%m月%d日") : '日付不明' %>
+        </h2>
+        <% recordings.each do |recording| %>
+          <% if recording.audio_file.attached? %>
+            <div class="flex flex-col bg-white h-52 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
+              <div class="flex mt-5">
+                <p class="mb-1 ml-8 mr-2">
+                  録音日時
+                  <%= recording.recorded_at.strftime("%H時%M分") %>
                 </p>
-                <p class="text-xs">最大音量レベル</p>
+                <p class="mb-1">
+                  | 録音時間 : <%= formatted_duration(recording.duration) %>
+                </p>
+                <div class="flex flex-col ml-auto pr-5">
+                  <p class="text-xl ml-2 font-semibold text-red-500">
+                    <%= formatted_max_decibel(recording.max_decibel) %>
+                  </p>
+                  <p class="text-xs">最大音量レベル</p>
+                </div>
+              </div>
+              <div class="flex items-center bg-gray-100 mt-5 px-5 rounded">
+                <%= audio_tag recording.audio_file, controls: true, class: "w-full" %>
+                <%= link_to recording_path(recording), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
+                  <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
+                <% end %>
+              </div>
+              <div class="flex mt-4 ml-auto">
+                <button class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
+                  <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                  グラフ
+                </button>
+                <% if recording.noise_report.present? %>
+                  <%= link_to noise_report_path(recording.noise_report), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
+                    <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                    レポート詳細
+                  <% end %>
+                <% else %>
+                  <%= link_to new_recording_noise_report_path(recording), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
+                    <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                    レポート作成
+                  <% end %>
+                <% end %>
               </div>
             </div>
-            <div class="flex items-center bg-gray-100 mt-5 px-5 rounded">
-              <%= audio_tag recording.audio_file, controls: true, class: "w-full" %>
-              <%= link_to recording_path(recording), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' }  do %>
-                <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
-              <% end %>
-            </div>
-            <div class="flex mt-4 ml-auto">
-              <button class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
-                <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                グラフ
-              </button>
-              <% if recording.noise_report.present? %>
-                <%= link_to noise_report_path(recording.noise_report), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
-                  <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                  レポート詳細
-                <% end %>
-              <% else %>
-                <%= link_to new_recording_noise_report_path(recording), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
-                  <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                  レポート作成
-                <% end %>
-              <% end %>
-            </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-  <% end %>
-  <% else %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
   <p class="text-center text-gray-500 mt-12">録音データはありません。</p>
-  <% end %>
-</div>
+<% end %>
