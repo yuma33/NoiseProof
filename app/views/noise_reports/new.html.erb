@@ -30,8 +30,13 @@
     <div class="flex flex-col -mx-3">
       <div class="mx-11 mt-9 mb-6 md:mb-8">
         <%= f.label :title, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
-        <%= f.text_field :title, placeholder: "タイトルを記入してください",
+        <%= f.text_field :title, placeholder: "レポート名を記入してください",
           class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
+      </div>
+      <div class="mx-11 mb-6 md:mb-8">
+      <%= f.label :place, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+      <%= f.text_field :place, value: GeocoderService.reverse_geocode(@recording.place_id), disabled: true,
+        class: "appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" %>
       </div>
       <div class="mx-11 mb-6 md:mb-8">
         <%= f.label :location, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>

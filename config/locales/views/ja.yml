@@ -56,11 +56,11 @@ ja:
   noise_reports:
     new:
       title: レポート作成
-      submit: レポートを編集する →
+      submit: レポートを作成する →
     show:
       title: レポート
     index:
       title: レポート一覧
     edit:
-      title: レポート作成
-      submit: レポートを作成する →
+      title: レポート編集
+      submit: レポートを編集する →

@@ -2,30 +2,35 @@
 <div class="mx-auto lg:w-4/5 mt-5">
   <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md mb-7">
   <div class="flex flex-col">
-<p class="text-right mr-5 mt-3 text-sm text-gray-500">報告書ID</p>
+<p class="text-right mr-5 mt-3 text-sm text-gray-500">診断書ID</p>
     <h1 class="mx-5 text-right">
   <%= @certificate.certificate_number %>
     </h1>
     </div>
   <h1 class="rounded ml-5 md:ml-9 text-center lg:ml-12 mr-5 font-bold md:text-3xl text-2xl mb-7 text-purple-700">
-  騒音報告書
+  騒音診断書
 </h1>
-    <div class="flex">
 
-      <div class="flex items-center justify-around ml-5">
-      </div>
-    </div>
 
 
     <h2 class="ml-5 md:ml-9 lg:ml-12 mt-7 font-bold text-lg">基本情報（ユーザー記入情報）</h2>
     <p class="ml-5 md:ml-9 lg:ml-12 text-sm text-gray-500">※以下は利用者による記録です</p>
 
+    <% place_ids = @certificate.noise_reports.map { |noise_report| noise_report.recording&.place_id }.uniq %>
+<% if place_ids.size == 1 && place_ids.first.present? %>
+  <div class="flex justify-between">
+    <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
+    <p class="mt-5 mx-5 md:mr-9 lg:mr-12"><%= GeocoderService.reverse_geocode(place_ids.first) %></p>
+  </div>
+  <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
+  <% else %>
+
     <div class="flex justify-between">
       <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
-      <p class="mx-5 md:mr-9 lg:mr-12"></p>
+      <p class="mt-5 mx-5 md:mr-9 lg:mr-12">情報なし</p>
     </div>
     <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
-
+  <% end %>
     <div class="flex justify-between">
       <p class="ml-5 md:ml-9 lg:ml-12 mr-40 text-gray-500">ユーザー名</p>
       <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.user.first_name %></p>
@@ -95,8 +100,8 @@
 <div class="flex justify-between px-5 mb-32">
       <%= link_to "← 戻る",
                   "#",
-                  class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400" %>
-      <button id="client-pdf-button" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
+                  class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400 ml-5 md:ml-9 lg:ml-12" %>
+      <button id="client-pdf-button" class="mr-5 md:mr-9 lg:mr-12 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
   PDFとして保存
 </button>
     </div>
