@@ -9,6 +9,14 @@ import NoiseTypebarChart from './components/NoiseTypebarChart.jsx';
 import "./generate_pdf.js";
 
 document.addEventListener('turbo:load', () => {
+  setTimeout(() => {
+    const loading = document.getElementById('loading-screen');
+    const main = document.getElementById('main-content');
+    if (loading) loading.remove();
+    if (main) main.classList.remove('hidden');
+  }, 500);
+
+
   const toggle = document.getElementById("menu-toggle");
   const sideMenu = document.getElementById("side-menu");
   const overlay = document.getElementById("overlay");
