@@ -13,12 +13,13 @@ ja:
         password: パスワード
         password_confirmation: パスワード確認
       noise_report:
-        location: 騒音場所
+        location: 詳細住所
         time_period: 発生時間帯
         frequency: 発生頻度
         noise_type: 騒音の種類
         memo: 詳細メモ
-        title: タイトル
+        title: レポート名
+        place: 騒音場所（システム計測による記録)
   enums:
     noise_report:
       noise_type:
