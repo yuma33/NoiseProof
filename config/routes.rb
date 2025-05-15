@@ -13,14 +13,14 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "recordings#home"
   resources :recordings, only: %i[index destroy] do
-    resources :noise_reports, only: %i[new create show], shallow: true
+    resources :noise_reports, only: %i[new create show destroy edit update], shallow: true
   end
 
   resources :noise_reports, only: %i[index] do
     resources :certificates, only: %i[new create], shallow: true
   end
 
-  resources :certificates, only: %i[create show index]
+  resources :certificates, only: %i[create show index destroy]
 
   namespace :api do
     resources :recordings, only: %i[create show]

@@ -52,6 +52,13 @@ class CertificatesController < ApplicationController
                                   .maximum("recordings.max_decibel")
   end
 
+  def destroy
+    @certificate = current_user.certificates.find(params[:id])
+    if @certificate.destroy!
+      redirect_to certificates_path, success: t("defaults.flash_message.destroy_certificate", item: Certificate.model_name.human), status: :see_other
+    end
+  end
+
   private
 
   def certificate_params

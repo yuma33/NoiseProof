@@ -4,7 +4,7 @@ ja:
       user: ユーザー
       recording: 録音
       noise_report: レポート
-      certificate: 証明書
+      certificate: 診断書
     attributes:
       user:
         email: メールアドレス

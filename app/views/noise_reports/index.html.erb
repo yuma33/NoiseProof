@@ -20,11 +20,19 @@
                   <%= f.label "report_#{noise_report.id}", (noise_report.title || "レポート ##{noise_report.id}") %>
                 </p>
 
-                <p class="ml-3 mt-1 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(noise_report.noise_type) %>">
+                <%= link_to edit_noise_report_path(noise_report) do %>
+                  <%= image_tag "edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 ml-1" %>
+                <% end %>
+
+                <%= link_to noise_report_path(noise_report), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
+                  <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 mr-1" %>
+                <% end %>
+
+                <p class="ml-3 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(noise_report.noise_type) %>">
                   <%= noise_report.noise_type_i18n %>
                 </p>
 
-                <p class="ml-3 mt-1 text-sm h-6 px-2 rounded-full border inline-flex items-center justify-center">
+                <p class="ml-3 text-sm h-6 px-2 rounded-full border inline-flex items-center justify-center">
                   <%= noise_report.frequency_i18n %>
                 </p>
 
@@ -72,5 +80,5 @@
   </div>
 <% end %>
 <% else %>
-  <p class="text-center text-gray-500 mt-12">レポートはまだありません。</p>
+  <p class="text-center text-gray-500 mt-12">レポートはありません。</p>
 <% end %>
