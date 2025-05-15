@@ -1,3 +1,4 @@
+<% content_for(:title, t('.title')) %>
 <h1 class="text-xl md:text-2xl text-center text-gray-700 font-bold my-7"><%= t('.title') %>
 </h1>
 <%= form_with model: @user, class: "bg-white rounded max-w-lg md:max-w-xl mx-auto " do |f| %>
@@ -33,5 +34,5 @@
 <% end %>
   <div class="flex justify-center mb-8 md:mb-9">
     <p class="text-sm mr-2">すでにアカウントをお持ちですか？</p>
-    <%= link_to t('.to_login_page'), login_path, class: "text-sm text-purple-500 font-bold border-b border-purple-500" %>
+    <%= link_to t('.to_login_page'), login_path, class: "text-sm text-purple-500 font-bold border-b mb-28 border-purple-500" %>
   </div>

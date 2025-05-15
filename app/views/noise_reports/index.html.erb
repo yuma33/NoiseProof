@@ -1,84 +1,76 @@
-    <% if @noise_reports_by_date.present? %>
-<%= form_with url: certificates_path, method: :post do |f| %>
-  <div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16">
-  <!-- 一括証明書作成ボタン -->
-  <div class="flex justify-center mt-12">
-    <%= f.submit "選択したレポートで証明書を作成", class: "py-3 px-6 mb-7 bg-purple-600 text-white font-bold rounded shadow-lg hover:bg-purple-700 transition-all duration-300" %>
-  </div>
-    <% @noise_reports_by_date.each do |date, noise_reports| %>
-      <div class="border-b border-gray-300 pb-4">
-        <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
-          <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-6 mr-2" %>
-          <%= date.present? ? date.strftime("%Y年%m月%d日") : '日付不明' %>
-        </h2>
-        <% noise_reports.each do |noise_report| %>
-          <% if noise_report.recording.audio_file.attached? %>
-            <div class="flex flex-col bg-white h-60 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
-              <div class="flex mt-5">
-                <p class="ml-8 mr-2 text-lg font-bold">
-                  <%= f.check_box :report_ids, { multiple: true, id: "report_#{noise_report.id}", class: "mr-2" }, noise_report.id, nil %>
-                  <%= f.label "report_#{noise_report.id}", (noise_report.title || "レポート ##{noise_report.id}") %>
-                </p>
-
-                <%= link_to edit_noise_report_path(noise_report) do %>
-                  <%= image_tag "edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 ml-1" %>
-                <% end %>
-
-                <%= link_to noise_report_path(noise_report), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
-                  <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 mr-1" %>
-                <% end %>
-
-                <p class="ml-3 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(noise_report.noise_type) %>">
-                  <%= noise_report.noise_type_i18n %>
-                </p>
-
-                <p class="ml-3 text-sm h-6 px-2 rounded-full border inline-flex items-center justify-center">
-                  <%= noise_report.frequency_i18n %>
-                </p>
-
-                <div class="flex flex-col ml-auto pr-5">
-                  <p class="text-xl ml-2 font-semibold text-red-500">
-                    <%= formatted_max_decibel(noise_report.recording.max_decibel) %>
+<% content_for(:title, t('.title')) %>
+<% if @noise_reports_by_date.present? %>
+  <%= form_with url: certificates_path, method: :post do |f| %>
+    <div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16">
+      <!-- 一括証明書作成ボタン -->
+      <div class="flex justify-center mt-12">
+        <%= f.submit "選択したレポートで証明書を作成", class: "py-3 px-6 mb-7 bg-purple-600 text-white font-bold rounded shadow-lg hover:bg-purple-700 transition-all duration-300" %>
+      </div>
+      <% @noise_reports_by_date.each do |date, noise_reports| %>
+        <div class="border-b border-gray-300 pb-4">
+          <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
+            <%= image_tag "calendar_month_24dp_7A25A7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-6 mr-2" %>
+            <%= date.present? ? date.strftime("%Y年%m月%d日") : '日付不明' %>
+          </h2>
+          <% noise_reports.each do |noise_report| %>
+            <% if noise_report.recording.audio_file.attached? %>
+              <div class="flex flex-col bg-white h-60 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
+                <div class="flex mt-5">
+                  <p class="ml-8 mr-2 text-lg font-bold">
+                    <%= f.check_box :report_ids, { multiple: true, id: "report_#{noise_report.id}", class: "mr-2" }, noise_report.id, nil %>
+                    <%= f.label "report_#{noise_report.id}", (noise_report.title || "レポート ##{noise_report.id}") %>
                   </p>
-                  <p class="text-xs">最大音量レベル</p>
+                  <%= link_to edit_noise_report_path(noise_report) do %>
+                    <%= image_tag "edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 ml-1" %>
+                  <% end %>
+                  <%= link_to noise_report_path(noise_report), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
+                    <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 mr-1" %>
+                  <% end %>
+                  <p class="ml-3 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(noise_report.noise_type) %>">
+                    <%= noise_report.noise_type_i18n %>
+                  </p>
+                  <p class="ml-3 text-sm h-6 px-2 rounded-full border inline-flex items-center justify-center">
+                    <%= noise_report.frequency_i18n %>
+                  </p>
+                  <div class="flex flex-col ml-auto pr-5">
+                    <p class="text-xl ml-2 font-semibold text-red-500">
+                      <%= formatted_max_decibel(noise_report.recording.max_decibel) %>
+                    </p>
+                    <p class="text-xs">最大音量レベル</p>
+                  </div>
+                </div>
+                <div class="flex">
+                  <p class="mb-1 ml-8 mr-2">
+                    作成日時
+                    <%= noise_report.created_at.strftime("%H時%M分") %>
+                  </p>
+                  <p class="mb-1">
+                    | 録音時間 : <%= formatted_duration(noise_report.recording.duration) %>
+                  </p>
+                </div>
+                <div class="flex items-center bg-gray-100 mt-4 px-5 rounded">
+                  <%= audio_tag noise_report.recording.audio_file, controls: true, class: "w-full" %>
+                  <%= link_to "#", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
+                    <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
+                  <% end %>
+                </div>
+                <div class="flex mt-4 ml-auto">
+                  <button type="button" class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
+                    <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                    グラフ
+                  </button>
+                  <%= link_to noise_report_path(noise_report), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
+                    <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
+                    レポート詳細
+                  <% end %>
                 </div>
               </div>
-
-              <div class="flex">
-                <p class="mb-1 ml-8 mr-2">
-                  作成日時
-                  <%= noise_report.created_at.strftime("%H時%M分") %>
-                </p>
-                <p class="mb-1">
-                  | 録音時間 : <%= formatted_duration(noise_report.recording.duration) %>
-                </p>
-              </div>
-
-              <div class="flex items-center bg-gray-100 mt-4 px-5 rounded">
-                <%= audio_tag noise_report.recording.audio_file, controls: true, class: "w-full" %>
-                <%= link_to "#", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
-                  <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
-                <% end %>
-              </div>
-
-              <div class="flex mt-4 ml-auto">
-                <button type="button" class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
-                  <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                  グラフ
-                </button>
-                <%= link_to noise_report_path(noise_report), class: "w-36 h-10 mr-3 text-white rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-orange-400 to-orange-500" do %>
-                  <%= image_tag "history_edu_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>
-                  レポート詳細
-                <% end %>
-              </div>
-            </div>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
-
-  </div>
-<% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% else %>
   <p class="text-center text-gray-500 mt-12">レポートはありません。</p>
 <% end %>

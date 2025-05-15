@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def page_title(title = "")
+    base_title = "NoiseProof"
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
+
   def flash_color(type)
     case type.to_sym
     when :success then "bg-teal-200"

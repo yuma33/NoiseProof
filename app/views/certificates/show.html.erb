@@ -1,107 +1,83 @@
+<% content_for(:title, t('.title')) %>
 <div id="report-container">
-<div class="mx-auto lg:w-4/5 mt-5">
-  <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md mb-7">
-  <div class="flex flex-col">
-<p class="text-right mr-5 mt-3 text-sm text-gray-500">診断書ID</p>
-    <h1 class="mx-5 text-right">
-  <%= @certificate.certificate_number %>
-    </h1>
+  <div class="mx-auto lg:w-4/5 mt-5">
+    <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md mb-7">
+      <div class="flex flex-col">
+        <p class="text-right mr-5 mt-3 text-sm text-gray-500">診断書ID</p>
+        <h1 class="mx-5 text-right">
+          <%= @certificate.certificate_number %>
+        </h1>
+      </div>
+      <h1 class="rounded ml-5 md:ml-9 text-center lg:ml-12 mr-5 font-bold md:text-3xl text-2xl mb-7 text-purple-700">
+        騒音診断書
+      </h1>
+      <h2 class="ml-5 md:ml-9 lg:ml-12 mt-7 font-bold text-lg">基本情報（ユーザー記入情報）</h2>
+      <p class="ml-5 md:ml-9 lg:ml-12 text-sm text-gray-500">※以下は利用者による記録です</p>
+      <% place_ids = @certificate.noise_reports.map { |noise_report| noise_report.recording&.place_id }.uniq %>
+      <% if place_ids.size == 1 && place_ids.first.present? %>
+        <div class="flex justify-between">
+          <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
+          <p class="mt-5 mx-5 md:mr-9 lg:mr-12"><%= GeocoderService.reverse_geocode(place_ids.first) %></p>
+        </div>
+        <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
+      <% else %>
+        <div class="flex justify-between">
+          <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
+          <p class="mt-5 mx-5 md:mr-9 lg:mr-12">情報なし</p>
+        </div>
+        <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
+      <% end %>
+      <div class="flex justify-between">
+        <p class="ml-5 md:ml-9 lg:ml-12 mr-40 text-gray-500">ユーザー名</p>
+        <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.user.first_name %></p>
+      </div>
+      <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-12 mt-1">
+      <h2 class="ml-5 md:ml-9 lg:ml-12 mt-5 font-bold text-lg">基本情報（システム計測による記録）</h2>
+      <p class="ml-5 md:ml-9 lg:ml-12 text-sm text-gray-500">※以下はアプリが計測・取得した内容です</p>
+      <div class="flex justify-between">
+        <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">騒音場所</p>
+        <p></p>
+      </div>
+      <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
+      <div class="flex justify-between">
+        <p class="ml-5 md:ml-9 lg:ml-12 mr-40 text-gray-500">録音総時間</p>
+        <p class="mr-5 md:mr-9 lg:mr-12"><%= formatted_duration(@certificate.total_recording_duration) %></p>
+      </div>
+      <hr class="border-t border-gray-300 mx-5 mb-3 lg:mx-9 mt-1">
+      <div class="flex justify-between">
+        <p class="ml-5 md:ml-9 lg:ml-12 mr-44 text-gray-500">録音件数</p>
+        <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.total_noise_reports %> 件</p>
+      </div>
+      <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
+      <div class="flex justify-between">
+        <p class="ml-5 md:ml-9 lg:ml-12 mr-16 text-gray-500">最大dB（レポート内）</p>
+        <p class="mr-5 md:mr-9 lg:mr-12"><%= formatted_max_decibel(@certificate.total_recording_max_decibel) %></p>
+      </div>
+      <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
+      <div class="flex justify-between">
+        <p class="ml-5 md:ml-9 lg:ml-12 mr-16 text-gray-500">平均dB（レポート内）</p>
+        <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.total_recording_average_decibel %> dB</p>
+      </div>
+      <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-8 mt-1">
+      <div id="noise-report-chart" data-counts="<%= json_escape(@report_counts.to_json) %>" data-dbs="<%= json_escape(@max_dbs.to_json) %>">
+      </div>
+      <div id="noise-type-chart" class="mx-auto w-5/6 lg:w-3/5" data-distribution='<%= json_escape(@noise_type_distribution.to_json) %>'>
+      </div>
+      <div class="mx-3 md:mx-7 py-3 mb-7 bg-gray-100 rounded">
+        <h1 class="font-bold ml-3">備考・注意事項</h1>
+        <p class="text-sm mx-3">※ 測定値はスマートフォン、パソコンのマイクを用いて測定されたもので、専門的な騒音計と若干の誤差が生じる場合があります。</p>
+        <p class="text-sm mx-3">本報告書は、裁判・行政機関・第三者に対して正式な証拠・証明として使用されることを意図したものではありません。参考資料としてご利用ください。</p>
+        <p class="text-sm mx-3">※ 本報告書の、内容の正確性や法的効力について運営者は一切保証いたしません。また、本報告書の利用により生じた損害・トラブルについて、運営者は一切の責任を負いません。利用はすべてご自身の責任でお願いいたします。</p>
+        <p class="mx-3 text-sm">
+          発行日: <%= @certificate.created_at.strftime("%Y年%m月%d日") %>
+        </p>
+      </div>
     </div>
-  <h1 class="rounded ml-5 md:ml-9 text-center lg:ml-12 mr-5 font-bold md:text-3xl text-2xl mb-7 text-purple-700">
-  騒音診断書
-</h1>
-
-
-
-    <h2 class="ml-5 md:ml-9 lg:ml-12 mt-7 font-bold text-lg">基本情報（ユーザー記入情報）</h2>
-    <p class="ml-5 md:ml-9 lg:ml-12 text-sm text-gray-500">※以下は利用者による記録です</p>
-
-    <% place_ids = @certificate.noise_reports.map { |noise_report| noise_report.recording&.place_id }.uniq %>
-<% if place_ids.size == 1 && place_ids.first.present? %>
-  <div class="flex justify-between">
-    <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
-    <p class="mt-5 mx-5 md:mr-9 lg:mr-12"><%= GeocoderService.reverse_geocode(place_ids.first) %></p>
   </div>
-  <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
-  <% else %>
-
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">詳細住所（建物名・号室など）</p>
-      <p class="mt-5 mx-5 md:mr-9 lg:mr-12">情報なし</p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
-  <% end %>
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mr-40 text-gray-500">ユーザー名</p>
-      <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.user.first_name %></p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-12 mt-1">
-
-
-
-    <h2 class="ml-5 md:ml-9 lg:ml-12 mt-5 font-bold text-lg">基本情報（システム計測による記録）</h2>
-    <p class="ml-5 md:ml-9 lg:ml-12 text-sm text-gray-500">※以下はアプリが計測・取得した内容です</p>
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mt-5 mr-16 text-gray-500">騒音場所</p>
-      <p></p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
-
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mr-40 text-gray-500">録音総時間</p>
-      <p class="mr-5 md:mr-9 lg:mr-12"><%= formatted_duration(@certificate.total_recording_duration) %></p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 mb-3 lg:mx-9 mt-1">
-
-
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mr-44 text-gray-500">録音件数</p>
-    <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.total_noise_reports %> 件</p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
-
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mr-16 text-gray-500">最大dB（レポート内）</p>
-      <p class="mr-5 md:mr-9 lg:mr-12"><%= formatted_max_decibel(@certificate.total_recording_max_decibel) %></p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-3 mt-1">
-
-    <div class="flex justify-between">
-      <p class="ml-5 md:ml-9 lg:ml-12 mr-16 text-gray-500">平均dB（レポート内）</p>
-      <p class="mr-5 md:mr-9 lg:mr-12"><%= @certificate.total_recording_average_decibel %> dB</p>
-    </div>
-    <hr class="border-t border-gray-300 mx-5 lg:mx-9 mb-8 mt-1">
-
-
-    <div id="noise-report-chart"
-    data-counts="<%= json_escape(@report_counts.to_json) %>"
-       data-dbs="<%= json_escape(@max_dbs.to_json) %>">
+  <div class="flex justify-between px-5 mb-32">
+    <%= link_to "← 戻る", "#", class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400 ml-5 md:ml-9 lg:ml-12" %>
+    <button id="client-pdf-button" class="mr-5 md:mr-9 lg:mr-12 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
+      PDFとして保存
+    </button>
   </div>
-
-    <div id="noise-type-chart"
-         class="mx-auto w-5/6 lg:w-3/5"
-         data-distribution='<%= json_escape(@noise_type_distribution.to_json) %>'>
-    </div>
-
-
-    <div class="mx-3 md:mx-7 py-3 mb-7 bg-gray-100 rounded">
-    <h1 class="font-bold ml-3">備考・注意事項</h1>
-<p class="text-sm mx-3">※ 測定値はスマートフォン、パソコンのマイクを用いて測定されたもので、専門的な騒音計と若干の誤差が生じる場合があります。</p>
-<p class="text-sm mx-3">本報告書は、裁判・行政機関・第三者に対して正式な証拠・証明として使用されることを意図したものではありません。参考資料としてご利用ください。</p>
-<p class="text-sm mx-3">※ 本報告書の、内容の正確性や法的効力について運営者は一切保証いたしません。また、本報告書の利用により生じた損害・トラブルについて、運営者は一切の責任を負いません。利用はすべてご自身の責任でお願いいたします。</p>
-  <p class="mx-3 text-sm">
-発行日: <%= @certificate.created_at.strftime("%Y年%m月%d日") %>
-</p>
 </div>
-
-
-</div>
-</div>
-<div class="flex justify-between px-5 mb-32">
-      <%= link_to "← 戻る",
-                  "#",
-                  class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400 ml-5 md:ml-9 lg:ml-12" %>
-      <button id="client-pdf-button" class="mr-5 md:mr-9 lg:mr-12 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
-  PDFとして保存
-</button>
-    </div>

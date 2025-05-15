@@ -64,3 +64,15 @@ ja:
     edit:
       title: レポート編集
       submit: レポートを編集する →
+  certificates:
+    index:
+      title: 診断書一覧
+    show:
+      title: 診断書
+  pages:
+    guide:
+      title: 使い方ガイド
+    policy:
+      title: プライバシーポリシー
+    term:
+      title: 利用規約

@@ -2,32 +2,27 @@
   <nav class="flex justify-between items-center">
     <div class="flex">
       <%= image_tag "graphic_eq_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: 'w-6 mr-3' %>
-      <%= link_to "NoiseProof", root_path, class: "text-md md:text-2xl font-bold" %>
+      <%= link_to "NoiseProof", root_path, class: "sm:text-lg md:text-xl lg:text-2xl font-bold" %>
     </div>
-
-<button id="menu-toggle" class="z-50 top-4 right-4 text-white">
-  <!-- ハンバーガーアイコン -->
-  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"/>
-  </svg>
-</button>
-
-<!-- オーバーレイ（背景暗く） -->
-<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-
-<!-- メニュー本体（右からスライド） -->
-<div id="side-menu" class="fixed top-0 right-0 w-64 h-full bg-purple-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 bg-opacity-90">
-  <div class="p-4 space-y-4 font-bold flex flex-col ml-3">
-    <%= link_to t('header.logout'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.history'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.report'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.certificate'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.guide'), usage_guide_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.inquiry'), inquiry_form_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.conditions'), term_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.policy'), privacy_policy_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
+    <button id="menu-toggle" class="z-50 top-4 right-4 text-white">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <!-- メニュー本体（右からスライド） -->
+    <div id="side-menu" class="fixed top-0 right-0 w-64 h-full bg-purple-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 bg-opacity-90">
+      <div class="p-4 space-y-4 font-bold flex flex-col ml-3">
+        <%= link_to t('header.logout'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.history'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.report'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.certificate'), logout_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.guide'), usage_guide_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.inquiry'), inquiry_form_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.conditions'), term_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
+        <%= link_to t('header.policy'), privacy_policy_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
+      </div>
     </div>
-  </div>
-</div>
+  </nav>
 </header>
