@@ -13,6 +13,10 @@ ja:
       not_success_noise_report: "%{item}の作成に失敗しました"
       not_success_certificate: "%{item}を作成しました"
       bad_request: "%{item}データが見つかりません"
+      destroy_certificate: "%{item}を削除しました"
+      destroy_noise_report: "%{item}を削除しました"
+      success_edit_noise_report: "%{item}を編集しました"
+      not_success_edit_noise_report: "%{item}の編集に失敗しました"
   helpers:
     submit:
       create: 登録
@@ -52,8 +56,11 @@ ja:
   noise_reports:
     new:
       title: レポート作成
-      submit: レポートを作成する →
+      submit: レポートを編集する →
     show:
       title: レポート
     index:
       title: レポート一覧
+    edit:
+      title: レポート作成
+      submit: レポートを作成する →

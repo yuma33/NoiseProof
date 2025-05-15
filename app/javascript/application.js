@@ -8,6 +8,11 @@ import NoiseTypeChart from './components/NoiseTypeChart.jsx';
 import NoiseTypebarChart from './components/NoiseTypebarChart.jsx';
 import "./generate_pdf.js";
 
+document.addEventListener("turbo:before-cache", () => {
+  const main = document.getElementById("main-content");
+  if (main) main.classList.add("hidden");
+});
+
 document.addEventListener('turbo:load', () => {
   setTimeout(() => {
     const loading = document.getElementById('loading-screen');
