@@ -10,37 +10,67 @@ function NoiseCard({ currentDb, averageDb, maxDb, dbHistory }) {
     return '非常にうるさい';
   };
 
-  const getTextColor = (db) => {
-    if (db < 40) return 'text-green-300';
-    if (db < 60) return 'text-orange-400';
-    if (db < 80) return 'text-red-300';
-    return 'text-red-600';
+  const getColor = (db) => {
+    if (db < 40) return '#10B981'; // Green
+    if (db < 60) return '#3B82F6'; // Blue
+    if (db < 80) return '#F97316'; // Orange
+    return '#EF4444'; // Red
   };
 
+  // Calculate percentage for the circular progress
+  const percentage = Math.min((currentDb / 120) * 100, 100);
+
   return (
-    <section className="bg-white rounded-xl p-5 shadow-md transition-all duration-200">
-      <h2 className="text-gray-600 text-center font-medium">現在の音量レベル</h2>
+    <section className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg transition-all duration-300">
+      {/* Header */}
+      <h2 className="text-gray-600 text-center font-medium mb-4">現在の音量レベル</h2>
 
-      <div className="text-center my-4">
-        <div className={`text-5xl font-bold ${getTextColor(currentDb)}`}>
-          {currentDb}
-          <span className="text-lg font-normal text-gray-500 ml-1">dB</span>
+      {/* Main circular display */}
+      <div className="relative flex justify-center mb-5">
+        <div className="w-40 h-40 rounded-full border-8 border-gray-100 flex items-center justify-center relative">
+          {/* Circular progress background */}
+          <div
+            className="absolute inset-0 rounded-full transition-all duration-500"
+            style={{
+              background: `conic-gradient(${getColor(currentDb)} ${percentage}%, transparent ${percentage}%)`,
+              opacity: 0.15
+            }}
+          />
+          {/* Center content */}
+          <div className="text-center z-10">
+            <div
+              className="text-4xl font-bold transition-colors duration-500"
+              style={{ color: getColor(currentDb) }}
+            >
+              {currentDb}
+              <span className="text-base font-normal text-gray-400 ml-1">dB</span>
+            </div>
+            <p className="text-xs text-gray-500 mt-1 animate-fade-in">
+              {getNoiseCategory(currentDb)}
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-gray-500 mt-1">{getNoiseCategory(currentDb)}</p>
       </div>
 
-      {/* 新たに平均と最大を表示 */}
-      <div className="flex justify-center space-x-6 mt-4 text-sm text-gray-600">
-        <div>
-          平均音量: <span className="font-semibold">{averageDb} dB</span>
+      {/* Stats cards */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="bg-gray-50 rounded-xl p-3 text-center transition-all hover:shadow-md">
+          <p className="text-xs text-gray-400 mb-1">平均音量</p>
+          <p className="font-semibold text-gray-700">
+            {averageDb} <span className="text-xs font-normal">dB</span>
+          </p>
         </div>
-        <div>
-          最大音量: <span className="font-semibold">{maxDb} dB</span>
+        <div className="bg-gray-50 rounded-xl p-3 text-center transition-all hover:shadow-md">
+          <p className="text-xs text-gray-400 mb-1">最大音量</p>
+          <p className="font-semibold text-gray-700">
+            {maxDb} <span className="text-xs font-normal">dB</span>
+          </p>
         </div>
       </div>
 
-      <div className="mt-6">
-      <WaveVisualizer dbHistory={dbHistory} mode="recording" />
+      {/* Wave visualizer */}
+      <div className="mt-4  border-gray-100">
+        <WaveVisualizer dbHistory={dbHistory} mode="recording" />
       </div>
     </section>
   );
@@ -50,8 +80,7 @@ NoiseCard.propTypes = {
   currentDb: PropTypes.number.isRequired,
   averageDb: PropTypes.number.isRequired,
   maxDb: PropTypes.number.isRequired,
-  dbHistory: PropTypes.array.isRequired,
+  dbHistory: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default NoiseCard;
-

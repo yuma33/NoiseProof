@@ -3,12 +3,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import WaveVisualizer from './WaveVisualizer';
 
 function NoisePlayer({ id }) {
-  const [audioUrl, setAudioUrl] = useState('');
+  const [audioUrl, setAudioUrl] = useState(null);
   const [dbHistory, setDbHistory] = useState([]);
   const [currentDbIndex, setCurrentDbIndex] = useState(0);
   const audioRef = useRef(null);
   const [duration, setDuration] = useState(0); // 録音時間（秒）
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     fetch(`/api/recordings/${id}`, {
@@ -20,8 +19,7 @@ function NoisePlayer({ id }) {
         console.log('録音データを取得:', data);
         setAudioUrl(data.audio_url);
         setDuration(data.duration || 0);
-        const adjustedHistory = data.db_history.map(value => value + 83);
-        setDbHistory(adjustedHistory);
+        setDbHistory(data.db_history);
       });
   }, [id]);
 
@@ -38,24 +36,22 @@ function NoisePlayer({ id }) {
 
       // インデックス計算
       let index = progress * dbHistory.length;
-      //if (duration >= 1) {
-        //const delayFactor = 0.03; // 遅延係数（0.4 = 40%遅らせる）
-        //index = index * (1 + delayFactor);
-      //}
+      // if (progress >= 70) {
+      //   const delayFactor = 0.01; // 遅延係数（0.4 = 40%遅らせる）
+      //   index = index * (1 + delayFactor);
+      // }
 
-      const newIndex = Math.min(Math.floor(index), dbHistory.length - 1);
+      const newIndex = Math.min(index, dbHistory.length - 1);
       console.log(`インデックス: ${newIndex} / ${dbHistory.length - 1}`);
       setCurrentDbIndex(newIndex);
     };
 
     const handlePlay = () => {
       console.log('再生開始');
-      setIsPlaying(true);
     };
 
     const handlePause = () => {
       console.log('再生停止');
-      setIsPlaying(false);
     };
 
     audio.addEventListener('timeupdate', handleTimeUpdate);
@@ -77,17 +73,12 @@ function NoisePlayer({ id }) {
         mode="playback"
         duration={duration}
       />
-      <audio 
-        ref={audioRef} 
-        controls 
-        src={audioUrl} 
-        className="mt-4 w-full" 
+      <audio
+        ref={audioRef}
+        controls
+        src={audioUrl}
+        className="mt-4 w-full"
       />
-      {duration ? (
-        <div className="text-sm text-gray-500 mt-1">
-          録音時間: {Math.floor(duration / 60)}分{Math.round(duration % 60)}秒
-        </div>
-      ) : null}
     </div>
   );
 }

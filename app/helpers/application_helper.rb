@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def formatted_max_decibel(db)
-    rounded_db = (db + 83).round(1)
+    rounded_db = (db).round(1)
     max_decibel = [ rounded_db, 0 ].max
     "#{max_decibel} dB"
   end

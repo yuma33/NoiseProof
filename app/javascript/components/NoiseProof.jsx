@@ -12,7 +12,6 @@ function NoiseProof() {
   const [recordedAt, setRecordedAt] = useState(null);
   const [fullDbHistory, setFullDbHistory] = useState([]);
   const [averageDb, setAverageDb] = useState(0);
-  const [dbHistory, setDbHistory] = useState(Array(200).fill(0).map(() => Math.floor(Math.random() * 60 + 20)));
   const [exactDuration, setExactDuration] = useState(0); // 正確な録音時間（秒単位、小数点以下も保持）
 
   const mediaRecorderRef = useRef(null);
@@ -24,11 +23,11 @@ function NoiseProof() {
   const streamRef = useRef(null);
   const recordingStartTimeRef = useRef(0); // 録音開始時刻を保存するref
   const dbIntervalRef = useRef(null);
+  const secondsRef = useRef(0);
 
   // 位置情報・確認モーダル関連の状態
   const [locationConfirmationVisible, setLocationConfirmationVisible] = useState(false);
   const [neverAskAgain, setNeverAskAgain] = useState(false);
-  const [coordinates, setCoordinates] = useState(null);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -74,24 +73,21 @@ function NoiseProof() {
         }
         const rms = Math.sqrt(sum / bufferLength);
         const db = 20 * Math.log10(Math.max(rms, 0.000016));
-        const displayDb = Math.max(0, (db + 83).toFixed(1));
+        const displayDb = Math.max(0, parseFloat((db + 83).toFixed(1)));
         setCurrentDb(displayDb);
 
-        setDbHistory(prev => {
-          setFullDbHistory(prev => [...prev, db]);
-          const newHistory = [...prev, displayDb];
-          return newHistory.length > 200 ? newHistory.slice(-200) : newHistory;
-        });
+        if (displayDb > 0) {
+          setFullDbHistory(prev => [displayDb, ...prev]);
+        }
       };
 
-      dbIntervalRef.current = setInterval(updateDbLevel, 50);
+      dbIntervalRef.current = setInterval(updateDbLevel, 125);
 
       recordingStartTimeRef.current = performance.now();
 
-      let seconds = 0;
       timerIntervalRef.current = setInterval(() => {
-        seconds += 1;
-        setTimer(seconds);
+        secondsRef.current += 1;
+        setTimer(secondsRef.current);
       }, 1000);
 
       mediaRecorderRef.current.start(10);
@@ -115,16 +111,15 @@ function NoiseProof() {
       setRecordedAt(new Date().toISOString());
       streamRef.current.getTracks().forEach(track => track.stop());
 
-      if (dbIntervalRef.current) {
-        clearInterval(dbIntervalRef.current);
-        dbIntervalRef.current = null;
-      }
-
       const recordingEndTime = performance.now();
       const durationMs = recordingEndTime - recordingStartTimeRef.current;
       const durationSec = durationMs / 1000;
       setExactDuration(durationSec);
 
+      if (dbIntervalRef.current) {
+        clearInterval(dbIntervalRef.current);
+        dbIntervalRef.current = null;
+      }
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
         timerIntervalRef.current = null;
@@ -169,7 +164,10 @@ function NoiseProof() {
     setAudioBlob(null);
     setTimer(0);
     setExactDuration(0);
-    setCoordinates(null);
+    setFullDbHistory([]);
+    setCurrentDb(0);
+    setAverageDb(0);
+    secondsRef.current = 0;
   };
 
   // 位置情報取得関数
@@ -219,16 +217,27 @@ function NoiseProof() {
     audioChunksRef.current = [];
     setTimer(0);
     setExactDuration(0);
-    setCoordinates(null);
+    setFullDbHistory([]);
+    setCurrentDb(0);
+    setAverageDb(0);
+    secondsRef.current = 0;
   };
 
   useEffect(() => {
-    if (dbHistory.length > 0) {
-      const total = dbHistory.reduce((acc, val) => acc + parseFloat(val), 0);
-      const avg = Math.round(total / dbHistory.length);
-      setAverageDb(avg);
+    if (fullDbHistory.length > 0) {
+      const total = fullDbHistory.reduce((acc, val) => acc + parseFloat(val), 0);
+      const avg = total / fullDbHistory.length;
+      const avgRounded = Number(avg.toFixed(1));
+      setAverageDb(avgRounded);
     }
-  }, [dbHistory]);
+  }, [fullDbHistory]);
+
+
+
+  
+  useEffect(() => {
+    console.log("🔁 averageDb updated:", averageDb);
+  }, [averageDb]);
 
   useEffect(() => {
     return () => {
@@ -246,8 +255,8 @@ function NoiseProof() {
       <main className="flex-1 p-4 space-y-4 max-w-5xl mx-auto w-full">
         <NoiseCard currentDb={currentDb}
           averageDb={averageDb}
-          maxDb={Math.max(...dbHistory)}
-          dbHistory={dbHistory} />
+          maxDb={fullDbHistory.length > 0 ? Math.max(...fullDbHistory) : 0}
+          dbHistory={fullDbHistory} />
 
         <section className="bg-white rounded-xl p-5 shadow-md transition-all duration-200">
           <div className="flex flex-col items-center gap-4">
@@ -332,4 +341,3 @@ function NoiseProof() {
 }
 
 export default NoiseProof;
-
