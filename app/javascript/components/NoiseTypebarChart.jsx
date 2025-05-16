@@ -20,7 +20,7 @@ const NoiseTypebarChart = ({ reportCounts, maxDbs }) => {
   for (let i = 0; i < 24; i++) {
     hours.push(`${i}:00`);
     countsData.push(reportCounts[i] || 0);
-    maxDbData.push(maxDbs[i] ? Math.ceil((maxDbs[i] + 83) * 10) / 10 : 0);
+    maxDbData.push(maxDbs[i] ? Math.ceil((maxDbs[i]) * 10) / 10 : 0);
   }
 
   const data = {
