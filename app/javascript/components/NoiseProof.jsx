@@ -339,5 +339,4 @@ function NoiseProof() {
     </div>
   );
 }
-
 export default NoiseProof;
