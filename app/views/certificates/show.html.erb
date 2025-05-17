@@ -1,6 +1,6 @@
 <% content_for(:title, t('.title')) %>
-<div id="report-container">
-  <div class="mx-auto lg:w-4/5 mt-5">
+<div class="mx-auto lg:w-4/5 mt-5">
+  <div id="report-container">
     <div class="bg-white mx-5 rounded-xl border-2 border-purple-400 shadow-md mb-7">
       <div class="flex flex-col">
         <p class="text-right mr-5 mt-3 text-sm text-gray-500">診断書ID</p>
@@ -66,18 +66,18 @@
       <div class="mx-3 md:mx-7 py-3 mb-7 bg-gray-100 rounded">
         <h1 class="font-bold ml-3">備考・注意事項</h1>
         <p class="text-sm mx-3">※ 測定値はスマートフォン、パソコンのマイクを用いて測定されたもので、専門的な騒音計と若干の誤差が生じる場合があります。</p>
-        <p class="text-sm mx-3">本報告書は、裁判・行政機関・第三者に対して正式な証拠・証明として使用されることを意図したものではありません。参考資料としてご利用ください。</p>
-        <p class="text-sm mx-3">※ 本報告書の、内容の正確性や法的効力について運営者は一切保証いたしません。また、本報告書の利用により生じた損害・トラブルについて、運営者は一切の責任を負いません。利用はすべてご自身の責任でお願いいたします。</p>
+        <p class="text-sm mx-3">本診断書は、裁判・行政機関・第三者に対して正式な証拠・証明として使用されることを意図したものではありません。参考資料としてご利用ください。</p>
+        <p class="text-sm mx-3">※ 本診断書の、内容の正確性や法的効力について運営者は一切保証いたしません。また、本診断書の利用により生じた損害・トラブルについて、運営者は一切の責任を負いません。利用はすべてご自身の責任でお願いいたします。</p>
         <p class="mx-3 text-sm">
           発行日: <%= @certificate.created_at.strftime("%Y年%m月%d日") %>
         </p>
       </div>
-    </div>
+  </div>
   </div>
   <div class="flex justify-between px-5 mb-32">
-    <%= link_to "← 戻る", "#", class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400 ml-5 md:ml-9 lg:ml-12" %>
-    <button id="client-pdf-button" class="mr-5 md:mr-9 lg:mr-12 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
-      PDFとして保存
+    <%= link_to "← 戻る", :back, fallback_location: root_path, class: "text-center h-10 w-24 bg-gray-300 text-black py-2 rounded hover:bg-gray-400 ml-2 md:ml-6 lg:ml-9" %>
+    <button id="client-pdf-button" class="mr-2 md:mr-6 lg:mr-9 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white h-10 rounded">
+    PDFとして保存
     </button>
   </div>
 </div>

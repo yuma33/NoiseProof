@@ -14,7 +14,7 @@
           </h2>
           <% noise_reports.each do |noise_report| %>
             <% if noise_report.recording.audio_file.attached? %>
-              <div class="flex flex-col bg-white h-60 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
+              <div class="flex flex-col bg-white h-44 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
                 <div class="flex mt-5">
                   <p class="ml-8 mr-2 text-lg font-bold">
                     <%= f.check_box :report_ids, { multiple: true, id: "report_#{noise_report.id}", class: "mr-2" }, noise_report.id, nil %>
@@ -48,12 +48,7 @@
                     | 録音時間 : <%= formatted_duration(noise_report.recording.duration) %>
                   </p>
                 </div>
-                <div class="flex items-center bg-gray-100 mt-4 px-5 rounded">
-                  <%= audio_tag noise_report.recording.audio_file, controls: true, class: "w-full" %>
-                  <%= link_to "#", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
-                    <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
-                  <% end %>
-                </div>
+                <hr class="border-t border-gray-300 mx-5 lg:mx-9 mt-2">
                 <div class="flex mt-4 ml-auto">
                   <button type="button" class="w-28 h-10 mr-3 text-purple-500 rounded-full flex items-center justify-center focus:outline-none shadow-lg transition-all duration-300 bg-gradient-to-r from-purple-50 to-purple-100">
                     <%= image_tag "bar_chart_24dp_C360D7_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mr-1" %>

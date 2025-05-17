@@ -12,7 +12,7 @@ document.addEventListener('turbo:load', () => {
     }
 
     const options = {
-      margin:       0.8,
+      margin:       0.1,
       filename:     'noise_proof.pdf',
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2 },
