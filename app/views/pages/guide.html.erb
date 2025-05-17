@@ -31,7 +31,7 @@
           class="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg transition-all duration-300">
           <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-9" %>
         </div>
-        <h3 class="font-bold mb-2">報告書</h3>
+        <h3 class="font-bold mb-2">診断書</h3>
         <p class="text-sm">証拠をまとめる</p>
       </div>
       <div
@@ -69,7 +69,7 @@
         <div class="pl-10 step-container">
           <div class="step-item mb-6 ml-4">
             <h3 class="font-bold text-lg mb-2">ホーム画面を開く</h3>
-            <p>アプリを起動すると、現在の音量レベルがリアルタイムで表示されます。</p>
+            <p>アプリを起動すると、ホーム画面に遷移されます。</p>
           </div>
           <div class="step-item mb-6 ml-4">
             <h3 class="font-bold text-lg mb-2">「録音」ボタンをタップ</h3>
@@ -77,7 +77,9 @@
           </div>
           <div class="step-item mb-6 ml-4">
             <h3 class="font-bold text-lg mb-2">録音を終了</h3>
-            <p>録音が終わったら、同じボタンをタップして終了します。音量データと位置情報が自動で保存されます。</p>
+            <p>録音が終了したら、同じボタンをタップして停止します。停止後に表示され る「保存」ボタンを押すと、音量データが保存されます。
+            また、任意で位置情報を録音データに紐づけることも可能です。位置情報を連携させることで、後に診断書を作成する際に、より説得力のある内容になります。
+            </p>
           </div>
         </div>
         <div class="bg-purple-50 rounded-lg p-4 mt-6">
@@ -99,7 +101,7 @@
         </li>
         <li class="flex items-start">
           <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-          <span>位置情報も自動記録</span>
+          <span>位置情報も連携可能</span>
         </li>
         <li class="flex items-start">
           <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
@@ -122,20 +124,20 @@
       <div class="md:w-2/3">
         <div class="pl-10 step-container">
           <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">録音履歴を開く</h3>
-            <p>「履歴」タブから、これまでの録音一覧を確認できます。</p>
-          </div>
-          <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">録音データを選択</h3>
-            <p>レポートを作成したい録音データをタップして選択します。</p>
+            <h3 class="font-bold text-lg mb-2">「クイックレポートボタン」をタップ</h3>
+            <p>最新の録音からレポートを作成することができます。</p>
           </div>
           <div class="step-item mb-6 ml-4">
             <h3 class="font-bold text-lg mb-2">詳細情報を入力</h3>
             <p>騒音の種類（足音、音楽など）、発生場所の詳細、状況メモなどを追加入力します。</p>
           </div>
           <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">レポートを保存</h3>
-            <p>入力が完了したら保存ボタンをタップ。レポートが作成されます。</p>
+            <h3 class="font-bold text-lg mb-2">レポートを作成</h3>
+            <p>入力が完了したら「レポートを作成する」ボタンをタップ。レポートが作成されます。</p>
+          </div>
+          <div class="step-item mb-6 ml-4">
+            <h3 class="font-bold text-lg mb-2">PDF保存</h3>
+            <p>必要に応じてレポートをPDF保存することもできます。</p>
           </div>
         </div>
         <div class="bg-purple-50 rounded-lg p-4 mt-6">
@@ -189,45 +191,41 @@
         class="h-12 w-12 app-purple rounded-full flex items-center justify-center mr-4 bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg transition-all duration-300">
         <%= image_tag "description_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" , class: "w-7" %>
       </div>
-      <h2 class="text-2xl font-bold text-app-purple">3. 証拠をまとめる！「報告書」でしっかり伝える</h2>
+      <h2 class="text-2xl font-bold text-app-purple">3. 証拠をまとめる！「診断書」でしっかり伝える</h2>
     </div>
-    <p class="mb-6 text-lg">複数のレポートをまとめて、管理会社や第三者へ提出できる「報告書」を作成できます。説得力のある証拠資料になります。</p>
+    <p class="mb-6 text-lg">複数のレポートをまとめて、管理会社や第三者へ提出できる「診断書」を作成できます。説得力のある証拠資料になります。</p>
     <div class="flex flex-col md:flex-row gap-8 mb-8">
       <div class="md:w-2/3">
         <div class="pl-10 step-container">
           <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">「証明書作成」を選択</h3>
-            <p>ホーム画面またはメニューから「証明書作成」機能を選びます。</p>
-          </div>
-          <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">期間を設定</h3>
-            <p>いつからいつまでのレポートをまとめるか、期間を選択します。</p>
+            <h3 class="font-bold text-lg mb-2">「診断書作成」を選択</h3>
+            <p>ホーム画面またはメニューから「診断書作成」機能を選びます。</p>
           </div>
           <div class="step-item mb-6 ml-4">
             <h3 class="font-bold text-lg mb-2">レポートを選択</h3>
-            <p>報告書に含めたいレポートにチェックを入れます。</p>
+            <p>診断書に含めたいレポートにチェックを入れます。</p>
           </div>
           <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">報告書を生成</h3>
-            <p>「報告書作成」ボタンをタップすると、自動的にPDF形式の報告書が生成されます。</p>
+            <h3 class="font-bold text-lg mb-2">診断書を生成</h3>
+            <p>「診断書を作成する」ボタンをタップすると、診断書が作成されます。</p>
           </div>
           <div class="step-item mb-6 ml-4">
-            <h3 class="font-bold text-lg mb-2">保存・共有</h3>
-            <p>作成した報告書はアプリ内に保存され、メールやメッセージで共有することもできます。</p>
+            <h3 class="font-bold text-lg mb-2">PDF保存</h3>
+            <p>必要に応じてレポートをPDF保存することもできます。</p>
           </div>
         </div>
         <div class="bg-purple-50 rounded-lg p-4 mt-6">
           <h4 class="font-bold flex items-center"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> ポイント</h4>
-          <p>客観的なデータに基づいた報告書は、あなたの主張を強力に後押しします。一定期間（1週間〜1ヶ月程度）の記録をまとめると、騒音問題の深刻さが伝わりやすくなります。</p>
+          <p>客観的なデータに基づいた診断書は、あなたの主張を強力に後押しします。一定期間（1週間〜1ヶ月程度）の記録をまとめると、騒音問題の深刻さが伝わりやすくなります。</p>
         </div>
       </div>
       <div class="md:w-1/3 bg-gray-50 rounded-lg p-4 border border-gray-200">
-        <h4 class="font-bold text-center mb-3">報告書サンプル</h4>
+        <h4 class="font-bold text-center mb-3">診断書サンプル</h4>
         <%= image_tag "2.png" , class: "mx-auto mt-7" %>
       </div>
     </div>
     <div class="border-t border-gray-200 pt-4">
-      <h4 class="font-bold mb-2">報告書に含まれる情報:</h4>
+      <h4 class="font-bold mb-2">診断書に含まれる情報:</h4>
       <div class="grid md:grid-cols-2 gap-4">
         <ul>
           <li class="flex items-start mb-2">
