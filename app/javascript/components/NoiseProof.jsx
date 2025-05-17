@@ -299,7 +299,7 @@ function NoiseProof() {
             <h2 className="text-xl font-semibold mb-4">⏺️ 録音に位置情報を連携しますか？</h2>
             <p className="mb-4 text-sm text-gray-600">
             この録音に位置情報を付加して保存できます。<br />
-            証明書を発行する際など、客観的な記録として有効です。
+            診断書を作るときに、より信頼性のある記録として役立ちます。
             </p>
             <label className="flex items-center mb-4">
               <input
@@ -339,5 +339,4 @@ function NoiseProof() {
     </div>
   );
 }
-
 export default NoiseProof;
