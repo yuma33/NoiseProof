@@ -1,29 +1,42 @@
 <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 md:p-6 w-full top-0 left-0 z-10">
   <nav class="flex justify-between items-center">
     <div class="flex">
-      <%= image_tag "Group 2.svg", class: 'w-7 mr-3' %>
+      <%= image_tag "Group 2.svg", class: 'w-5 md:w-6 mr-3' %>
       <%= link_to "NoiseProof", root_path, class: "text-xl md:text-2xl font-bold" %>
     </div>
-<button id="menu-toggle" class="z-50 top-4 right-4 text-white">
-  <!-- ハンバーガーアイコン -->
-  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"/>
-  </svg>
-</button>
-<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-<!-- メニュー本体（右からスライド） -->
-<div id="side-menu" class="fixed top-0 right-0 w-64 h-full bg-purple-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 bg-opacity-90">
-  <div class="p-4 space-y-4 font-bold flex flex-col ml-3">
-    <%= link_to t('header.login'), login_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.registration'), login_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.guide'), usage_guide_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.inquiry'), "https://forms.gle/LuV8TfPvNDScK1s68", class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300",
-                        target: "_blank",
-                        rel: "noopener noreferrer" %>
-    <%= link_to t('header.conditions'), term_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
-    <%= link_to t('header.policy'), privacy_policy_path, class: "text-sm md:text-lg hover:opacity-30 transition-all duration-300" %>
+    <button id="menu-toggle" class="z-50 top-4 right-4 text-white">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <div id="side-menu" class="fixed top-0 right-0 w-64 h-full bg-purple-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 bg-opacity-90">
+      <div class="p-4 space-y-4 font-bold flex flex-col ml-1">
+        <div class="flex">
+          <%= image_tag "login_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mt-16 mr-4" %>
+          <%= link_to t('header.login'), login_path, class: "text-sm md:text-lg mt-16 hover:opacity-30 transition-all duration-300" %>
+        </div>
+        <div class="flex">
+          <%= image_tag "person_add_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-2" %>
+          <%= link_to t('header.registration'), login_path, class: "text-sm md:text-lg mt-1 hover:opacity-30 transition-all duration-300" %>
+        </div>
+        <div class="flex">
+          <%= image_tag "help_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= link_to t('header.guide'), usage_guide_path, class: "text-sm md:text-lg mt-1 hover:opacity-30 transition-all duration-300" %>
+        </div>
+        <div class="flex">
+          <%= image_tag "mail_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= link_to t('header.inquiry'), "https://forms.gle/LuV8TfPvNDScK1s68", class: "text-sm mt-1 md:text-lg hover:opacity-30 transition-all duration-300", target: "_blank", rel: "noopener noreferrer" %>
+        </div>
+        <div class="flex">
+          <%= image_tag "gavel_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= link_to t('header.conditions'), term_path, class: "text-sm md:text-lg mt-1 hover:opacity-30 transition-all duration-300" %>
+        </div>
+        <div class="flex">
+          <%= image_tag "privacy_tip_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= link_to t('header.policy'), privacy_policy_path, class: "text-sm md:text-lg mt-1 hover:opacity-30 transition-all duration-300" %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </nav>
 </header>

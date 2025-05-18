@@ -296,7 +296,7 @@ function NoiseProof() {
       {locationConfirmationVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h2 className="text-xl font-semibold mb-4">⏺️ 録音に位置情報を連携しますか？</h2>
+            <h2 className="text-xl font-semibold mb-4">📍 録音に位置情報を連携しますか？</h2>
             <p className="mb-4 text-sm text-gray-600">
             この録音に位置情報を付加して保存できます。<br />
             診断書を作るときに、より信頼性のある記録として役立ちます。
