@@ -13,27 +13,27 @@
     <div id="side-menu" class="fixed top-0 right-0 w-64 h-full bg-purple-600 shadow-lg transform translate-x-full transition-transform duration-300 z-50 bg-opacity-90">
       <div class="p-4 space-y-4 font-bold flex flex-col ml-1">
         <div class="flex hover:opacity-30 transition-all duration-300">
-          <%= image_tag "login_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mt-16 mr-4" %>
+          <%= image_tag "login_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mt-16 mr-4" %>
           <%= link_to t('header.login'), login_path, class: "text-sm md:text-lg mt-16" %>
         </div>
         <div class="flex hover:opacity-30 transition-all duration-300">
-          <%= image_tag "person_add_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-2" %>
+          <%= image_tag "person_add_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mr-4 mt-1" %>
           <%= link_to t('header.registration'), new_user_path, class: "text-sm md:text-lg mt-1" %>
         </div>
         <div class="flex hover:opacity-30 transition-all duration-300">
-          <%= image_tag "help_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= image_tag "help_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mr-4 mt-1" %>
           <%= link_to t('header.guide'), usage_guide_path, class: "text-sm md:text-lg mt-1" %>
         </div>
         <div class="flex hover:opacity-30 transition-all duration-300">
-          <%= image_tag "mail_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= image_tag "mail_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mr-4 mt-1" %>
           <%= link_to t('header.inquiry'), "https://forms.gle/LuV8TfPvNDScK1s68", class: "text-sm mt-1 md:text-lg", target: "_blank", rel: "noopener noreferrer" %>
         </div>
         <div class="flex hover:opacity-30 transition-all duration-300">
-          <%= image_tag "gavel_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= image_tag "gavel_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mr-4 mt-1" %>
           <%= link_to t('header.conditions'), term_path, class: "text-sm md:text-lg mt-1" %>
         </div>
         <div class="flex hover:opacity-30 transition-all duration-300">
-          <%= image_tag "privacy_tip_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "mr-4 mt-1" %>
+          <%= image_tag "privacy_tip_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mr-4 mt-1" %>
           <%= link_to t('header.policy'), privacy_policy_path, class: "text-sm md:text-lg mt-1" %>
         </div>
       </div>
