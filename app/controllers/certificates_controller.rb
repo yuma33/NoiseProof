@@ -1,8 +1,9 @@
 class CertificatesController < ApplicationController
   def index
-    @certificates_by_date = current_user.certificates.group_by { |certificate|
+    @page_certificates = current_user.certificates.order(created_at: :desc).page(params[:page]).per(10)
+    @certificates_by_date = @page_certificates.group_by { |certificate|
     certificate.created_at&.to_date
-  }.sort.reverse.to_h
+  }
   end
 
   def create
