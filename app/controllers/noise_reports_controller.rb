@@ -30,9 +30,10 @@ class NoiseReportsController < ApplicationController
   end
 
   def index
-    @noise_reports_by_date = current_user.noise_reports.group_by { |noise_report|
+    @page_reports = current_user.noise_reports.order(created_at: :desc).page(params[:page]).per(10)
+    @noise_reports_by_date = @page_reports.group_by { |noise_report|
     noise_report.created_at&.to_date
-  }.sort.reverse.to_h
+  }
   end
 
   def edit

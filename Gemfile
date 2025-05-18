@@ -72,3 +72,5 @@ gem "http"
 gem "groupdate"
 
 gem "google-cloud-storage"
+
+gem "kaminari"

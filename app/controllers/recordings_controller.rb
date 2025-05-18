@@ -4,9 +4,10 @@ class RecordingsController < ApplicationController
   def home; end
 
   def index
-    @recordings_by_date = current_user.recordings.group_by { |recording|
+    @page_records = current_user.recordings.order(recorded_at: :desc).page(params[:page]).per(10)
+    @recordings_by_date = @page_records.group_by { |recording|
     recording.recorded_at&.to_date
-  }.sort.reverse.to_h
+  }
   end
 
   def destroy
