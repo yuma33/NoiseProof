@@ -12,8 +12,8 @@ function NoiseCard({ currentDb, averageDb, maxDb, dbHistory }) {
 
   const getColor = (db) => {
     if (db < 40) return '#10B981'; // Green
-    if (db < 60) return '#3B82F6'; // Blue
-    if (db < 80) return '#F97316'; // Orange
+    if (db < 60) return '#F97316'; // Orange
+    if (db < 80) return '#EF4444'; // Red
     return '#EF4444'; // Red
   };
 
