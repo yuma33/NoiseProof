@@ -30,7 +30,8 @@ class NoiseReportsController < ApplicationController
   end
 
   def index
-    @page_reports = current_user.noise_reports.order(created_at: :desc).page(params[:page]).per(10)
+    @q = current_user.noise_reports.ransack(params[:q])
+    @page_reports = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
     @noise_reports_by_date = @page_reports.group_by { |noise_report|
     noise_report.created_at&.to_date
   }

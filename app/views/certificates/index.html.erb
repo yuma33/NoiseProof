@@ -1,6 +1,7 @@
 <% content_for(:title, t('.title')) %>
 <% if @certificates_by_date.present? %>
-  <div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-12 mt-7">
+  <%= render 'search_form', q: @q, url: certificates_path %>
+  <div class="flex flex-col justify-center bg-purple-50 mx-auto max-w-5xl mb-16 mt-7 md:mt-9">
     <% @certificates_by_date.each do |date, certificates| %>
       <div class="border-b border-gray-300 pb-4">
         <h2 class="flex text-xl font-semibold text-gray-700 mt-4 mb-5 ml-8">
