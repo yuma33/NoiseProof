@@ -1,6 +1,7 @@
 class CertificatesController < ApplicationController
   def index
-    @page_certificates = current_user.certificates.order(created_at: :desc).page(params[:page]).per(10)
+    @q = current_user.certificates.ransack(params[:q])
+    @page_certificates = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
     @certificates_by_date = @page_certificates.group_by { |certificate|
     certificate.created_at&.to_date
   }

@@ -1,0 +1,13 @@
+<%= search_form_for q, url: url do |f| %>
+  <div class="flex items-center justify-center max-w-5xl mx-auto mt-8">
+    <div class="flex mx-16 md:mx-20 w-full">
+      <%= f.search_field :title_or_memo_cont,
+        class: 'w-full h-10 px-4 mr-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 shadow-sm',
+        placeholder: t('defaults.search_word') %>
+      <div>
+        <%= f.submit '検索',
+          class: 'h-10 px-6 text-white rounded-lg flex items-center justify-center shadow-md transition-all duration-300 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 focus:outline-none' %>
+      </div>
+    </div>
+  </div>
+<% end %>

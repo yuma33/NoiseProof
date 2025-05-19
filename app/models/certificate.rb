@@ -18,4 +18,8 @@ class Certificate < ApplicationRecord
   def total_recording_average_decibel
     noise_reports.joins(:recording).average("recordings.average_decibel").round(1)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "certificate_number", "created_at", "id", "id_value", "title", "updated_at", "user_id" ]
+  end
 end

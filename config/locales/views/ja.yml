@@ -1,5 +1,6 @@
 ja:
   defaults:
+    search_word: 検索ワード
     password_reset: パスワードリセット
     delete_confirm: 削除しますか？
     flash_message:
