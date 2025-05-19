@@ -4,6 +4,12 @@
     <title><%= page_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta property="og:site_name" content="NoiseProof" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://noiseproof.onrender.com" />
+    <%= tag.meta property: "og:image", content: image_url("main.png") %>
+    <meta property="og:description" content="NoiseProofは、あなたの静かな生活を取り戻すためのアプリです。騒音の記録から、管理人への診断書作成、さらには同じ悩みを持つ人との情報交換まで、トータルでサポートします。" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
