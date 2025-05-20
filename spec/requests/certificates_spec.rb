@@ -10,7 +10,7 @@ RSpec.describe "certificates", type: :request do
       cert.noise_reports << report1
     end
   end
-  let(:params) { { report_ids: [report1.id, report2.id] } }
+  let(:params) { { report_ids: [ report1.id, report2.id ] } }
 
   before do
     login_user(user)

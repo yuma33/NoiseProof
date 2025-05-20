@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "noise_reports", type: :request do
-
   let(:user) { create(:user) }
   let(:recording) { create(:recording, user: user) }
   let(:noise_report) { create(:noise_report, user: user, recording: recording) }

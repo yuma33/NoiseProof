@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "recordings", type: :request do
-
   let(:user) { create(:user) }
   let(:recording) { create(:recording, user: user) }
 
@@ -35,6 +34,4 @@ RSpec.describe "recordings", type: :request do
       end
     end
   end
-
 end
-
