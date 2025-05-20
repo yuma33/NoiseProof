@@ -89,7 +89,7 @@ const NoiseTypebarChart = ({ reportCounts, maxDbs }) => {
   };
 
   return (
-    
+
     <div className="w-4/5 mt-10 md:mt-16 flex justify-center items-center mx-auto">
       <Bar data={data} options={options} />
     </div>
