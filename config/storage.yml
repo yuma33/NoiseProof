@@ -40,7 +40,9 @@ google:
     type: "service_account"
     project_id: <%= ENV['GOOGLE_PROJECT_ID'] %>
     private_key_id: <%= ENV['GOOGLE_PRIVATE_KEY_ID'] %>
+    <% if ENV['GOOGLE_PRIVATE_KEY'].present? %>
     private_key: "<%= ENV['GOOGLE_PRIVATE_KEY'].gsub('\\n', '\n') %>"
+    <% end %>
     client_email: <%= ENV['GOOGLE_CLIENT_EMAIL'] %>
     client_id: <%= ENV['GOOGLE_CLIENT_ID'] %>
     auth_uri: "https://accounts.google.com/o/oauth2/auth"
