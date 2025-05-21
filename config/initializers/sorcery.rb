@@ -4,7 +4,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [ :external ]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -102,7 +102,6 @@ Rails.application.config.sorcery.configure do |config|
   # }
   # config.linkedin.scope = "r_liteprofile r_emailaddress"
   #
-  #
   # For information about XING API:
   # - user info fields go to https://dev.xing.com/docs/get/users/me
   #
@@ -195,6 +194,18 @@ Rails.application.config.sorcery.configure do |config|
   # config.liveid.callback_url = "http://mydomain.com:3000/oauth/callback?provider=liveid"
   # config.liveid.user_info_mapping = {:username => "name"}
 
+
+  config.external_providers = [ :google ]
+
+  config.google.key = ENV["GOOGLE_OAUTH_CLIENT_ID"]
+  config.google.secret = ENV["GOOGLE_CLIENT_SECRET"]
+  config.google.callback_url = "http://localhost:3000/oauth/callback?provider=google"
+  config.google.user_info_mapping = {
+    email: "email",
+    name: "name"
+  }
+
+  config.google.scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
   # For information about JIRA API:
   # https://developer.atlassian.com/display/JIRADEV/JIRA+REST+API+Example+-+OAuth+authentication
   # To obtain the consumer key and the public key you can use the jira-ruby gem https://github.com/sumoheavy/jira-ruby
@@ -248,7 +259,7 @@ Rails.application.config.sorcery.configure do |config|
     # Default: `[:email]`
     #
     # user.username_attribute_names =
-
+    user.authentications_class = Authentication
     # Change *virtual* password attribute, the one which is used until an encrypted one is generated.
     # Default: `:password`
     #

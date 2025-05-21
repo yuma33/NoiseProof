@@ -37,5 +37,10 @@ Rails.application.routes.draw do
 
   get "quick_report", to: "noise_reports#quick_new", as: "quick_noise_report"
 
+  get "oauth/callback", to: "oauths#callback", as: :oauth_callback
+  get "/login/:provider", to: "oauths#oauth", as: :login_at_provider
+  get "oauth/:provider", to: "oauths#oauth", as: :oauth_at
+
+
   resources :users, only: %i[new create]
 end

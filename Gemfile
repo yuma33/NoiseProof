@@ -79,3 +79,5 @@ gem "google-cloud-storage"
 gem "kaminari"
 
 gem "ransack", "~> 4.3"
+
+gem "omniauth-google-oauth2"
