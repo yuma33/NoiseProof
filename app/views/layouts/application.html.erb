@@ -29,8 +29,8 @@
     <% else %>
       <%= render 'shared/header' %>
     <% end %>
-    <%= render 'shared/flash_messages' %>
     <div class="flex-grow bg-purple-50">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
     </div>
     <%= render 'shared/footer' %>
