@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://noise-proof.com/"
+    origins "https://noise-proof.com"
 
     resource "*",
       headers: :any,
