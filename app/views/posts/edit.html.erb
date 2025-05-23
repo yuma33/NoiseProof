@@ -1,0 +1,45 @@
+<% content_for(:title, t('.title')) %>
+<h1 class="text-xl md:text-2xl text-center text-gray-700 font-semibold my-7">
+  <%= t('.title') %>
+</h1>
+
+<div class="bg-white rounded-xl shadow-md mx-5 py-8 mb-28">
+  <%= form_with model: @post do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <div class="flex flex-col -mx-3">
+      <div class="mx-11 mt-9 mb-6 md:mb-8">
+        <%= f.label :title, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+        <%= f.text_field :title, placeholder: "タイトルを記入してください",
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
+      </div>
+
+      <div class="mx-11 mb-6 md:mb-8">
+        <%= f.label :noise_type, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+        <%= f.select :noise_type,
+          Post.noise_types_i18n.invert.map { |key, value| [key, Post.noise_types[value].to_i] }, { include_blank: false,
+          selected: Post.noise_types[@post.noise_type] },
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
+      </div>
+
+      <div class="mx-11 mb-6 md:mb-8">
+        <%= f.label :frequency, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+        <%= f.select :frequency,
+          Post.frequencies_i18n.invert.map { |key, value| [key, Post.frequencies[value].to_i] }, { include_blank: false,
+          selected: Post.frequencies[@post.frequency] },
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
+      </div>
+
+      <div class="mx-11 mb-6 md:mb-8">
+        <%= f.label :body, class: "block uppercase tracking-wide text-xs text-gray-700 font-bold mb-2" %>
+        <%= f.text_area :body, placeholder: "投稿内容を記入してください",
+          class: "appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded h-28 py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-300 focus:border-2" %>
+      </div>
+
+      <div class="flex justify-between px-11">
+        <%= link_to "← 戻る", posts_path, class: "text-center h-10 w-24 bg-gray-300 text-black py-2 px-4 rounded hover:bg-gray-400" %>
+        <%= f.submit t('.submit'), class: "w-28 bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 px-4 rounded mb-12 md:mb-16" %>
+      </div>
+    </div>
+  <% end %>
+</div>

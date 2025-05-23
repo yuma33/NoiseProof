@@ -5,6 +5,7 @@ ja:
       recording: 録音
       noise_report: レポート
       certificate: 診断書
+      post: 投稿
     attributes:
       user:
         email: メールアドレス
@@ -21,8 +22,32 @@ ja:
         memo: 詳細メモ
         title: レポート名
         place: 騒音場所（システム計測による記録)
+      post:
+        title: タイトル
+        frequency: 発生頻度
+        noise_type: 騒音の種類
+        body: 本文
+      comment:
+        body: コメント
   enums:
     noise_report:
+      noise_type:
+        noise_type_other: その他
+        footstep: 足音（足音、飛び跳ねなど）
+        appliance: 生活機械音（家電製品など）
+        human_voice: 人の声
+        entertainment: 音楽、映像音（テレビなど）
+        impact: 衝撃音（ドアや窓の閉会など)
+        pet: ペット（鳴き声、動物の移動音など）
+        external: 外部環境音（車の音、工事音など)
+      frequency:
+        frequency_other: その他
+        daily: 毎日
+        weekly: 週に1回
+        few: 週に数回
+        irregular: 不定期
+        noise_report:
+    post:
       noise_type:
         noise_type_other: その他
         footstep: 足音（足音、飛び跳ねなど）

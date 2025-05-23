@@ -1,0 +1,23 @@
+      <ul class="mb-15" id="comment-<%= comment.id %>">
+        <li class="mb-3 mt-3 border-t border-gray-300">
+          <div class="mt-3 flex justify-between">
+            <div class="flex">
+              <%= image_tag 'person_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg', class: 'w-6 h-6 ml-2 mr-3' %>
+              <%= comment.user.name %>
+            </div>
+            <% if current_user.own?(comment) %>
+              <div class="flex">
+                <%= link_to edit_post_path(@post) do %>
+                  <%= image_tag 'edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg', class: 'w-6 h-6' %>
+                <% end %>
+                <%= link_to comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } do %>
+                  <%= image_tag 'delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg', class: 'w-6 h-6' %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+        <li class="ml-9 mb-3 text-gray-500 text-sm">
+          <%= comment.body %>
+        </li>
+      </ul>
