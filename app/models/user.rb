@@ -13,4 +13,10 @@ class User < ApplicationRecord
   has_many :noise_reports, dependent: :destroy
   has_many :certificates, dependent: :destroy
   has_many :authentications, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+  def own?(object)
+    self.id == object&.user_id
+  end
 end

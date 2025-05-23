@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_21_213105) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_23_175614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_213105) do
     t.index ["user_id"], name: "index_certificates_on_user_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "noise_reports", force: :cascade do |t|
     t.bigint "user_id"
     t.string "location"
@@ -84,6 +94,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_213105) do
     t.bigint "recording_id", null: false
     t.index ["recording_id"], name: "index_noise_reports_on_recording_id"
     t.index ["user_id"], name: "index_noise_reports_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.integer "frequency", default: 0
+    t.integer "noise_type", default: 0
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -122,7 +143,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_213105) do
   add_foreign_key "certificate_noise_reports", "certificates"
   add_foreign_key "certificate_noise_reports", "noise_reports"
   add_foreign_key "certificates", "users"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "noise_reports", "recordings"
   add_foreign_key "noise_reports", "users"
+  add_foreign_key "posts", "users"
   add_foreign_key "recordings", "users"
 end

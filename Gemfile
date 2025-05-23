@@ -53,6 +53,8 @@ group :development do
   gem "web-console"
 
   gem "dotenv-rails"
+
+  gem "faker"
 end
 
 group :test do
