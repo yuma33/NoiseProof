@@ -15,6 +15,20 @@ class User < ApplicationRecord
   has_many :authentications, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :likes_posts, through: :likes, source: :post
+
+  def like(post)
+    likes_posts << post
+  end
+
+  def unlike(post)
+    likes_posts.destroy(post)
+  end
+
+  def like?(post)
+    likes_posts.include?(post)
+  end
 
   def own?(object)
     self.id == object&.user_id
