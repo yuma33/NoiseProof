@@ -1,0 +1,7 @@
+<div class='mx-auto'>
+  <% if current_user.like?(post) %>
+    <%= render 'unlike', { post: post } %>
+  <% else %>
+    <%= render 'like', { post: post } %>
+  <% end %>
+</div>

@@ -24,6 +24,8 @@ ja:
       success_edit_post: "%{item}を編集しました"
       not_success_edit_post: "%{item}の編集に失敗しました"
       destroy_post: "%{item}を削除しました"
+      success_like: "いいねしました"
+      not_success_like: "いいねを解除しました"
   helpers:
     submit:
       create: 登録
@@ -92,3 +94,6 @@ ja:
       submit: 編集する
     show:
       submit: コメントする
+      title: 投稿詳細
+    index:
+      title: 投稿一覧

@@ -1,5 +1,5 @@
+<% content_for(:title, t('.title')) %>
 <div class="flex flex-col bg-white mx-auto w-2/3 mt-8 rounded-lg shadow-md">
-
   <div class="flex ml-8 mr-5 mt-3">
     <%= image_tag "account_circle_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mb-1" %>
     <p class="ml-2 mr-3 mb-1">
@@ -9,7 +9,6 @@
       <%= @post.created_at.strftime("%m/%d %H:%M") %>
     </p>
   </div>
-
   <div class="flex mt-3">
     <p class="ml-8 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(@post.noise_type) %>">
       <%= @post.noise_type_i18n %>
@@ -18,35 +17,25 @@
       <%= @post.frequency_i18n %>
     </p>
   </div>
-
   <hr class="border-t border-gray-300 mx-5 lg:mx-9 mt-2">
-
   <div class="flex mt-3">
     <%= link_to post_path(@post), class: "ml-8 mr-3 mb-3 rounded-full text-lg font-bold text-center inline-flex items-center justify-center" do %>
       <%= @post.title %>
     <% end %>
-
     <% if current_user.own?(@post) %>
       <%= link_to edit_post_path(@post) do %>
         <%= image_tag "edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 ml-1" %>
       <% end %>
-
       <%= link_to post_path(@post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
         <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 mr-1" %>
       <% end %>
     <% end %>
   </div>
-
   <p class="text-left mx-8 mb-8 text-gray-500 break-all">
-      <%= @post.body %>
+    <%= @post.body %>
   </p>
-
 </div>
-
-
 <%= render 'comments/form', comment: @comment, post: @post %>
-
-
 <div id="table-comment" class="max-w-lg md:max-w-xl mx-auto mb-28">
   <% if @post.comments.any? %>
     <%= render @comments %>

@@ -1,69 +1,68 @@
 <% content_for(:title, t('.title')) %>
 <div class="my-8 mx-10">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <% @posts.each do |post| %>
-      <div class="flex flex-col bg-white h-64 md:h-64 rounded-lg shadow-md">
-
-              <div class="flex ml-8 mr-5 mt-3">
-              <%= image_tag "account_circle_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mb-1" %>
-              <p class="ml-2 mr-3 mb-1">
-                <%= post.user.name %>
-                </p>
-                <p class="mb-1 ml-auto text-gray-500">
-                <%= post.created_at.strftime("%m/%d %H:%M") %>
-                </p>
-              </div>
-
-
-              <div class="flex mt-3">
-              <p class="ml-8 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(post.noise_type) %>">
-              <%= post.noise_type_i18n %>
-            </p>
-            <p class="ml-3 text-sm h-6 px-2 rounded-full border inline-flex items-center justify-center">
-              <%= post.frequency_i18n %>
-            </p>
-            </div>
-            <hr class="border-t border-gray-300 mx-5 lg:mx-9 mt-3">
-
-
-                <div class="flex mt-3">
-                <%= link_to post_path(post), class: "ml-8 mr-3 mb-3 rounded-full text-lg font-bold text-center inline-flex items-center justify-center" do %>
-                <%= post.title %>
-                  <% end %>
-                  <% if current_user.own?(post)  %>
-                  <%= link_to edit_post_path(post) do %>
-                    <%= image_tag "edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 ml-1" %>
-                  <% end %>
-                  <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
-                    <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 mr-1" %>
-                  <% end %>
-                                      <% end %>
-                </div>
-
-                <p class="text-left mx-8 mb-1 text-gray-500 break-all">
-                <% if post.body.length > 30 %>
-                  <%= post.body[0...30]... %>
-                <% else %>
-                <%= post.body %>
-                <% end %>
-                </p>
-
-              </div>
+    <% @posts.each do |post| %>
+      <div class="flex flex-col bg-white h-68 md:h-68 rounded-lg shadow-md">
+        <div class="flex ml-8 mr-5 mt-3">
+          <%= image_tag "account_circle_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mb-1" %>
+          <p class="ml-2 mr-3 mb-1">
+            <%= post.user.name %>
+          </p>
+          <p class="mb-1 ml-auto text-gray-500">
+            <%= post.created_at.strftime("%m/%d %H:%M") %>
+          </p>
+        </div>
+        <div class="flex mt-3">
+          <p class="ml-8 text-sm rounded-full h-6 text-center inline-flex items-center justify-center <%= noise_type_color(post.noise_type) %>">
+            <%= post.noise_type_i18n %>
+          </p>
+          <p class="ml-3 text-sm h-6 px-2 rounded-full border inline-flex items-center justify-center">
+            <%= post.frequency_i18n %>
+          </p>
+        </div>
+        <hr class="border-t border-gray-300 mx-5 lg:mx-9 mt-3">
+        <div class="flex mt-3">
+          <%= link_to post_path(post), class: "ml-8 mr-3 mb-3 rounded-full text-lg font-bold text-center inline-flex items-center justify-center" do %>
+            <%= post.title %>
+          <% end %>
+          <% if current_user.own?(post) %>
+            <%= link_to edit_post_path(post) do %>
+              <%= image_tag "edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 ml-1" %>
+            <% end %>
+            <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか' } do %>
+              <%= image_tag "delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 mt-1 mr-1" %>
+            <% end %>
           <% end %>
         </div>
-
-        <%= link_to new_post_path, class: "fixed bottom-24 right-3 rounded-full bg-purple-200 border w-16 h-16 shadow-lg z-50 flex items-center
-justify-center " do %>
-          <div class="flex flex-col w-10 items-center
-justify-center">
-                    <%= image_tag "rate_review_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
-              <p class="text-xs text-gray-500">
-                投稿
-              </p>
-          </div>
-        <% end %>
-
-        <div class="mt-5">
-    <%= paginate @posts %>
+        <p class="text-left mx-8 mb-9 text-gray-500 break-all">
+          <% if post.body.length > 30 %>
+            <%= post.body[0...30]... %>
+          <% else %>
+            <%= post.body %>
+          <% end %>
+        </p>
+        <div class="flex ml-auto mr-5 mb-3">
+          <%= render 'like_buttons', { post: post } %>
+          <p class="text-gray-500 mr-2">
+            <%= post.comments.count %>
+          </p>
+          <%= image_tag "chat_bubble_24dp_999999_FILL0_wght400_GRAD0_opsz24.svg", class: "w-7 mr-1" %>
+          <p class="text-gray-500">
+            <%= post.comments.count %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to new_post_path, class: "fixed bottom-24 right-3 rounded-full bg-purple-200 border w-16 h-16 shadow-lg z-50 flex items-center justify-center " do %>
+    <div class="flex flex-col w-10 items-center justify-center">
+      <%= image_tag "rate_review_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5" %>
+      <p class="text-xs text-gray-500">
+        投稿
+      </p>
     </div>
-
+  <% end %>
+  <div class="mt-5">
+    <%= paginate @posts %>
+  </div>
+</div>
