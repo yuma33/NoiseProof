@@ -43,9 +43,7 @@
         </p>
         <div class="flex ml-auto mr-5 mb-3">
           <%= render 'like_buttons', { post: post } %>
-          <p class="text-gray-500 mr-2">
-            <%= post.comments.count %>
-          </p>
+          <%= render 'like_count', { post: post } %>
           <%= image_tag "chat_bubble_24dp_999999_FILL0_wght400_GRAD0_opsz24.svg", class: "w-7 mr-1" %>
           <p class="text-gray-500">
             <%= post.comments.count %>
@@ -62,7 +60,7 @@
       </p>
     </div>
   <% end %>
-  <div class="mt-5">
+  <div class="mt-10">
     <%= paginate @posts %>
   </div>
 </div>
