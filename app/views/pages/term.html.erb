@@ -1,6 +1,6 @@
 <% content_for(:title, t('.title')) %>
 <div class="container mx-auto px-4 py-8 max-w-4xl">
-  <p class="text-right text-sm text-gray-500">制定日: 2025年5月12日</p>
+  <p class="text-right text-sm text-gray-500">制定日: 2025年5月25日</p>
   <h1 class="text-center mb-8  text-3xl font-bold text-gray-800">利用規約</h1>
   <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
     <p class="text-sm text-blue-700">
@@ -61,8 +61,11 @@
     <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第5条（クラウドサービスへのデータ保存）</h2>
     <div class="pl-4 py-2">
       <p class="mb-3">
-        本サービスでは、ユーザーが録音したデータをクラウドサービス（Amazon Web Services (AWS)
-        等）に保存します。これは、本サービスの提供および運営に必要な処理であり、ユーザーがアプリの機能を利用するために必要となるものです。またデータの保存は、サービスの機能向上、ユーザーの利便性確保、およびデータ保護を目的として行います。
+        本サービスでは、ユーザーが録音したデータをクラウドサービス（Google Cloud Storage）に保存します。保存先は、Google社が提供する日本国内のサーバー上に保管されます。
+        これは本サービスの提供および運営に必要な処理であり、ユーザーがアプリの機能を利用するために不可欠なものです。また、保存されたデータは、サービスの機能向上、ユーザーの利便性の確保、およびデータ保護を目的として使用されます。
+      </p>
+      <p class="mb-3">
+        将来的に国外のクラウドリージョンにデータを保存する必要が生じた場合には、適切な措置を講じたうえで行います。
       </p>
     </div>
   </section>
@@ -73,6 +76,9 @@
         本サービスは騒音を録音し分析する機能を提供していますが、ユーザーは以下の点に特に注意する必要があります：
       </p>
       <ul class="list-disc ml-6 mb-3">
+        <li class="mb-2">
+          録音禁止区域やプライバシー権が保護される場所（例：会議室、個室、公共施設など）での録音は禁止されています。関係法令や社会的ルールを遵守し、関係者の同意を得た上で録音を行ってください。
+        </li>
         <li class="mb-2">第三者との会話や音声を録音する際は、関係者の権利に配慮し、適切な対応を心がけてください。</li>
         <li class="mb-2">録音した内容の利用については、プライバシーや肖像権に十分な注意を払うものとします。</li>
       </ul>
@@ -99,6 +105,9 @@
     <div class="pl-4 py-2">
       <p class="mb-3">
         開発者は、ユーザーに対し、本サービスが提供するコンテンツについて、本サービスの利用範囲内における私的な利用を許諾します。
+      </p>
+      <p class="mb-3">
+        ユーザーが投稿する音声データの著作権はユーザーに帰属します。開発者はサービス提供・改善目的に限定して当該データを利用できます。
       </p>
       <p class="mb-3">
         本サービスで生成されたレポートや分析は、ユーザー自身の参考情報として利用することができます。
@@ -218,7 +227,7 @@
         <li class="mb-2">暴力的な要求行為</li>
         <li class="mb-2">法的な責任を超えた不当な要求行為</li>
         <li class="mb-2">取引に関して、脅迫的な言動をし、または暴力を用いる行為</li>
-        <li class="mb-2">風説を流布し、偽計を用い、または威力を用いて、当社の信用を毀損し、または当社の業務を妨害する行為</li>
+        <li class="mb-2">風説を流布し、偽計を用い、または威力を用いて、開発者の信用を毀損し、または当社の業務を妨害する行為</li>
         <li class="mb-2">その他前各号に準ずる行為</li>
       </ul>
     </div>
@@ -256,7 +265,30 @@
     </div>
   </section>
   <section class="mb-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第20条（分離可能性）</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第20条（未成年者の利用）</h2>
+    <div class="pl-4 py-2">
+      <p class="mb-3">
+        未成年のユーザーは、必ず法定代理人（親権者等）の同意を得た上で、本サービスを利用してください。
+      </p>
+      <p class="mb-3">
+        法定代理人の同意を得ずに本サービスを利用した場合、当社は、その利用について法定代理人の同意があったものとみなすことがあります。ただし、これは未成年者による取り消しを妨げるものではありません。
+      </p>
+    </div>
+  </section>
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第21条（利用料金）</h2>
+    <div class="pl-4 py-2">
+      <p class="mb-3">
+        本サービスは無料で利用できますが、将来的に一部の追加機能（プレミアムプラン等）が有料となる場合があります。<br>
+        ※現在はすべての機能を無料で提供しています。
+      </p>
+      <p class="mb-3">
+        将来的に有料機能が導入された場合、その利用料金および支払い方法については、本サービスのウェブサイトまたはアプリ内の案内に従ってください。
+      </p>
+    </div>
+  </section>
+    <section class="mb-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第22条（分離可能性）</h2>
     <div class="pl-4 py-2">
       <p class="mb-3">
         本規約のいずれかの条項又はその一部が無効又は執行不能と判断された場合であっても、当該判断は他の部分に影響を及ぼさず、本規約の残りの部分は、引き続き有効かつ執行力を有するものとします。
@@ -264,7 +296,7 @@
     </div>
   </section>
   <section class="mb-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第21条（通知または連絡）</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第23条（通知または連絡）</h2>
     <div class="pl-4 py-2">
       <p class="mb-3">
         ユーザーと開発者との間の通知または連絡は、開発者の定める方法によって行うものとします。
@@ -275,7 +307,7 @@
     </div>
   </section>
   <section class="mb-10">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第22条（準拠法・裁判管轄）</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">第24条（準拠法・裁判管轄）</h2>
     <div class="pl-4 py-2">
       <p class="mb-3">
         本規約の解釈にあたっては、日本法を準拠法とします。
