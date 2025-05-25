@@ -1,0 +1,291 @@
+<div class="max-w-6xl mx-auto p-6 space-y-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- ヘッダーセクション -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 mt-5 mb-6">
+      <div class="flex items-start gap-6">
+        <div class="flex-1">
+          <div class="flex items-center justify-center">
+            <div class="w-10 h-10 mb-3 mr-2 rounded-full flex items-center justify-center mt-3 bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300">
+              <%= image_tag "signal_cellular_alt_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-7" %>
+            </div>
+            <h1 class="justify-center text-2xl font-bold text-gray-900 flex items-center gap-2">
+              累計データ
+            </h1>
+          </div>
+          <p class="text-lg mb-3 text-gray-600 text-center">
+            初回登録から現在までのデータ
+          </p>
+        </div>
+      </div>
+    <!-- 日付範囲 -->
+    <div class="border-t border-gray-100">
+      <div class="w-64 bg-gray-50 pl-6 pr-3 py-3 my-2 rounded-xl mx-auto">
+        <span class="text-gray-700 font-medium">
+          <%= current_user.created_at.strftime('%Y/%m/%d') %> 〜 <%= @end_date.strftime('%Y/%m/%d') %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- メトリクスカード -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <!-- 録音回数 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">録音回数</p>
+          <p class="text-2xl font-bold text-gray-900"><%= current_user.recordings.count %> 回</p>
+        </div>
+      </div>
+    </div>
+    <!-- 総レポート件数 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">総レポート件数</p>
+          <p class="text-2xl font-bold text-gray-900"><%= current_user.noise_reports.count %> 件</p>
+        </div>
+      </div>
+    </div>
+    <!-- 総診断書件数 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">総診断書件数</p>
+          <p class="text-2xl font-bold text-gray-900"><%= current_user.certificates.count %> 件</p>
+        </div>
+      </div>
+    </div>
+    <!-- 総録音時間 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">総録音時間</p>
+          <p class="text-2xl font-bold text-gray-900"><%= formatted_duration(current_user.recordings.sum(:duration)) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- メトリクスカード ここまで -->
+  <!-- 騒音種類別分析 -->
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">騒音種類別分析</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">騒音の種類</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">件数</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">累積時間</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平均dB</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最大dB</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @noise_stats.each do |key, stats| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= NoiseReport.noise_types_i18n[key] %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= stats[:count] %> 件</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= formatted_duration(stats[:duration]) %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= stats[:avg_db] %> dB</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= stats[:avg_max_db] %> dB</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr class="border-t border-gray-300 flex-grow">
+<div class="max-w-4xl mx-auto">
+  <!-- ヘッダーセクション -->
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 mt-5 mb-6">
+    <div class="flex items-start gap-6">
+      <div class="flex-1">
+        <div class="flex items-center justify-center">
+          <div class="w-10 h-10 mb-3 mr-2 rounded-full flex items-center justify-center mt-3 bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300">
+            <%= image_tag "signal_cellular_alt_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-7" %>
+          </div>
+          <h1 class="justify-center text-2xl font-bold text-gray-900 flex items-center gap-2">
+            週間データ
+          </h1>
+        </div>
+        <p class="text-lg mb-3 text-gray-600 text-center">
+          過去1週間のデータ
+        </p>
+      </div>
+    </div>
+    <!-- 日付範囲 -->
+    <div class="border-t border-gray-100">
+      <div class="w-60 bg-gray-50 px-4 py-3 my-2 rounded-xl mx-auto">
+        <span class="text-gray-700 font-medium">
+          <%= @start_date.strftime('%Y/%m/%d') %> 〜 <%= @end_date.strftime('%Y/%m/%d') %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- メトリクスカード -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <!-- 録音回数 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">録音回数</p>
+          <p class="text-2xl font-bold text-gray-900"><%= current_user.recordings.where(recorded_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).count %> 回</p>
+        </div>
+      </div>
+    </div>
+    <!-- 総レポート件数 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">総レポート件数</p>
+          <p class="text-2xl font-bold text-gray-900"><%= current_user.noise_reports.where(created_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).count %> 件</p>
+        </div>
+      </div>
+    </div>
+    <!-- 総診断書件数 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">総診断書件数</p>
+          <p class="text-2xl font-bold text-gray-900"><%= current_user.certificates.where(created_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).count %> 件</p>
+        </div>
+      </div>
+    </div>
+    <!-- 総録音時間 -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M8.464 8.464a5 5 0 000 7.072M5.636 5.636a9 9 0 000 12.728" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">総録音時間</p>
+          <p class="text-2xl font-bold text-gray-900"><%= formatted_duration(current_user.recordings.where(created_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).sum(:duration)) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- メトリクスカード ここまで -->
+  <!-- 日別集計テーブル -->
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">週間録音集計</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">日付</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">録音件数</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">レポート件数</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">診断書件数</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @daily_stats.each do |date, stats| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= date.strftime("%Y-%m-%d") %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= stats[:recordings] %> 件</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= stats[:reports] %> 件</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= stats[:certificates] %> 件</td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot class="bg-gray-50 font-semibold">
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900">合計</td>
+            <td class="px-6 py-4 text-sm text-gray-900">
+              <%= current_user.recordings.where(recorded_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).count %> 件
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-900">
+              <%= current_user.noise_reports.where(created_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).count %> 件
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-900">
+              <%= current_user.certificates.where(created_at: 6.days.ago.beginning_of_day..Date.today.end_of_day).count %> 件
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">騒音種類別分析</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">騒音の種類</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">件数</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">累積時間</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平均dB</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最大dB</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @weekly_noise_stats.each do |key, stats| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= NoiseReport.noise_types_i18n[key] %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= stats[:count] %> 件</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= formatted_duration(stats[:duration]) %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= stats[:avg_db] %> dB</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= stats[:avg_max_db] %> dB</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="mb-16 md:mb-20">
+&nbsp;
+</div>
