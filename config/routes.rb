@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get "/login/:provider", to: "oauths#oauth", as: :login_at_provider
   get "oauth/:provider", to: "oauths#oauth", as: :oauth_at
 
+  get "/analysis", to: "analyses#weekly", as: :analysis
 
   resources :users, only: %i[new create]
 
