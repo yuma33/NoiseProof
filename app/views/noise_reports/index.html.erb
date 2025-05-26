@@ -15,7 +15,7 @@
           </h2>
           <% noise_reports.each do |noise_report| %>
             <% if noise_report.recording.audio_file.attached? %>
-              <div class="flex flex-col bg-white h-44 w-150 md:w-200 mx-9 mt-5 mb-5 rounded-xl shadow-md">
+              <div class="flex flex-col bg-white h-52 sm:h-44 w-150 md:w-200 mx-1 sm:mx-9 mt-5 mb-5 rounded-xl shadow-md">
                 <div class="flex mt-5">
                   <p class="ml-8 mr-2 text-lg font-bold">
                     <%= f.check_box :report_ids, { multiple: true, id: "report_#{noise_report.id}", class: "mr-2" }, noise_report.id, nil %>
