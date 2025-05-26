@@ -9,7 +9,7 @@ class NoiseReport < ApplicationRecord
   enum :frequency, { frequency_other: 0, daily: 1, weekly: 2, few: 3, irregular: 4 }
 
   def self.ransackable_attributes(auth_object = nil)
-    [ "created_at", "frequency", "id", "id_value", "location", "memo", "noise_type", "recording_id", "time_period", "title", "updated_at", "user_id" ]
+    [ "created_at", "frequency", "id", "id_value", "location", "memo", "noise_type", "recording_id", "time_period", "title", "updated_at" ]
   end
 
   def self.ransackable_associations(auth_object = nil)

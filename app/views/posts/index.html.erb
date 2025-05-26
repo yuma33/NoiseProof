@@ -1,4 +1,5 @@
 <% content_for(:title, t('.title')) %>
+  <%= render 'search_form', q: @q, url: posts_path %>
 <div class="my-8 mx-10">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     <% @posts.each do |post| %>

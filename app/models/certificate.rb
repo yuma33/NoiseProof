@@ -20,6 +20,6 @@ class Certificate < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    [ "certificate_number", "created_at", "id", "id_value", "title", "updated_at", "user_id" ]
+    [ "certificate_number", "created_at", "id", "id_value", "title", "updated_at" ]
   end
 end
