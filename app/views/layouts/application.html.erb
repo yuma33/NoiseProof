@@ -14,6 +14,15 @@
     <meta property="og:description" content="NoiseProofは、あなたの静かな生活を取り戻すためのアプリです。騒音の記録から、管理人への診断書作成、さらには同じ悩みを持つ人との情報交換まで、トータルでサポートします。" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1JYM0L2E6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-H1JYM0L2E6');
+    </script>
 
     <%= yield :head %>
 
