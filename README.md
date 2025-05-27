@@ -182,9 +182,8 @@ NoiseProofは、騒音に悩む人が「客観的な証拠」として状況を�
 
 # ER図
 <img width="945" alt="スクリーンショット 2025-05-28 5 25 05" src="https://github.com/user-attachments/assets/bd4196b7-4082-49a9-aefb-84f7dc5af122" />
->
----
+
 <br>
 
 # 画面遷移図
-https://www.figma.com/design/sYY6CIpUC9wLNw6vETJcjx/%E7%84%A1%E9%A1%8C?node-id=0-1&p=f&t=dmEGAfQazJkY4DdH-0
+https://www.figma.com/design/vty8Z3JNZYb7WAsdLKTzLO/NoiseProof%E3%80%80%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&p=f&t=WPDTQ1LKQorf1h3f-0
