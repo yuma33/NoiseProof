@@ -10,7 +10,6 @@ class CertificatesController < ApplicationController
   def create
     @report_ids = params[:report_ids]
 
-
     if @report_ids.blank?
       redirect_to request.referer || root_path, alert: "レポートを選択してください"
       return
@@ -26,7 +25,6 @@ class CertificatesController < ApplicationController
     unless @certificate.save
       redirect_to noise_reports_path, danger: t("defaults.flash_message.success_noise_report", item: Certificate.model_name.human)
     end
-
 
     reports = NoiseReport.where(id: @report_ids)
     @certificate.noise_reports << reports
