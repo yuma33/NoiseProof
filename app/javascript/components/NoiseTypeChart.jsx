@@ -26,10 +26,6 @@ const NoiseTypeChart = ({ distribution }) => {
 
   const backgroundColor = labels.map(label => colorMap[label]);
 
-  // パーセンテージ計算
-  const total = values.reduce((sum, value) => sum + value, 0);
-  const percentages = values.map(value => ((value / total) * 100).toFixed(1));
-
   const data = {
     labels,
     datasets: [
@@ -54,17 +50,6 @@ const NoiseTypeChart = ({ distribution }) => {
         labels: {
           boxWidth: 10,
         }
-      },
-      datalabels: {
-        formatter: (value, context) => {
-          const percentage = percentages[context.dataIndex];
-          return `${percentage}%`;
-        },
-        color: '#000',
-        font: {
-          weight: 'bold',
-        },
-
       },
     }
   };

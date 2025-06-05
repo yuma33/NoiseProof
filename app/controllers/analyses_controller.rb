@@ -33,7 +33,7 @@ class AnalysesController < ApplicationController
       {
         count: recordings.count,
         duration: recordings.sum(:duration),
-        avg_max_db: recordings.average(:max_decibel)&.round(1) || 0.0,
+        avg_max_db: recordings.maximum(:max_decibel)&.round(1) || 0.0,
         avg_db: recordings.average(:average_decibel)&.round(1) || 0.0
       }
     end
@@ -45,7 +45,7 @@ class AnalysesController < ApplicationController
       {
         count: recordings.count,
         duration: recordings.sum(:duration),
-        avg_max_db: recordings.average(:max_decibel)&.round(1) || 0.0,
+        avg_max_db: recordings.maximum(:max_decibel)&.round(1) || 0.0,
         avg_db: recordings.average(:average_decibel)&.round(1) || 0.0
       }
     end

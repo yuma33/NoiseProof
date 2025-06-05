@@ -34,7 +34,8 @@ function WaveVisualizer({ dbHistory, currentIndex, mode = "recording" }) {
       ctx.stroke();
     });
 
-    // 録音モードの波形描画
+    // 録音モードの波形描画        0    1   2   3   4   5
+    //（新しい→古い）dbHistory = [40, 50, 45, 30, 25, 20]
     if (mode === "recording") {
       dbHistory.forEach((db, i) => {
         const relativeDb = Math.max(0, db - DB_BASELINE);
@@ -57,6 +58,9 @@ function WaveVisualizer({ dbHistory, currentIndex, mode = "recording" }) {
       ctx.lineWidth = 3;
       ctx.stroke();
 
+      //（古い→新しい）dbHistory = [40, 50, 45, 30, 25, 20]
+      //i=currentIndexの時にcenterになる => const relativeIndex = i - currentIndex;
+      //iがcurrentIndexより1つ増える（新しくなる)とbarWidth１つ分右スタート
       dbHistory.slice().reverse().forEach((db, i) => {
         const relativeDb = Math.max(0, db - DB_BASELINE);
         const relativeIndex = i - currentIndex;
