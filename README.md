@@ -165,7 +165,7 @@ NoiseProofは、騒音に悩む人が「客観的な証拠」として状況を�
 
 
 # ER図
-<img width="945" alt="ER図" src="https://github.com/user-attachments/assets/3a18eff0-9b36-4465-ac50-cee97e5bb6b2" />
+<img width="944" alt="ER図" src="https://github.com/user-attachments/assets/9270ced0-617d-488b-b8c7-595af36de0bf" />
 
 <br>
 
