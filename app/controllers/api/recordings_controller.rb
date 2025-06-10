@@ -3,12 +3,12 @@ module Api
     def create
       recording = current_user.recordings.new(recording_params)
       recording.audio_file.attach(params[:audio])
-      recording.db_history = JSON.parse(params[:db_history]) if params[:db_history].present?
+      recording.db_history = JSON.parse(recording_params[:db_history]) if recording_params[:db_history].present?
 
-      if params[:latitude].present? && params[:longitude].present?
-        recording.latitude = params[:latitude]
-        recording.longitude = params[:longitude]
-        recording.place_id = reverse_geocode(params[:latitude], params[:longitude])
+      if recording_params[:latitude].present? && recording_params[:longitude].present?
+        recording.latitude = recording_params[:latitude]
+        recording.longitude = recording_params[:longitude]
+        recording.place_id = reverse_geocode(recording_params[:latitude], recording_params[:longitude])
       end
 
     if recording.save

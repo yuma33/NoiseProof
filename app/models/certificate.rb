@@ -3,6 +3,9 @@ class Certificate < ApplicationRecord
   has_many :certificate_noise_reports, dependent: :destroy
   has_many :noise_reports, through: :certificate_noise_reports
 
+  validates :user_id, presence: true
+  validates :certificate_number, presence: true, uniqueness: true
+
   def total_recording_duration
     noise_reports.joins(:recording).sum("recordings.duration")
   end

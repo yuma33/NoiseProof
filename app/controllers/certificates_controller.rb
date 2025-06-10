@@ -8,7 +8,7 @@ class CertificatesController < ApplicationController
   end
 
   def create
-    @report_ids = params[:report_ids]
+    @report_ids = certificate_params[:report_ids]
 
     if @report_ids.blank?
       redirect_to request.referer || root_path, alert: "レポートを選択してください"
