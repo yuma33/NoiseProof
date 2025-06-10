@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_23_230527) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_08_032825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,7 +62,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_23_230527) do
   end
 
   create_table "certificates", force: :cascade do |t|
-    t.string "title"
     t.bigint "user_id", null: false
     t.string "certificate_number"
     t.datetime "created_at", null: false
@@ -93,8 +92,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_23_230527) do
 
   create_table "noise_reports", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "location"
-    t.string "time_period"
     t.integer "frequency", default: 0
     t.integer "noise_type", default: 0
     t.text "memo"
@@ -102,6 +99,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_23_230527) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.bigint "recording_id", null: false
+    t.string "location"
     t.index ["recording_id"], name: "index_noise_reports_on_recording_id"
     t.index ["user_id"], name: "index_noise_reports_on_user_id"
   end
@@ -118,11 +116,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_23_230527) do
   end
 
   create_table "recordings", force: :cascade do |t|
-    t.string "title"
-    t.text "note"
     t.float "latitude"
     t.float "longitude"
-    t.string "location"
     t.datetime "recorded_at"
     t.float "duration"
     t.float "max_decibel"
@@ -136,8 +131,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_23_230527) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
     t.string "email", null: false
     t.string "crypted_password"
     t.string "salt"

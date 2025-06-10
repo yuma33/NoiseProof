@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :recording do
-    title { "テストタイトル" }
     recorded_at { Time.current }
     duration { 10.5 }
     max_decibel { 65.2 }
