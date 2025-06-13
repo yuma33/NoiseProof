@@ -13,6 +13,8 @@ function NoiseProof() {
   const [fullDbHistory, setFullDbHistory] = useState([]);
   const [averageDb, setAverageDb] = useState(0);
   const [exactDuration, setExactDuration] = useState(0); // 正確な録音時間（秒単位、小数点以下も保持）
+  const [locationConfirmationVisible, setLocationConfirmationVisible] = useState(false);
+  const [neverAskAgain, setNeverAskAgain] = useState(false);
 
   const mediaRecorderRef = useRef(null);
   const audioContextRef = useRef(null);
@@ -24,10 +26,6 @@ function NoiseProof() {
   const recordingStartTimeRef = useRef(0); // 録音開始時刻を保存するref
   const dbIntervalRef = useRef(null);
   const secondsRef = useRef(0);
-
-  // 位置情報・確認モーダル関連の状態
-  const [locationConfirmationVisible, setLocationConfirmationVisible] = useState(false);
-  const [neverAskAgain, setNeverAskAgain] = useState(false);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
