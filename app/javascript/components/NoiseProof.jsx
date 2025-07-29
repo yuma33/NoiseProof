@@ -44,7 +44,7 @@ function NoiseProof() {
 
       sourceRef.current = audioContextRef.current.createMediaStreamSource(stream);
       sourceRef.current.connect(analyserRef.current);
-
+     //録音中に音声データのチャンクができるたびに、audioChunksRef.currentに入れる
       mediaRecorderRef.current = new MediaRecorder(stream);
       mediaRecorderRef.current.ondataavailable = (event) => {
         if (event.data.size > 0) {
@@ -57,6 +57,7 @@ function NoiseProof() {
         setAudioBlob(audioBlob);
         audioChunksRef.current = [];
       };
+      mediaRecorderRef.current.start(10);
 
       const updateDbLevel = () => {
         if (!analyserRef.current) return;
@@ -66,7 +67,7 @@ function NoiseProof() {
 
         let sum = 0;
         for (let i = 0; i < bufferLength; i++) {
-          const normalized = (dataArray[i] / 128) - 1.0;
+          const normalized = (dataArray[i] / 128) - 1.0; //0~2のデータを-1~1へ
           sum += normalized * normalized;
         }
         const rms = Math.sqrt(sum / bufferLength);
@@ -88,7 +89,6 @@ function NoiseProof() {
         setTimer(secondsRef.current);
       }, 1000);
 
-      mediaRecorderRef.current.start(10);
       setRecording(true);
       setRecordingStopped(false);
 
@@ -113,7 +113,7 @@ function NoiseProof() {
       const durationMs = recordingEndTime - recordingStartTimeRef.current;
       const durationSec = durationMs / 1000;
       setExactDuration(durationSec);
-
+      //updateのインターバル
       if (dbIntervalRef.current) {
         clearInterval(dbIntervalRef.current);
         dbIntervalRef.current = null;
@@ -175,7 +175,7 @@ function NoiseProof() {
       sendRecordingData(); // 位置情報が取得できなくても録音は保存
       return;
     }
-
+//（Geolocation API） の一つ
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('位置情報取得成功:', position);

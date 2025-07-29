@@ -17,18 +17,18 @@ function NoiseCard({ currentDb, averageDb, maxDb, dbHistory }) {
     return '#EF4444'; // Red
   };
 
-  // Calculate percentage for the circular progress
+
   const percentage = Math.min((currentDb / 120) * 100, 100);
 
   return (
     <section className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg transition-all duration-300">
-      {/* Header */}
+
       <h2 className="text-gray-600 text-center font-medium mb-4">現在の音量レベル</h2>
 
-      {/* Main circular display */}
+
       <div className="relative flex justify-center mb-5">
         <div className="w-40 h-40 rounded-full border-8 border-gray-100 flex items-center justify-center relative">
-          {/* Circular progress background */}
+
           <div
             className="absolute inset-0 rounded-full transition-all duration-500"
             style={{

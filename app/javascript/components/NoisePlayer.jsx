@@ -23,6 +23,7 @@ function NoisePlayer({ id }) {
       });
   }, [id]);
 
+  // audio.addEventListener('timeupdate', handleTimeUpdate);ここで音声の再生位置が変わるたびにhandleTimeUpdateが発火する
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -54,10 +55,10 @@ function NoisePlayer({ id }) {
       console.log('再生停止');
     };
 
-    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('timeupdate', handleTimeUpdate); //音声の再生位置が変わるたびに発火
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
-
+//dbHistory,duration が変わるたびに timeupdate イベントが追加され続けるから必要になる。
     return () => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('play', handlePlay);
@@ -74,7 +75,7 @@ function NoisePlayer({ id }) {
         duration={duration}
       />
       <audio
-        ref={audioRef}
+        ref={audioRef} //audioRef.current = 実DOMノード;のような形に変換されてる
         controls
         src={audioUrl}
         className="mt-4 w-full"
@@ -84,4 +85,3 @@ function NoisePlayer({ id }) {
 }
 
 export default NoisePlayer;
-
