@@ -86,4 +86,4 @@ gem "omniauth-google-oauth2"
 
 gem "rack-cors"
 
-  gem 'carrierwave', '~> 2.0'
+  gem "carrierwave", "~> 2.0"
