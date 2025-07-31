@@ -85,3 +85,5 @@ gem "ransack", "~> 4.3"
 gem "omniauth-google-oauth2"
 
 gem "rack-cors"
+
+  gem "carrierwave", "~> 2.0"
