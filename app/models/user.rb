@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :likes_posts, through: :likes, source: :post
 
+  mount_uploader :avatar, AvatarUploader
+
   def like(post)
     likes_posts << post
   end
