@@ -17,6 +17,10 @@
           <%= link_to t('header.login'), login_path, class: "text-sm md:text-lg mt-16" %>
         </div>
         <div class="flex hover:opacity-30 transition-all duration-300">
+          <%= image_tag "settings_account_box_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mt-1 mr-4" %>
+          <%= link_to t('header.profile'), profile_path, class: "text-sm md:text-lg mt-1" %>
+        </div>
+        <div class="flex hover:opacity-30 transition-all duration-300">
           <%= image_tag "person_add_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg", class: "w-5 md:w-6 mr-4 mt-1" %>
           <%= link_to t('header.registration'), new_user_path, class: "text-sm md:text-lg mt-1" %>
         </div>
